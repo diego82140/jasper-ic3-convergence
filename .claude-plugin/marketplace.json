@@ -1,0 +1,14 @@
+{
+  "name": "jasper-ic3-convergence",
+  "owner": {
+    "name": "diego82140"
+  },
+  "description": "Jasper IC3/PDR convergence skill.",
+  "plugins": [
+    {
+      "name": "jasper-ic3-convergence",
+      "source": "./",
+      "description": "Jasper IC3/PDR convergence methodology: M/M4 telemetry (jipstats), CTI families, sound helper invariants, status-gated proof graphs, Slurm execution."
+    }
+  ]
+}
