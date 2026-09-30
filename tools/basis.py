@@ -117,7 +117,7 @@ def main():
         res = Counter()
         for s in states:
             try:
-                res[bool(eval(expr, {}, {"v": s}))] += 1
+                res[bool(eval(expr, {"v": s}))] += 1   # v as a global, so comprehensions in EXPR see it
             except (TypeError, KeyError):
                 res["unconstrained"] += 1
         print(f"true={res[True]} false={res[False]} unconstrained={res['unconstrained']}")
