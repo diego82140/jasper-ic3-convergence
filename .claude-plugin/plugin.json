@@ -1,6 +1,6 @@
 {
   "name": "jasper-ic3-convergence",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Jasper IC3/PDR convergence methodology: M/M4 telemetry (jipstats), CTI families, sound helper invariants, status-gated proof graphs, Slurm execution.",
   "author": {
     "name": "diego82140"
