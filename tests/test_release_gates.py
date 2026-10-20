@@ -200,6 +200,8 @@ class SubmitGate(unittest.TestCase):
         self.assertTrue(self.passed_gate(self.submit('graph.tcl', BUDGET='24m', BUDGET_CLASS='replay', GRAPH_READY=str(p))))
     def test_replay_bad_receipt_refused(self):
         r = self.submit('unlimited.tcl', BUDGET='20m', BUDGET_CLASS='replay', GRAPH_READY='/nonexistent.json'); self.assertEqual(r.returncode, 2); self.assertIn('not admissible', r.stderr)
+    def test_console_sink_refused(self):
+        r = self.submit('limited.tcl', BUDGET='30m', TELEMETRY_SINK='console'); self.assertEqual(r.returncode, 2); self.assertIn('console', r.stderr)
     def test_experiment_passes_gate(self):
         r = self.submit('limited.tcl', BUDGET='30m'); self.assertTrue(self.passed_gate(r))
     def test_diagnostic_unbounded_tcl_refused(self):

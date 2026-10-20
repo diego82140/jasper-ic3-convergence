@@ -7,6 +7,7 @@
 # Arguments are passed to Jasper after the -tcl file.
 #=============================================================================
 set -euo pipefail
+umask 022   # run directories are shared evidence: everything Jasper writes stays world-readable
 : "${IC3_JOB_ENV:?started without submit.sh}"
 source "$IC3_JOB_ENV"
 if [ -f "$RUN/plugin-artifact.json" ]; then

@@ -65,7 +65,12 @@ case $MODE in
     *) usage ;;
 esac
 
-case ${TELEMETRY_SINK:-disk} in disk|console) ;; *) echo "invalid TELEMETRY_SINK" >&2; exit 2 ;; esac
+case ${TELEMETRY_SINK:-disk} in
+    disk) ;;
+    console) echo "submit.sh: TELEMETRY_SINK=console cannot be qualified by this kit (no sealed archive attests worker closure, so the native M/M4 check fails closed); use the disk sink" >&2; exit 2 ;;
+    *) echo "invalid TELEMETRY_SINK" >&2; exit 2 ;;
+esac
+umask 022   # run directories are shared evidence: keep everything world-readable
 case ${FRAME_ENCODING:-tuple_chunks_v2} in members_v1|tuple_chunks_v1|tuple_chunks_v2) ;; *) echo "invalid FRAME_ENCODING" >&2; exit 2 ;; esac
 case ${PARTITION:-Formal} in
     Formal|Formal_192G) ;;
