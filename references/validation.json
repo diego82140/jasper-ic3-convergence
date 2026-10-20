@@ -589,7 +589,7 @@
    "evidence": "/formal_shared/diego1/.foo/validation/v2-trial-pagewalk/claude-trial/{TRIAL-REPORT.md,LEDGER.md,checker.tcl,aux_checker.sv,proof_graph.tcl,GRAPH-READY-NOTE.md,audit-log.txt,runs/}"
   },
   "open": [
-   "commit/tag on branch v2-release; push only on the user's go"
+   "push v2-release and merge to main (user)"
   ],
   "final_native_qualification_20261020": [
    {
@@ -648,7 +648,26 @@
    ],
    "install_test": "claude plugin marketplace add <kit path> + install of both jasper-ic3-convergence-v2@jasper-ic3-convergence (2.0.0; skill + PreToolUse/Stop hooks) and jasper-ic3-convergence@jasper-ic3-convergence (1.3.0; skill only) into an isolated CLAUDE_CONFIG_DIR: both install side by side; file modes preserved (jipstats, submit.sh, send.sh executable), jipstats byte-identical, gate tests and audit run from the installed copy. Finding: a local-path install copies git-ignored build directories, so rebuilt/ (94 MB) and third_party/ (109 MB) were moved beside the kit (jasper-ic3-convergence-build/) and package_release.py takes --inputs",
    "shared_readability": "all evidence trees chmod a+rX (3,916 + 695 entries were unreadable to other users); submit.sh/jasper_job.sh now umask 022",
-   "publication": "GitHub main is still 98a455d; /formal_shared/diego1/ic3-agent main is d87c4ba. Publishing v2 = push v2-release and merge to main there, then `claude plugin marketplace update jasper-ic3-convergence` + install v2 on each user's machine. Not done: the user's go is required."
+   "publication": "GitHub main is still 98a455d; /formal_shared/diego1/ic3-agent main is d87c4ba. Publishing v2 = push v2-release and merge to main there, then `claude plugin marketplace update jasper-ic3-convergence` + install v2 on each user's machine. Not done: the user's go is required.",
+   "requalification_cd25a8c": [
+    {
+     "release": "original",
+     "job": "65565190",
+     "recorded_at": "2026-10-20T20:37:46Z",
+     "plugin_runtime_sha256": "3dd7e199256ea3624f64dafef5d4bffc57445f180aba22c17fabea30042419c3",
+     "status": "PASS (fresh)",
+     "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-v2b-original/cache"
+    },
+    {
+     "release": "june",
+     "job": "65565225",
+     "recorded_at": "2026-10-20T20:37:46Z",
+     "plugin_runtime_sha256": "3dd7e199256ea3624f64dafef5d4bffc57445f180aba22c17fabea30042419c3",
+     "status": "PASS (fresh)",
+     "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-v2b-june/cache"
+    }
+   ],
+   "push_gate": "all plugin QA closed at 2026-10-20T20:38Z: tests, plugin validate, evals, install test, both releases PASS on the final runtime hash; the unseeded CEQ search (exp40) is a design finding experiment and does not gate the plugin"
   }
  }
 }
