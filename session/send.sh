@@ -25,6 +25,16 @@ if [ "$src" = "-" ]; then
 else
     cp "$src" "$io/$id.reqtmp"
 fi
+# Budget gate (checks limits textually; see tools/prove_gate.py for its stated
+# scope): every prove that starts a proof in a session request is bounded by at
+# most 60m, by its own -time_limit or by a set_prove_time_limit in the request.
+# A receipt never applies to a session: replays are fresh batch runs.
+AGENT=$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)
+python3 "$AGENT/tools/prove_gate.py" "$io/$id.reqtmp" --max 60m || {
+    rm -f "$io/$id.reqtmp"
+    echo "send.sh: refused: add -time_limit <= 60m (or set_prove_time_limit <= 60m) to every prove in the request" >&2
+    exit 3
+}
 mv "$io/$id.reqtmp" "$io/$id.req"
 
 start=$SECONDS; last=$SECONDS

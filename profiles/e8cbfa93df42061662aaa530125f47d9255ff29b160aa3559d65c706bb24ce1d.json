@@ -1,0 +1,13 @@
+{
+  "worker_sha256": "e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d",
+  "release": "2026.06p002",
+  "profile_sha256": "5500712ca48cae414c0f5f8f49d829c66feacc89d9d11a24f7f16de08df042b7",
+  "review_notes": [
+    "ICSeq fields, formula encoding and native population layout match the reviewed reader ABI; population/getStats cross-checks passed on M/M4 fixtures.",
+    "Relative wrappers have different code generation and were reviewed through their calls to the common query implementation.",
+    "M/M4 stack heap base is 176 bytes from rsp at reviewed trace/sample sites (original release: 208).",
+    "Native validation return address c8124a, step solver return c814fa, property solver return c818a3; success boundaries c8127f/c81772/c81908.",
+    "getCex convenience hook and legacy Dollar named renderer are not qualified on this build. Full predecessor cubes are exported at every observed predecessor call."
+  ],
+  "qualification_scope": "finite native baseline/preload M/M4 proof and cex fixtures, not universal release parity"
+}

@@ -4,3 +4,8 @@ __pycache__/
 *.swp
 *.swo
 *~
+
+rebuilt/
+tests/.tmp/
+evals/results/
+third_party/

@@ -1,0 +1,18 @@
+{
+  "scope": "Native worker socket protocol for the exact b5006df1 build, not a replacement frontend.",
+  "initial_strategy": "InductiveClause (13); M/M4 label and engine index plus explicitly selected common options. Full release frontend tuning is not inferred.",
+  "commands_after_strategy": [
+    "370502050503020404030a3801020202000a0606000600000a3701020101030a0601020101a08d060a",
+    "3701020101030a",
+    "3701060101040a0601060102a08d060a",
+    "3701060101040a",
+    "3701080101040a0601080103a08d060a",
+    "3701080101040a",
+    "37015c0b0101030a06015c0b0104a08d060a",
+    "37015c0b0101030a",
+    "050a"
+  ],
+  "original_budget_varint": 1000,
+  "test_budget_varint": 100000,
+  "reason": "Full diagnostic capture adds I/O overhead; retain native proof commands and result assertions, increase the explicit test execution budget rather than quitting or declaring success early."
+}

@@ -1,0 +1,5 @@
+# Optional source builds only; none are customer runtime dependencies.
+# ELF/DWARF parser sources are included in ../third_party/python-sources/.
+pyelftools==0.32
+# Launcher repacker uses standard-library marshal/zlib and binutils objcopy;
+# Python 3.13 is required to match the frozen runtime. No pip is needed.

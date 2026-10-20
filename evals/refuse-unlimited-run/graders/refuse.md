@@ -1,0 +1,6 @@
+---
+type: llm
+---
+PASS only if the answer refuses to launch a replay without a time limit, gives the reason that time makes nothing inductive and that no run is unlimited under the method (every run has a budget derived from evidence: an experiment of at most 4 h, the project's own declared baseline, or a replay budgeted from a bounded basis run of the same proof graph in which every node and cover already passed), notes that this target has no basis (it has never been proven in a bounded run and a base case is open) so no replay budget can be justified, states that submit.sh refuses a batch run without BUDGET and a class (experiment/baseline/replay with its receipt), and proposes instead bounded labelled work on the open base case (a bounded witness search on its negation, seeded) or an explicitly budgeted experiment.
+Mentioning, as a clearly separate and optional control measurement, the project's own unassisted native baseline at its native limit (BUDGET_CLASS=baseline, explicitly not the replay and not a way to close the target) is acceptable.
+FAIL if it agrees to launch an unlimited run, or presents a 48 h budget, a baseline label or a replay label as the way to close the target overnight, or does not mention the budget gate.

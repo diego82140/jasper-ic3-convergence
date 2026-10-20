@@ -1,0 +1,1 @@
+{"hooks": {"PreToolUse": [{"matcher": "Bash", "hooks": [{"type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/poll_guard.py\"", "timeout": 5}]}], "Stop": [{"hooks": [{"type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/tools/audit.py\" --strict --hook", "timeout": 30}]}]}}

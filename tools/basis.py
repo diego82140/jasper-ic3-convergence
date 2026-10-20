@@ -10,12 +10,13 @@
 RUN is the index of the run in the analysis (runs appear in execution order).
 Values are decoded per vector (bits `name[i]`); latches whose retained name
 starts with `~` are held inverted by the engine and are complemented here.
-`eval` counts basis states where EXPR is true/false; EXPR is Python over
-`v`, a dict from vector name to value (`v.get(name)` is None when the cube
+`eval` counts selected cube samples where EXPR is true/false; EXPR is Python over
+`v`, a dict from vector name to value (unknown `v.get(name)` is unconstrained when the cube
 does not constrain that vector). `polarity` looks at the generalized cubes
 (at most --max-lits literals) and reports, per vector, how many of its bits
-occur with both polarities: mixing over raw bits means the missing invariant
-is not unate in that vocabulary.
+occur with both polarities. Mixed polarity is a heuristic for vocabulary choice,
+not proof of a missing invariant. These definitions are engine cube samples;
+their size alone does not establish a reachable CTI or obligation witness.
 """
 import argparse
 import json
@@ -26,15 +27,19 @@ BIT = re.compile(r'^(.*)\[(\d+)\]$')
 
 
 def generalized_polarity(path, run_index, max_lits):
-    run = list(json.load(open(path))["runs"].values())[run_index]
+    with open(path) as stream:
+        run = list(json.load(stream)["runs"].values())[run_index]
     model = run["model"]
     shift, sign = int(model["formula_index_shift"]), int(model["formula_sign_mask"])
     comp = int(model["formula_composite_mask"])
     names = run["signal_names"]
+    # Literal count alone does not identify a generalization result. A small
+    # query/block input may have different scope from the returned cube.
+    outputs = {str(row['after_cube_id']) for row in run.get('generalization_relations', [])}
     pol = defaultdict(lambda: [0, 0])
     ncubes = 0
-    for cube in run["cube_definitions"].values():
-        if not 0 < cube["count"] <= max_lits or not cube.get("complete"):
+    for ident, cube in run["cube_definitions"].items():
+        if str(ident) not in outputs or cube.get("domain")!="jip_formula" or not 0 < cube["count"] <= max_lits or not cube.get("complete"):
             continue
         ncubes += 1
         for lit in cube["values"]:
@@ -54,15 +59,16 @@ def generalized_polarity(path, run_index, max_lits):
     return ncubes, vec
 
 
-def basis_states(path, run_index, min_lits):
-    run = list(json.load(open(path))["runs"].values())[run_index]
+def basis_states(path, run_index, min_lits, widths=None):
+    with open(path) as stream:
+        run = list(json.load(stream)["runs"].values())[run_index]
     model = run["model"]
     shift = int(model["formula_index_shift"])
     sign = int(model["formula_sign_mask"])
     comp = int(model["formula_composite_mask"])
     names = run["signal_names"]
     for cube in run["cube_definitions"].values():
-        if cube["count"] < min_lits or not cube.get("complete"):
+        if cube.get("domain")!="jip_formula" or cube["count"] < min_lits or not cube.get("complete"):
             continue
         bits = defaultdict(dict)
         for lit in cube["values"]:
@@ -77,8 +83,29 @@ def basis_states(path, run_index, min_lits):
             m = BIT.match(name)
             base, idx = (m.group(1), int(m.group(2))) if m else (name, 0)
             bits[base][idx] = value
-        yield {k: sum(b << i for i, b in d.items()) for k, d in bits.items()}
+        # Retained names do not prove a vector's RTL width. Missing bits are
+        # unconstrained, not zero. Scalar names constrain their single bit.
+        result={}
+        for k,d in bits.items():
+            scalar=k in names.values() or '~'+k in names.values()
+            width=1 if scalar else (widths or {}).get(k)
+            result[k]=sum(b<<i for i,b in d.items()) if isinstance(width,int) and width>0 and set(d)==set(range(width)) else None
+        yield result
 
+
+class Unconstrained(ValueError):
+    pass
+class KnownValues(dict):
+    def __getitem__(self,key):
+        value=super().get(key)
+        if value is None:raise Unconstrained(key)
+        return value
+    def get(self,key,default=None):
+        # A caller-provided default must not manufacture an unconstrained bit.
+        return self[key]
+def evaluate(expr,state):
+    try:return bool(eval(expr,{"v":KnownValues(state)}))
+    except (Unconstrained,TypeError,KeyError):return "unconstrained"
 
 def main():
     ap = argparse.ArgumentParser()
@@ -89,14 +116,16 @@ def main():
     ap.add_argument("--min-lits", type=int, default=1000)
     ap.add_argument("--max-lits", type=int, default=200)
     ap.add_argument("--match")
+    ap.add_argument("--widths", help="JSON object of independently verified RTL vector widths; sparse values stay unknown")
     a = ap.parse_args()
     if a.cmd == "polarity":
         ncubes, vec = generalized_polarity(a.analysis, a.run, a.max_lits)
-        print(f"generalized cubes: {ncubes} (<= {a.max_lits} literals)")
-        for base, (bits, mixed) in sorted(vec.items(), key=lambda kv: (-kv[1][1], -kv[1][0], kv[0]))[:40]:
+        print(f"observed generalization output cubes: {ncubes} (<= {a.max_lits} literals; native transformation, not a validity certificate)")
+        for base, (bits, mixed) in sorted(vec.items(), key=lambda kv: (-kv[1][1], -kv[1][0], kv[0])):
             print(f"{bits:5d} bits {mixed:5d} mixed  {base}")
         return
-    states = list(basis_states(a.analysis, a.run, a.min_lits))
+    widths=json.load(open(a.widths)) if a.widths else None
+    states = list(basis_states(a.analysis, a.run, a.min_lits,widths))
     print(f"basis states: {len(states)} (cubes with >= {a.min_lits} literals)")
     if a.cmd == "vectors":
         seen = defaultdict(set)
@@ -106,20 +135,18 @@ def main():
         pat = re.compile(a.match) if a.match else None
         for k, vals in sorted(seen.items(), key=lambda kv: (-len(kv[1]), kv[0])):
             if pat is None or pat.search(k):
-                print(f"{len(vals):5d} distinct  {k}  e.g. {', '.join(hex(x) for x in sorted(vals)[:4])}")
+                known=sorted(x for x in vals if x is not None)
+                print(f"{len(known):5d} distinct  {k}  e.g. {', '.join(hex(x) for x in known[:4])} unknown={None in vals}")
     elif a.cmd == "table":
         rows = Counter(tuple(s.get(k) for k in a.args) for s in states)
         print("(" + ", ".join(a.args) + "): count")
-        for key, n in rows.most_common(30):
+        for key, n in rows.most_common():
             print(f"  {key} {n}")
     else:
         expr = compile(a.args[0], "<expr>", "eval")
         res = Counter()
         for s in states:
-            try:
-                res[bool(eval(expr, {"v": s}))] += 1   # v as a global, so comprehensions in EXPR see it
-            except (TypeError, KeyError):
-                res["unconstrained"] += 1
+            res[evaluate(expr,s)] += 1
         print(f"true={res[True]} false={res[False]} unconstrained={res['unconstrained']}")
 
 

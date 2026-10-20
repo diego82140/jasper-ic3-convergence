@@ -1,0 +1,73 @@
+{
+  "updated_utc": "2026-10-08T07:33:28.324157+00:00",
+  "status": "PASS_FINITE_GENERAL_AGENT_VALIDATION",
+  "agent_session": "141a0820-fcaf-47f0-9faf-c4bb735a5a28",
+  "kit_instructions": "1.4.42-dev-agent-gates",
+  "loaded_skill": "jasper-ic3-convergence",
+  "input_scope": "Previously unfamiliar 16-bit RTL, reset x=1 and x_next=x xor u xor rotl(u,1); no page-walk/Hao helper supplied. Finite design-diversity check, not universal convergence.",
+  "candidate_origin": "Claude independently derived ^x==1 from RTL; native reachable-state helper certificate distinct from hand-derived one-step algebra. Horn-ICE/H-Houdini NOT_RUN.",
+  "native_baseline": {
+    "original_job": "60371506",
+    "june_job": "60371526",
+    "result": "target proven/proven, engine I, both releases",
+    "limits": "Unaided native orchestration already closes; forced M/M4 600s UND probes demonstrate only those engine stalls, not target-wide failure or a cost improvement."
+  },
+  "corrected_cold_graph": {
+    "original_job": "60425985",
+    "june_job": "60425995",
+    "status": "PASS_INDEPENDENT_NATIVE_COLD_GUARDS",
+    "proofmaster": "effective off; cache0; initial unprocessed properties",
+    "environment": "empty unchanged assumptions; exact eligible prerequisite set; source/setup/checker hashes unchanged",
+    "native": "helper and target proven/proven; reachability cover covered/covered trace2",
+    "guard_tests": "13 PASS including happy path and twelve injected failures; dual status/validity, overconstraint, changed environment, inventory, prerequisites, reuse and Tcl errors",
+    "review": "Claude Code self-review labelled as such; root independent guard/source/test/receipt audit",
+    "limitations": "No original assumption-expression attribute test on this empty-assumption design. Final scheduler state unavailable because completed jobs purged and accounting offline; native terminal exit0 retained."
+  },
+  "full_original_telemetry": {
+    "reader_origin": "kit40 strict full ingest/public queries; kit42==41 public summary also reproduced kit40 output on existing index",
+    "records_M": 102531403,
+    "records_M4": 98432448,
+    "selected_closed_search_frontier_members_M": 7383,
+    "selected_closed_search_frontier_members_M4": 7227,
+    "analysis": "All selected members full-width even nonzero16-bit x; all bits mixed polarity; no unknowns. Occurrences and flags preserved; observed validated flags0 do not assert global validity. Family agrees with proved RTL parity; post-hoc support, no necessity ablation.",
+    "peak_reader_RSS_KiB": 36968,
+    "ingest_seconds": [
+      2505,
+      2370
+    ],
+    "retention": "Reconstructible indexes disposed with hashes after complete queries; canonical gzip and manifests unchanged. Selected-frontier analysis is not whole-history semantic analysis.",
+    "integrity_scope": "All manifested observed workers, not a claim of absent/unobserved ProofGrid worker coverage."
+  },
+  "june_M_M4_instrumented": {
+    "job": "60436753",
+    "status": "PASS_INDEPENDENT_NATIVE_JUNE_M_M4_AND_PUBLIC_READER",
+    "observed_workers": 4,
+    "records": 682,
+    "runs": 6,
+    "native": "M and M4 helper/target proven/proven, covers covered/covered, context gates pass; native exit0",
+    "reader": "Strict kit42 reader complete. All six closed frontiers empty; composite literals retained unresolved, no invented family.",
+    "script_wall_ms": 5431,
+    "scope": "Finite compatibility/observer check with diagnostic budgets; not counted cold cost acceptance."
+  },
+  "timing": {
+    "cold_script_wall_ms": [
+      29490,
+      7823
+    ],
+    "cold_sampled_head_elapsed_seconds": [
+      264.81700229644775,
+      14.855714082717896
+    ],
+    "scope": "Tcl timers begin after console startup/license acquisition. Keep script, sampled head, queue and learning costs distinct. No end-to-end speedup established."
+  },
+  "component_identity": "Producer/client/jobscript unchanged39\u201342; reader and packer changed41,42 equals41. Qualification origin60404007 original /60404331 June. Frozen42 inherited stale CANDIDATE metadata; final new release must correct it.",
+  "evidence": {
+    "claude_final": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/fresh-general-agent13/claude-08.jsonl",
+    "agent_report": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/fresh-general-agent13/work/receipts/final.json",
+    "full_reader_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/fresh-general-full-telemetry-pipelines.json",
+    "june_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/general-agent42-june-diagnostic-audit.json",
+    "cold_original_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/fresh-general-agent13/work/runs/cold-gated-original/independent-guarded-cold-audit.json",
+    "cold_june_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/fresh-general-agent13/work/runs/cold-gated-june/independent-guarded-cold-audit.json"
+  },
+  "unresolved_main_acceptance": "Independent hard page-walk final cold graph, matched total cost, final package/shared installation and real Meld remain separate."
+}

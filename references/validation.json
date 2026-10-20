@@ -1,0 +1,627 @@
+{
+ "registry_schema": 1,
+ "scope": "Current development dispositions only. Archived entries are historical and do not qualify changed artifacts. Native telemetry qualification, agent closure and memory/cost evidence are separate gates.",
+ "current_status": "CANDIDATE_NOT_PROMOTED_HARD_COLD_ACCEPTANCE_PENDING",
+ "published": false,
+ "history": {
+  "file": "validation-history.json.gz",
+  "decoded_sha256": "be1d92007bfdea6d8e2bdea9cd82412190729404667f4c38b3d62eb27d77900a",
+  "gzip_sha256": "d2e16d3c1209c50b44e137f67bf9cbf2dacff2fda74a7a84a20fdfd32d8cfb6d",
+  "decoded_bytes": 110985,
+  "scope": "Exact prior full ledger; inspect only for a matching historical investigation."
+ },
+ "current_development_epoch": {
+  "updated_utc": "2026-10-08T18:40:39.199595+00:00",
+  "status": "CANDIDATE_NOT_PROMOTED_HARD_COLD_ACCEPTANCE_PENDING",
+  "latest_agent_kit": "/formal_shared/diego1/.foo/validation/kits/1.4.44-dev-continuation-guard",
+  "qualified_native_component_origin": "/formal_shared/diego1/.foo/validation/kits/1.4.41-dev-chainpack",
+  "producer": "1.6.13-dev",
+  "library_sha256": "fa90623cc659b079d6f32d3a5ffd13bfd796b5c35d08d33a9af5d5e43e6bcb9b",
+  "launcher_sha256": "c3c0f4c67453cccd7c4bdbcd41386b449fbbe004e28e3bd9d1f88290a5be0f52",
+  "reader_sha256": "1cf1b1727a1356c36a6e9bb319e02e111d04b0cbea2f8c84f78d59d6a9370a7d",
+  "native_qualifications": {
+   "utc": "2026-10-08T05:26:59.619254+00:00",
+   "kit": "/formal_shared/diego1/.foo/validation/kits/1.4.41-dev-chainpack",
+   "records": [
+    {
+     "release": "original",
+     "job": "60404007",
+     "path": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/native-check-chainpack-original/cache/jipstats/1.6.13-dev/qualification-hwzzmoqy/QUALIFICATION.json",
+     "sha256": "52c07d792adee7c4caa242889aee610344460059e269110723babc76e9cc75d2",
+     "recorded_at": "2026-10-08T05:16:09Z",
+     "tests": 8,
+     "status": "PASS",
+     "reader_sha256": "1cf1b1727a1356c36a6e9bb319e02e111d04b0cbea2f8c84f78d59d6a9370a7d"
+    },
+    {
+     "release": "june",
+     "job": "60404331",
+     "path": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/native-check-chainpack-june/cache/jipstats/1.6.13-dev/qualification-dvq_ig2p/QUALIFICATION.json",
+     "sha256": "befc88c43c7cb2c924b3894d4f9499dc6f8ce1b49e050f47d8d6ef82e2f44683",
+     "recorded_at": "2026-10-08T05:16:54Z",
+     "tests": 8,
+     "status": "PASS",
+     "reader_sha256": "1cf1b1727a1356c36a6e9bb319e02e111d04b0cbea2f8c84f78d59d6a9370a7d"
+    }
+   ],
+   "scope": "fresh exact41 native M/M4 proven/cex baseline/instrumented fixtures both Cadence releases; not a target certificate"
+  },
+  "published": false,
+  "primary_binary": "older1.4.22/1.6.4; notpromoted",
+  "agent_core": "Generalproof/theorycontractretained. Narrowlearned-frontierinterpretationcorrectionplusactualClaudeP20durableCLIcontinuation operationalfix added after observedworkflow failures; frozen42 untouched; currentcoreawaitsexactnewkitvalidation.",
+  "general_agent_validation": "general-agent-validation.json: actual Claude independent RTL lemma/correctedcoldboth/full200Mtelemetry/current42reader/JuneM_M4 all finitePASS",
+  "native13_GUI": "gui-retention-benchmark/native13-verified-memory-disk.json: originalconsole842596\u2192420716KiB (50.07%); coincidentlocalJasper1620116\u21921129884KiB (30.26%); both8roundGUIstrict/nativecountersets/CEX51 pass. Juneconsole405204KiB; no oldJuneRAM comparator. Finite observed workloads, no solverRAMbound or productionsoak.",
+  "native13_complex": "original1116359records/44runs andJune1048427/39 strict complete observed capture; original actualvalidationabort, June race notobserved",
+  "lossless_storage": "chainpack-native13-validation/RESULT.json: equalgzip9 GUIorig67.84%/June68.26%, complexorig64.65%/June65.03% permanentbyte savings; exact decodedhash/count/nativequeries. Finalreaderqualifiedboth; audit component minor-version scopes retained. Seventeenfocused regressions PASS.",
+  "review_roles": "User clarified2026-10-08: actualClaude owns convergenceinstructions/agenticreasoning/nativeexecution/continuation; root audits formal/mathematical soundness/telemetry/resources; Astra significant IC3/PDRtheory only; ClaudeCode implementations. HistoricalE1/E2 launches were roottransport, notrelabeledClaudeexecution.",
+  "hard_closure": {
+   "diagnostic_R14": "60341130 original target nativeproven/proven with131certifiedhelpers; valid reachable-safety certificate under recordedcontext",
+   "cold_original": "Finalhardcold acceptancePENDING; v7b interruptedforowncomponenttelemetry requestedbyactualClaude main31",
+   "cold_june": "NOT_STARTED; oldsequencestopped, noautolaunch",
+   "context": "1262 pinnedsourcefiles+38 externallinks,499originalassumptions; finalchecker/levels immutable. Original160enabledsafety vsJune165 due native $isunknown disable warnings, explicitly recorded.",
+   "controls": "60142963 original32G baseline retained; its owned allocation now also hosts declared local cold step. 60418582 original/60418605 June8G controls unchanged. New shared contention prevents a matched control comparison.",
+   "total_cost_improvement": "NOT_DEMONSTRATED_PENDING_COLD_TERMINAL_AND_COST_AUDIT",
+   "latest_native_gates": "E1 complete:130certifiedprefixhelpers/134coveredgates,9acceptedlevels; solecomponentM/M4 600s UND, no targetcertificate.",
+   "routing_receipt": "matched8G-pending-formal192-routing-component.json; 13ownpending acceptedFormal192,10notaccepted; mixedqueuecost scope preserved",
+   "previous_default_cold": "60418554/60418568 interruptedafter130facts each; certificates/costretained, no finalcoldacceptance",
+   "guided_strategy": {
+    "status": "CANCELLED_WHILE_PENDING_NO_NATIVE_WORK",
+    "jobs": {
+     "original": "60468021",
+     "june": "60468034"
+    },
+    "inputs": "claude-independent/learning/guided-cold-generation.json",
+    "self_review": "claude-independent/learning/guided-cold-selfreview.md",
+    "source_audits": "Both root guidedinputsourceclosure auditsPASS",
+    "driver_tests": "24actualnewdriverPASS; oldv3mutation14failures; root independently reran24PASS",
+    "native_context": "Same11levels132members131helperchecker, allcovers/setup/gates/499assumptions/1262sourceclosure/dispatcher4GCPU1/native48h; initialnativeinventory/terminalcache auditpending",
+    "search_context": "Onlycomponent -orchestrationoff -engine_mode {Hps Bm N}; Hps observedwinnerR14; Bm trace-supportfrombothprimarymanuals, Ncustom6observedcovers butbaseNnotpromised",
+    "old_runs": "60418554/60418568 interruptedafter130facts each; partialproofs/source/costretained,36confirmedownunfinishedworkersrecordedcancellation; controlsuntouched",
+    "cost": "Separateengine-guidedcontext andinterrupteddefaultorchestrationcost; no totalcostgainclaimed",
+    "routing": "guided-cold-head-formal192-routing.json JuneacceptedFormal192pending, originalupdatefailedremainsFormalpending; actualfutureworkerqueuesauditable",
+    "cancellation": "local-fallback-queued-head-cancellation.json"
+   },
+   "local_fallback": {
+    "status": "INTERRUPTED_FOR_COMPONENT_OWN_M_M4_DIAGNOSTIC",
+    "variant": "v7b",
+    "sequence_pid": 1578018,
+    "parent": 60142963,
+    "component_hint": "-orchestration on -engine_mode {Hps N}",
+    "local_worker_limit": 2,
+    "step_cpus": 3,
+    "parent_memory_GiB": 32,
+    "scope": "Changed search/dispatch/concurrency context; no per-worker4G cap, invariant exchange necessity or matched cost improvement claimed",
+    "runs": {
+     "orig": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/final-orig-local-cold-v7b",
+     "june": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/final-june-local-cold-v7b"
+    },
+    "actual_Claude": "main30 independent convergence session61e4b656 prepared alternatives from native omission and manual defaults; source+selfreview, root both source audits and33mock tests PASS",
+    "previous_v6": "130certifiedhelpers across9acceptedlevels; component native1000s scan incomplete, bothcovers incomplete, N omitted; stopped rootsequencer then cancelled ONLYownedstep60142963.6, rc137; parent/controls preserved; no Junev6 launch",
+    "receipts": [
+     "local-v6-interrupted-experiment.json",
+     "local-cold-v7b-sequence-launch.json",
+     "claude-independent/learning/local-v7/diagnosis.md"
+    ],
+    "remaining": "Owncomponenttelemetry/refinement thennewfullcoldgraphbothreleases; do notresumeoldsequenceorreusepartialproofasfinalacceptance",
+    "native_original_step": "60142963.8",
+    "accepted_original_levels": [
+     "r1",
+     "supp",
+     "local",
+     "cfg",
+     "cases",
+     "matrix",
+     "k7",
+     "k8",
+     "k8r"
+    ],
+    "certified_original_helpers": 130,
+    "source_context_audit": "local-v7b-original-live-context-audit.json",
+    "installer_review": "Actual independent Claude Code six defects repaired; root17focused testsPASS; shared untouched",
+    "component_native_cover_results": [
+     "INFO (IPF047): 27.0.Ncustom3: The cover property \"mmu_pg_walker.u_ci_pw_ptechk_r14.k14_cov_pcflt\" was covered in 5 cycles in 1.90 s.",
+     "INFO (IPF047): 27.0.Ncustom3: The cover property \"mmu_pg_walker.u_ci_pw_ptechk_r14.k14_cov_pcfin\" was covered in 5 cycles in 17.87 s."
+    ],
+    "native_invariant_exchange": "UNOBSERVED; supported capability/default enablement is not proof it occurred",
+    "authoritative_native_steps": "Oldstep8 interrupted/absent; E1step15 terminal; parent60142963 retained.",
+    "parent_memory_scope": "32GiB scheduler reservation, NOT demonstrated aggregate kernel RAM cap; observed memory.max/high=max on ahc022 ancestors, worker AS/data unlimited and RSSlimit ignored by modernLinux. Native internal enforcement unknown.",
+    "sequence_pid_status": "1578018 verifiednotlive; stoppedbeforeownedstepcancellation topreventJune",
+    "terminal_srun_rc": 137,
+    "interruption_receipt": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-local-root-transition-action.json"
+   },
+   "cold_status": "Original v7b interrupted with partial130facts; June notstarted. E1 terminal600sUND under unchangedcontext. ActualClaude main36 prepares gatedD1/D2 candidates after corrected frontier theory.",
+   "component_frontier_diagnostic": {
+    "status": "NATIVE_DIAGNOSTIC_TERMINAL_UNDETERMINED_VALID_UNCHANGED_CONTEXT",
+    "job": "60142963",
+    "authoritative_queue": "ActualFormalstep60142963.15 terminal/nativeexit0; oldqueued60553439 CANCELLED withoutallocation.",
+    "run": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-frontier-original",
+    "resource_request": "Serialoverlapstep3CPU withinownedFormal4CPU32GiBreservation, localbound2. Changedfromqueued16GiBrequest; nocap/matchedspeedupclaimed",
+    "scope": "Exactsame131checker/499assumptions/1262sources, fresh9prefixlevels130certs required; solecomponentM/M4 off-orchestration600s labelledDIAGNOSTIC, no targetprove/no promotion",
+    "review": "ActualfreshClaudeCode implementation+selfreview; root43mockchecks/sourceaudit+exactnativeinputpins. Correctedsacctunavailablegate; explicitexample-receiptnegative. Frozen42componentsunchanged.",
+    "runtime_gates_pending": "E1native/source/dualstatus/covers/context/prepostgate andselectedpublicreader verified. Wholeprefixdirectory capture outside selectedscope notclaimed.",
+    "routing": "Pendingprioritydiag60553439 cancelledunstarted; nowserialinsideownedFormalallocation. No otheruserjobs orbaselineparentcancelled.",
+    "native_step": "60142963.15",
+    "root_wrapper_pid": 2254790,
+    "previous_queued_job": "60553439 verifiedCANCELLED beforeallocation/nativefiles; explicitactionretained",
+    "launch_receipt": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-local-root-launch.json",
+    "transition_receipt": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-local-root-transition-action.json",
+    "initial_context_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-local-initial-context-audit.json",
+    "initial_resource_receipt": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-local-initial-resources.json",
+    "authoritative_native_steps": "step15 absent; parent60142963 remainsRUNNING Formal",
+    "accepted_prefix_levels": [
+     "r1",
+     "supp",
+     "local",
+     "cfg",
+     "cases",
+     "matrix",
+     "k7",
+     "k8",
+     "k8r"
+    ],
+    "certified_prefix_helpers": 130,
+    "latest_progress": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-local-prefix-progress.json",
+    "execution_context": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-frontier-original/execution-context.json",
+    "root_wrapper_pid_status": "2254790 terminal/step15 absent; nativeexit0",
+    "certified_prefix_covers": 134,
+    "component_result": "PROBE RESULT property=mmu_pg_walker.u_ci_pw_ptechk_r14.k14_component rc=time_limit info={undetermined undetermined M4 0 239.11412405967712} wall_ms=602801 accepted=0 (diagnostic receipt only)",
+    "terminal_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-local-terminal-native-audit.json",
+    "actual_convergence_agent": "Main35completedselectedanalysis; main36completedpreparedE2/theorycorrections. Bothterminal. Code reviewedimplementationseparately.",
+    "actual_convergence_agent_pid": null,
+    "remaining": "D1/D2 unproved; prepare/review/certify and test controlledconsumer; then finalhardcoldboth/package/sharedintegration/Meld.",
+    "reader_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-selected-reader-root-audit.json",
+    "selected_scope": {
+     "pids": [
+      1231878,
+      1231879
+     ],
+     "events_each": 131954,
+     "snapshot": 1597,
+     "phase": "search",
+     "members_each": 517,
+     "mapped_literals_each": 2024,
+     "unresolved_literals": 0,
+     "integrity": "Complete selectedworker runs verified via publicreader; directory scoped incomplete_diagnostic",
+     "namespaces_separate": true
+    },
+    "derived_index_disposal": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-frontier-derived-index-disposal.json"
+   },
+   "latest_agent_diagnosis": "ActualClaude main35 D1/D2 state-domain candidates from enum/reset/transitions, unproved. Learned frontier exclusions do not demonstrate outstandingCTIs, limitinggap or cost; no guaranteed clause disappearance; repeatedUND means only nonclosurewithinbudget.",
+   "component_domain_diagnostic": {
+    "status": "TERMINAL_NATIVE_UNDETERMINED_VALID_UNCHANGED_CONTEXT_SELECTED_EXPORTS_VERIFIED",
+    "actual_step": "60142963.20",
+    "parent": 60142963,
+    "wrapper_pid": 2629522,
+    "run": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-domain-original",
+    "actual_Claude": "Main36 convergence preparedtwoRTLdomaincandidates,14turnssuccess; freshCode implementationreviewpreparedtransport,terminalturncapartifactsindependentlyverified",
+    "review": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/learning/component-domain-local/CODE-REVIEW.md",
+    "root_preparation_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-root-preparation-audit.json",
+    "mock_tests": "Rootindependent24gates+31transportPASS",
+    "change": "UnchangedE1checkerprefixplus2input-onlydomainasserts; unchangedsetup/gates/driver/499assumptions/1262pinnedfiles; stage132eligiblegate; same600sM/M4solecomponentdiagnostic",
+    "memory": "32GiBschedulerreservationnotdemonstratedhardcap",
+    "remaining": "Nativeelaboration/source/context/gates/cost/postprobe/fullselectedreaderanalysis; finalcoldboth/newpackage/sharedintegration/Meld",
+    "initial_native_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-local-initial-context-audit.json",
+    "initial_memory_sample": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-local-initial-memory.json",
+    "initial_native_status": "Verified293enabledassertions(initialunprocessed),499assumptions/0eligible/PMoff/localbound2; actualpartialprefixreceipt retained",
+    "certified_prefix_assertions": 132,
+    "certified_prefix_covers": 134,
+    "root_preprobe_binding_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-local-preprobe-and-binding-audit.json",
+    "component_workers": {
+     "M": 1314035,
+     "M4": 1314036,
+     "thread": 30
+    },
+    "actual_claude_owner": {
+     "session": "61e4b656-9c81-4a84-9880-195237dcdca7",
+     "pass": 37,
+     "pid": 2743227,
+     "transcript": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/claude-37.jsonl",
+     "scope": "Ownnextnativeactions/telemetryanalysis/closuredecisions; currentE2rootlaunchprovenancepreserved",
+     "user_steering": "Claudeownsagenticwork;root/Astratheory/formal/telemetry/memoryaudit"
+    },
+    "terminal_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-local-terminal-native-audit.json",
+    "selected_reader_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-selected-reader-root-audit.json"
+   },
+   "component_mode_diagnostic": {
+    "status": "TERMINAL_NATIVE_UNDETERMINED_CONTEXT_AND_PREFIX_VALID_SELECTED_READER_PENDING",
+    "actual_agent": "Claude main38 selectedtelemetry/RTLreasoning/generatedmodeguards; main39 SELFREVIEW/detachednativeexecution",
+    "step": "60142963.24",
+    "wrapper_pid": 2833358,
+    "run": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-mode-original",
+    "actor": "claude-agent",
+    "root_initial_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-mode-local-initial-context-root-audit.json",
+    "source_implementation_review": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/learning/component-mode/REVIEW.md",
+    "candidate_scope": "Twoheldmodewalk-stateguardssource-grounded, unproveduntilnativegates; noassumptions/abstraction/DUTchanges",
+    "remaining": "Nativeprefix134facts/138covers beforeM/M4diag ifnewguardsprove; bothfinalcoldsource/context/cost/package/sharedintegration/Meldpending",
+    "certified_prefix_assertions": 134,
+    "certified_prefix_covers": 138,
+    "root_preprobe_binding_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-mode-local-preprobe-and-binding-root-audit.json",
+    "component_workers": {
+     "M": 1364714,
+     "M4": 1364715,
+     "thread": 33
+    },
+    "terminal_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-mode-local-terminal-root-audit.json",
+    "live_source_recheck": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-mode-live-source-root-audit.json",
+    "end_utc": "2026-10-08T15:54:30Z",
+    "native_exit": 0,
+    "srun_exit": 0,
+    "component_result": "undetermined/undetermined M4 after600s diagnostic, wall602292ms",
+    "sampled_local_RSS": "coincident6143424KiB console844584KiB; finiteprefix+diagnostic, notcap ormatchedcausal comparison",
+    "selected_reader_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-mode-selected-reader-root-audit.json"
+   },
+   "component_decomposition_E4": {
+    "status": "TERMINAL_3_CERTIFIED_9_OPEN_CLEAN137_NATIVE_SRUN0",
+    "checker": "claude-independent/checker/ci_pw_dec14.sv",
+    "spec": "claude-independent/graph/decomp_spec_e4.tcl",
+    "actual_convergence_author": "Claude41fresh43r1",
+    "code_review_pid": 3057635,
+    "theory_reviewer": "existingastra_theory_review targetedsubstantivetheory only",
+    "interpretation_correction_pending": "Per-call timing supports measured cost observation, not causal monolithic-badstate or modehelperfailure claims; genericproposal andprojectmemory not adopted",
+    "reuse": "Only134certifiedprefix+nativeacceptedpartscan be eligible; covers/validity/env/context gates required",
+    "step": "60142963.26",
+    "wrapper_pid": 3130521,
+    "run": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-decomp-original",
+    "actor": "actualClaude42",
+    "code_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-root-implementation-verification.json",
+    "initial_native_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-local-initial-context-root-audit.json",
+    "native_enabled_initial_safety": 307,
+    "unchanged_native_assumptions": 499,
+    "initial_eligible": 0,
+    "interpretation_correction": "ActualClaude42datedamendmentswithdrawunsupportedqueryidentity/causaltiming/generalstrategyclaims, projectmemorycorrected",
+    "remaining": "Component NOT_RUN; target/fresh cold both still pending",
+    "terminal_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-terminal-root-verification.json"
+   }
+  },
+  "metadata_issue": "Immutable42 CANDIDATE.json inherited41version/PENDINGstatus; preservefrozenkit, correctNEWfinalrelease metadata.",
+  "remaining_acceptance": [
+   "Hard final cold complete native graph both releases, exact current assertion/cover contract after anynewhelpers, unchanged source/context audit",
+   "Truthful totalcost accounting vs nativecontrols; include learning/interruptedexperiments and queue contexts",
+   "Final newconsistentimmutablepackage/source/SDK/sharedinstallation integration",
+   "RealMeld onlyafteracceptance"
+  ],
+  "previous_current_epoch_snapshot": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/validation-current-epoch-before-general-final.json",
+  "final_acceptance_auditor": {
+   "status": "PASS_NEW_FLEX_AUDITOR_CODE_AND_SYNTHETIC_NEGATIVE_TESTS_NOT_NATIVE_CERTIFICATE",
+   "tool": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/validate-final-cold-receipts-flex.py",
+   "sha256": "332db4b5fda421777f847be8ce0e45002d2ef7ab1800cb7e123ad0f8a2704860",
+   "review": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-flex-final-auditor-review.md",
+   "root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/root-flex-final-auditor-verification.json",
+   "focused_tests": 47,
+   "scope": "Declaredgraphcounts/hashpin +oldfullnativegates; optimizationrefusal; syntheticfixturesnotproof; othermodel/source/cache/cost auditsrequired",
+   "previous_original_auditor": "e319750...preservedhistorical; optimizedpythonunsafe, supersededforfutureacceptance"
+  },
+  "remaining_work": [
+   "Component ownM/M4 diagnostic/frontier interpretation and evidence-based closure refinements if needed",
+   "Both fullhardcold native certificates/source/cache/context/cost audits",
+   "Consistent final43metadata/package/installedpath nativeM/M4 integration bothreleases",
+   "Real Meld afteracceptance"
+  ],
+  "memory_enforcement_correction": {
+   "receipt": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/observed-memory-enforcement.json",
+   "sha256": "d610b9d2b587cb51245611a68cab4e0db5be04612e0d39af7af51826b91f47ff",
+   "scope": "Observed owned allocation60142963 nodeahc022 only; ancestor memory.max/high=max, workerAS/data unlimited, RSS32GiB not kernelcap. Othernodes/nativeinternalaccounting unknown. Prior frozenwrapper realcap32 comments false; inputs retained unchanged.",
+   "tool_review": "Fresh Claude Code implementation+selfreview, root identified/repaired semantic and robustness defects; root12focusedtestsPASS; actual readonlyFormal node/self+2ownnativeworkers reports validated. See root-memory-enforcement-code-verification.json.",
+   "comparison": "Existing finite GUI retention measurements unchanged. No native/aggregateRAM bound or matched resource-performance claim.",
+   "actual_tool_receipt": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/memory-limits-compute-node-probe-02.json"
+  },
+  "agent_core_current_sha256": "23a404fe99ba8086d7ef1de971fbc9fae6102ef6abb275de7d56757d4c114d09",
+  "current_theory_review": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/astra-famA-dependency-theory-review.md",
+  "actual_claude_timing_correction": {
+   "status": "PASS_SELECTED_TABLE_CORRECTION_AND_GENERIC_GUIDANCE_ADOPTED_FINAL_KIT_VALIDATION_PENDING",
+   "session": "61e4b656-9c81-4a84-9880-195237dcdca7",
+   "pass": 40,
+   "terminal": "success5turns",
+   "source_pair_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-selected-timing-source-root-audit.json",
+   "correction_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-domain-claude-timing-correction-root-verification.json",
+   "lesson": "P21; duration semantics from source/schema, bound call pairs, no nested/overlapping total-cost sums",
+   "scope": "86selectedcalls; not proof, global bottleneck or cost-gain evidence"
+  },
+  "candidate43r1": {
+   "status": "UNPUBLISHED_SNAPSHOT_ROOT_VERIFIED_NOT_FINAL_ACCEPTANCE",
+   "root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/candidate43r1-root-verification.json",
+   "runtime_sha256": "d3942ebad50b93d7302c4cfd26d4ba1c0424cea369a17eca48ac477c34b7ece1",
+   "candidate_metadata_sha256": "4541430b8f88541c3d80a97419ec86acc669053ee7a1498527da895a5efdb1a5",
+   "actual_Code": "snapshotSELFREVIEW12turns+metadataUTCcorrection3turns; native/sourceSDKunchanged"
+  },
+  "fresh_actual_claude_continuation": {
+   "session": "d4d4bcfc-d8dc-4a03-ae6f-4cb995b9166a",
+   "pass": 44,
+   "pid": 3013751,
+   "status": "TERMINAL_ACTUAL_CLAUDE49_PASS1_AUDIT_FLEXIBLE_NEXT_PLAN_E4_PASS2_LIVE",
+   "transcript": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/claude-41.jsonl",
+   "scope": "ActualClaude preparedsourceaudit/SELFREVIEW andlaunchedownedE4; rootindependent307inventory/499assumptions/1262files",
+   "terminal_turns": 27,
+   "actual_reader_step": "60142963.25",
+   "reader_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-mode-selected-reader-root-audit.json",
+   "next": "Newcertificate or E4terminal requires actorcontinuation, avoid calls for unchangedOPENresult. Anynewnativehead waits for E4terminal/sourceaudit/actorchoice.",
+   "last_pass": 49,
+   "last_pid": 3955692,
+   "actual_native_step": "60142963.26",
+   "last_transcript": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/claude-49.jsonl",
+   "terminal": "success3turns",
+   "previous_pass45": "success10turns; useful source hypothesis but unsupported H2/dependency exclusions sent to Astra; broadpkill selfmatchedexit144",
+   "previous_pass47": "success3turns; no newcandidatebytes/nativehead; explicitexternalcheckpoint",
+   "ordering_correction_root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude48-cost-order-correction-root-verification.json"
+  },
+  "background_polling_fix": {
+   "status": "PASS_ACTUAL_CLAUDE44_HOOK_DENIAL_ALLOWED_READ_EXTERNAL_CHECKPOINT",
+   "actual_failure": "Claude42endedCLIafterBash(run_in_background=true)30minute receipts loop andpromisedfutureaudit; P20guidealoneinsufficient",
+   "root_audit_role": "Nativewrapperdetachedsurvives; no native restart",
+   "code_pid": 3162662,
+   "transcript": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-poll-guard-background.jsonl",
+   "next": "Focusedguardregressions andnewcandidatehookvalidation; no universal shellparserclaim",
+   "code_terminal": "success6turns",
+   "root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/poll-guard-background-root-verification.json",
+   "hook_sha256": "fa2ff13806582af87d076dfaf7f07d3d8a0e6e70d19c8f9d79b5c728a2dbbc86",
+   "scope": "SpecificactualrecognizedBGpollcanaryblocked, normalFormalstatusreadallowed, explicitexternalcheckpoint; notuniversalparser orprooflimit",
+   "actual_Claude_pass": 43,
+   "actual_root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/continuation-guard44-root-verification.json",
+   "candidate_root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/candidate44-root-verification.json"
+  },
+  "candidate44": {
+   "status": "UNPUBLISHED_CANDIDATE_ROOT_BYTE_AUDITED_ACTUAL_HOOK_LOADED_NOT_FINAL_ACCEPTANCE",
+   "runtime_sha256": "058d0192e64ccbb900a1ebf682431753e79e03ed6065da18b87c2978d36ed0e5",
+   "core_sha256": "c711979c24d16f1af7d6a51b84ba922c6892cd45bad65e613b04cf179df1e3b4",
+   "root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/candidate44-root-verification.json",
+   "components": "native/sourceSDK/reader/packer/profile/Slurm/session samequalified41",
+   "minor_generic_clock_guidance_pending_final_snapshot": true
+  },
+  "current_E4": {
+   "status": "TERMINAL_3_CERTIFIED_9_OPEN_CLEAN137_NATIVE_SRUN0",
+   "observed_utc": "2026-10-08T18:27:08.223803+00:00",
+   "step": "60142963.26",
+   "wrapper_pid": 3130521,
+   "native_receipts": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-decomp-original/out/receipts.txt",
+   "facts": 137,
+   "marked": 0,
+   "unreachable_covers": 0,
+   "env_ok": 1,
+   "first_part": "d14_famA",
+   "scope": "All three guards covered; no CEX or one-step noninductiveness established. Unchanged clean134 facts; original target/final cold both remain pending.",
+   "part_results": {
+    "d14_famA": "OPEN",
+    "d14_famB": "OPEN",
+    "d14_lvlw": "OPEN",
+    "d14_eq": "OPEN",
+    "d14_addr": "OPEN",
+    "d14_lvlf": "OPEN",
+    "d14_hitc": "ACCEPT",
+    "d14_lvlc": "OPEN",
+    "d14_pcf": "OPEN",
+    "d14_pcfin": "ACCEPT",
+    "d14_pcflt": "ACCEPT"
+   },
+   "accepted_part_count": 3,
+   "next_part": "d14_pcf",
+   "first_open_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-first-open-root-verification.json",
+   "live_partial_memory_sample": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-live-memory-sample.json",
+   "last_requested_pass": 2,
+   "first_accepted_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-first-accepted-root-verification.json",
+   "second_accepted_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-second-accepted-root-verification.json",
+   "third_accepted_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-third-accepted-root-verification.json",
+   "pass1_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-pass1-root-verification.json",
+   "pass1_summary": {
+    "accepted": 3,
+    "open": 9,
+    "cex": 0,
+    "of": 12
+   },
+   "pass2_results": {
+    "d14_famA": "OPEN",
+    "d14_famB": "OPEN",
+    "d14_lvlw": "OPEN",
+    "d14_eq": "OPEN",
+    "d14_addr": "OPEN",
+    "d14_lvlf": "OPEN",
+    "d14_lvlc": "OPEN"
+   },
+   "partial_resource_observation": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-live-resource-observation-02.json",
+   "end_utc": "2026-10-08T18:32:41Z",
+   "terminal_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-terminal-root-verification.json",
+   "resource_observation": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-terminal-resource-observation.json"
+  },
+  "prepared_E4b": {
+   "actor": "actual Claude44",
+   "status": "STATIC_ONLY_DEFERRED_CAUSAL_EXCLUSION_WITHDRAWN",
+   "root_static_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-decomp-inline-root-static-verification.json",
+   "cost_comparison": "Unmatched E4/E3 cases wall 1249249/291172ms; cause and benefit not established. Native property time fields unclassified.",
+   "next": "Actor may defer as prioritization; cannot infer model/resource irrelevance from directsource signal reads."
+  },
+  "source_dependency_cleanup_guidance": {
+   "status": "PASS_ACTUAL_CLAUDE46_SOURCE_GUIDANCE_READ_AND_DATED_CORRECTIONS_FINAL_KIT_PENDING",
+   "root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/agent-dependency-cleanup-root-verification.json",
+   "theory_review": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/astra-famA-dependency-theory-review.md",
+   "code_review": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/learning/agent-dependency-cleanup/REVIEW.md",
+   "actual_code": "initial maxturns7 then artifactpath/hash correction success4turns",
+   "core_addition_words": 84,
+   "entry_skill_words": 271,
+   "scope": "Source-only additions, no removed contract text; effective COI/necessarydependency causal claims not supported by directreads or OPEN/acceptance. Exact ownedPID cleanup, no broadpkill. Frozen44unchanged; finalkit adoption still pending.",
+   "actual_actor_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude46-dependency-guidance-root-verification.json"
+  },
+  "prepared_E4g": {
+   "actor": "actualClaude46",
+   "status": "CODE_AND_ROOT_VERIFIED_STATIC_PREPARATION_NOT_NATIVE_LAUNCHED",
+   "checker_sha256": "4025c40c75459a045c643a8990e2304d905da7134c718655f3c3fdc15d635126",
+   "spec_sha256": "c42c8af784237cb9e43af39be1cdbbe6bfac4521420aeec56a11b05db3932bf4",
+   "code_pid": 2613326,
+   "code_transcript": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-component-group-g9-code.jsonl",
+   "scope": "Actor selected nine-relationconjunction hypothesis. No native proof/causal/necessary/minimumgroup claim. Driverunchanged; separateprep/audit/mock review before any adoption; no newhead whileE4live.",
+   "code_terminal": "initialmaxturns13, finishsuccess5turns",
+   "root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-group-g9-root-implementation-verification.json",
+   "code_finished_pid": 2713404,
+   "root_checks": "32mock/30preparedaudit/1positive15targetednegatives/13priorhashes; no nativeproof",
+   "next": "Actor decision afterE4terminal+alloutcomes; newhitc certificate mayjustify order revision, costordering unmeasured."
+  },
+  "actor49_table_scope_note": "Corrected by actualClaude50: per-part DECOMP driverwall and separate GATEwall; native info time remains unclassified. No costgain.",
+  "prepared_E4g_known3": {
+   "status": "CONDITIONAL_CODE_AND_ROOT_VERIFIED_PREPARATION_NOT_LAUNCHED",
+   "actor_choice_origin": "actualClaude49 conditionaloption; no rootlemma/groupchoice",
+   "spec_sha256": "5973b5516b4ad20a4932af161afd86d1acbd9b58dc674a3081bd3e2a68ad231a",
+   "same_checker_sha256": "4025c40c75459a045c643a8990e2304d905da7134c718655f3c3fdc15d635126",
+   "same_driver_sha256": "abacd9735f44e051d6af2c21687001ff8ad168cfa9c4f1bbc269265487ab74b5",
+   "root_verification": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-group-known3-root-implementation-verification.json",
+   "code_review": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/learning/component-group-known3-code/REVIEW.md",
+   "code_terminal": "initialmaxturns13 finishsuccess5turns",
+   "prepared_run": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-group-known3-original",
+   "scope": "Known3facts must be reproved before proposed137groupcontext; failedfacts neverborrowed, actuallowercontextrecorded. 31audit/12focusedmocks/1positive8negative controls/27priorhashesPASS. No nativeproof, measuredcostimprovement, necessary-minimaldependency or one-stepcertificate. Actorselects onlyafterE4terminal."
+  },
+  "current_E4g_known3": {
+   "status": "RUNNING_ACTUAL_CLAUDE_SELECTED_AND_LAUNCHED",
+   "step": "60142963.27",
+   "wrapper_pid": 39082,
+   "run": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude-independent/runs/component-group-known3-original",
+   "start_utc": "2026-10-08T18:35:07Z",
+   "actor": "actualClaude50 success9",
+   "source_spec_sha256": "5973b5516b4ad20a4932af161afd86d1acbd9b58dc674a3081bd3e2a68ad231a",
+   "launch_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-group-known3-launch-root-verification.json",
+   "actor_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/claude50-terminal-selection-launch-root-verification.json",
+   "scope": "Fresh known3 proof gates then nine-conjunct group, same300s per entry/max2local. No warm certificates/assumptions. All closure/cost pending.",
+   "initial_native_root_audit": "/formal_shared/diego1/.foo/validation/restart-pagewalk-20261007/component-group-known3-initial-native-root-audit.json",
+   "initial_enabled_safety": 308,
+   "initial_eligible": 0,
+   "original_assumptions": 499
+  }
+ },
+ "claude_validation_20261019": {
+  "utc": "2026-10-19T23:30:00+00:00",
+  "scope": "Plugin validation on the local source root with the kit-1.4.44 native pair installed (jipstats c3c0f4c6\u2026, libjipstats.so fa90623c\u2026); instruction edits of this date (structural-first \u00a73, depth-ladder row, admission rule and hazard covers \u00a74, prove sizing \u00a76, provenance rule, references/inductiveness-method.md). Not a promotion.",
+  "native_qualification": [
+   {
+    "release": "original",
+    "job": "65149366",
+    "recorded_at": "2026-10-19T20:23:02Z",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-original/cache",
+    "status": "PASS"
+   },
+   {
+    "release": "june",
+    "job": "65192183",
+    "recorded_at": "2026-10-19T22:27:52Z",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-june/cache",
+    "status": "PASS"
+   }
+  ],
+  "self_tests": "12 modules PASS (unittest per module; test_telemetry_db.py on the original-release qualification capture)",
+  "agent_validation": {
+   "design": "CHI ccu_chibun v8 (frozen inputs), target ccu_chibun.gen_cbuns[0].ccu_cbun.ccu_ceq.ceq_write_data_invalid",
+   "ledger": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/LEDGER.md",
+   "blind_trial": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude-trial01/LEDGER.md (fresh agent, same conclusions and first proof; two slips folded into rules)",
+   "cold_replay": "job 65209332/65222822: level A (6 helpers + 6 covers) accepted twice under project dispatch, ProofMaster off; unlimited target levels cancelled as interrupted experiments (rule + gates added); target level T would read cex.",
+   "gates": "vacuous helper rejected by unreachable cover (exp11); false helper refutation pending seeded cex (exp14)",
+   "target_disposition": "CONCRETELY REFUTED 2026-10-20T12:00Z: native cex/cex on the exact target (Bcustom11, 15.5 s, 162-cycle trace from reset) obtained by prove -from composition of native witnesses (allocation 128 -> PROMOWAIT 146 -> promotion capture 151 -> second WB_FULL same line 153 -> double promotion 155 -> first write 158 -> entry INVALID 161 -> second promotion write onto INVALID entry 162). VCD chi-fvip-challenge/claude/diag46/target_cex.vcd. Not strengthened around; reported as a finding (design bug or environment under-constraint: tracker releases the line on datapull-complete inside the promotion window)."
+  },
+  "memory": "warm session sampled peak 27.1 GiB (several background proves); cold head 2.8 GiB; reader <0.1 GiB",
+  "lessons_folded_into_kit": [
+   "structural-first and depth-ladder signature",
+   "necessity-based admission (inert lemmas)",
+   "hazard covers; seed chaining; explicit bounded engine for short windows",
+   "unlimited runs only for finished graphs; GRAPH_READY/BUDGET gates in submit.sh/send.sh; tools/audit.py + Stop hook",
+   "provenance of environment facts",
+   "never edit the live kit while its jobs are queued"
+  ],
+  "review_round_20261020": {
+   "utc": "2026-10-20T16:43:42Z",
+   "adversarial_review": "independent fresh-agent soundness review of the 2026-10-19 text and gates: 22 findings; verdict 'not rigorous enough to publish' before the changes below",
+   "changes": [
+    "necessity/admission rule replaced by the relevance rule (named consumer + sufficiency or CTI-exclusion witness, checked vs hand-derived; relevance is not necessity; no 'family marked inert'; retirement only per experiment, removal only by isolated deletion/reproof)",
+    "seeded `prove -from` failure is a candidate counterexample until replayed from reset as one native trace; hazard covers became bounded witness searches on a candidate's negation (no unbounded `unreachable` duplicate of the proof); bounded-engine behaviour release-specific, measured not assumed",
+    "conjunction assertion is a diagnostic hypothesis source, not a consecution test; CTI/frame definitions corrected (F_i \u2287 R_i, CTIs may be reachable, frontier clauses are frame-relative); H\u21d2P not a native check; template marked heuristic and extended to stall/flush/simultaneous cases; learning loops 'supported', not 'required'",
+    "unlimited run admitted only on a finite basis: tools/graph_ready.py v2 requires warm bounded proofs (status/validity proven, BUDGET.txt in the run) of the target and every helper, graph/checker/ledger hashes, graph names every node and cover, relevance witness per helper, covers list with covers_note for non-implications, --no-freshness for audits of running replays",
+    "tools/prove_gate.py replaces grep gates: every proof-starting prove bounded by -time_limit or set_prove_time_limit, exemptions by flag not substring, multiple proves per line, bare-second literals, stated scope (sourced files not followed)",
+    "submit.sh: BUDGET classes experiment (<=4h) / baseline (project limit, BUDGET_NOTE required); diagnostic runs gated like batch; Slurm --time=BUDGET+BUDGET_MARGIN backstop on every budgeted run; replay has none",
+    "tools/audit.py: elapsed vs budget+margin, class caps, fail-closed when liveness unverifiable and a run may be live, running replays validated without freshness, IC3_SQUEUE test seam",
+    "AGENTS.md \u00a77 'Mechanical gates' states what is enforced (labels, limits, linkage) and what is not (truth)",
+    "evals: natural skill triggering (no slash prefix), graders updated to the new wording"
+   ],
+   "self_tests": "tests/test_release_gates.py 51 OK (receipt, prove gate, send/submit gates, audit incl. fail-closed and elapsed) + 11 other offline modules OK; claude plugin validate: passed with the CLAUDE.md-root warning",
+   "memory_comparison": {
+    "disk_sink": "chi-fvip-challenge/claude/memcmp-disk job 65482118: M diagnostic 10 min on the CEQ target (596 assumptions), undetermined, engine 231.8 s, wall 625.6 s; head max RSS 2.07 GB (/usr/bin/time), rss.csv per-process peak 1.98 GiB",
+    "console_sink": "chi-fvip-challenge/claude/memcmp-console job 65482108: BLOCKED \u2014 strict full-archive qualification cannot attest worker closure for the console transport ('worker closure unattested'), so no proof started; the console/disk matched comparison is not available from this kit version; recorded as a limitation, not a measurement"
+   },
+   "open": [
+    "second-design blind trial on the page-walker snapshot with the revised text (pending)",
+    "commit/tag v1.3.0 snapshot + v2.0.0 after the above"
+   ],
+   "eval_suite": {
+    "utc": "2026-10-20T16:56:01Z",
+    "command": "claude plugin eval . --runs 2 --ablation none --trust-plugin --no-publish",
+    "cases": {
+     "structural-first": "2/2",
+     "depth-ladder-reading": "2/2",
+     "inert-lemma-admission": "2/2",
+     "refuse-unlimited-run": "2/2 after rubric fix (an honestly labelled native baseline mention was being punished)",
+     "hazard-is-existential": "2/2 after rubric rewrite to its four essentials (answers were method-correct; earlier rubric read the no-witness follow-up as 'another lemma')"
+    },
+    "cost_usd_total": 4.1,
+    "lesson": "in one intermediate run the skill did not fire and the answer violated the contract (proposed set_max_trace_length as a proof bound, helpers without witnesses): the method text works only when loaded, so prompts that merely mention Jasper are not enough \u2014 name the skill or the method; all passing runs had Skill called 1x"
+   }
+  },
+  "review_round_20261020_b": {
+   "utc": "2026-10-20T17:33:59Z",
+   "second_adversarial_review": "fresh-agent review of the revised text: 23 findings; critical: the GRAPH-READY validator admitted a fabricated receipt and an open target in an 'admitted' unlimited replay would run forever unnoticed; high: the finite-basis rule was a non sequitur (a trusted basis justifies k x its time, not infinity), any receipt lifted session limits, the sufficiency witness could be padded (L := C and M), CTI exclusion ill-defined on cubes, section 2 contradicted the gates for native baselines",
+   "resolution": [
+    "no run is unlimited: three budget classes (experiment <= 4h with textual prove gate; baseline = unchanged project Tcl at its own limit, declared; replay budgeted <= replay_factor (default 4, max 8) x the summed proof time of a bounded basis run of the SAME graph Tcl) and a Slurm --time backstop on every job (margin <= 120m)",
+    "tools/graph_ready.py v3: reads the basis run's own GRAPH_INPUTS/GRAPH_NODES/GRAPH_COVERS/PROOFMASTER/RESULT lines token-exactly, requires hash equality with the graph/checker on disk, every node proven/proven with engine != Cache and every cover covered, consumer chains ending at the target, relative paths resolved against the receipt; prints max_budget_s which submit.sh enforces; the receipt admits only the Tcl whose hash it records and never a session request",
+    "relevance witnesses repaired: sufficiency by syntactic instantiation or recorded combinational check with every conjunct needed (no C and M padding); CTI exclusion as a cube with D and s => not L for every completion, some input to a violating successor, no unknown bits in the supports; consumer chains end at a requested target",
+    "text: frame/CTI semantics (Bradley vs other PDR variants; blocking is frame-relative), conjunction CTI may be reachable or self-excluded, H => P and explicit induction obligations need a named checker or NOT_RUN, no 'method error' conclusion from one no-benefit run, section 5 title 'attempt when their checkers exist', template qualified in SKILL.md, seeded-cex refutation names its two admissible forms, cover of not-L under L's own clock/disable/enable, site profile split out (references/site-profile.md), authorization sentences removed from the method",
+    "gate probe (own, offline): ::prove bypass fixed, continuations joined, BUDGET_MARGIN capped, session lifetime capped, SEND_MAX override removed; audit scope stated (submit.sh jobs under the workspace only; dispatched workers via their head), SLURM_BIN honoured, telemetry trees pruned",
+    "documented residual limits: prove_gate is textual (sourced files, variables, eval, false ifs are caught only by the backstop, which leaves no certificate and an unsealed archive); receipts remain self-declared beyond log linkage"
+   ],
+   "self_tests": "tests/test_release_gates.py 62 OK in the staging clone (validation/kit-next); other offline modules OK (qualification_identity needs source/, excluded from the clone)",
+   "staging": "edits made in /formal_shared/diego1/.foo/validation/kit-next while the page-walk trial held the live kit frozen; to be synced back after the trial, then eval suite + plugin validate re-run before commit"
+  },
+  "second_design_blind_trial_20261020": {
+   "utc": "2026-10-20T19:25:32Z",
+   "design": "nue-core mmu_pg_walker page walker (frozen snapshot, 499 assumptions), target mmu_pg_walker.pw2mtq_pw_fill_psize_match_ref_4k; prior solution files quarantined before the trial",
+   "agent": "fresh general-purpose agent, opus, high effort, brief in validation/v2-trial-pagewalk/TRIAL-BRIEF.md, 3 h box after its own qualification PASS (09:51 PDT)",
+   "disposition": "STILL OPEN at the box: 30 submissions (444 dispatched engines), summed prove wall 32,779 s; head peak 3.40 GB, engine peak 4.84 GB; no gate refusal, every audit 0 violations, no unlimited run, no GRAPH-READY written (GRAPH-READY-NOTE.md names the nodes without a bounded proof)",
+   "method_behaviour": "structural analysis then bounded witness searches on negations refuted three wrong relations within seconds (5-cycle witnesses) and located the mis-modelled arcs; environment facts restated on the reference model's held copy proved in 1-8 s; 7 helpers cold-certified (level A0), H14a proven warm (850 s); learner loops: Horn-ICE NOT_RUN (no native implication checker), H-Houdini partial, cover-based exclusion executed",
+   "ground_truth_comparison": "the withheld prior independent effort (hao-pagewalk ic3_ledger, 37 rounds) closed this target only after proving hH_frac_leaf2 ('reference psize 4K at level != 0 => RTL PMA/PMP fracture bit', Hp 1143 s), after which the target proved in 17 s; the trial's next unproved dependency H14b ('reference page size vs its fracture outcome at FINISH') is the same relation, reached in 3 h without access to that record",
+   "defects_found_and_fixed": [
+    "submit.sh check: 'BUDGET: unbound variable' after submission, check job unlabelled and without --time (now check gets BUDGET default 2h, label and backstop; fake-sbatch test)",
+    "audit.py blocked on an open stdin when run from a shell (now reads stdin only with --hook; hooks.json updated; test)",
+    "no recipe for binding a read-only checker when the project Tcl elaborates itself (AGENTS \u00a71 now states the two-part source / single elaborate wrapper and the required baseline comparison)",
+    "template lacked the 'decision consistency' relation and the multi-alignment note (added to AGENTS \u00a73 and the method reference)",
+    "diagnostic ProofGrid-local switch and the baseline-vs-bounded-control distinction now stated",
+    "tools/jg_results.py added: extracts contract, native result, Cache and watchdog/KILL lines (the trial missed IPF057 proven lines and 21 watchdog kills for a while)"
+   ],
+   "evidence": "/formal_shared/diego1/.foo/validation/v2-trial-pagewalk/claude-trial/{TRIAL-REPORT.md,LEDGER.md,checker.tcl,aux_checker.sv,proof_graph.tcl,GRAPH-READY-NOTE.md,audit-log.txt,runs/}"
+  },
+  "open": [
+   "commit/tag on branch v2-release; push only on the user's go"
+  ],
+  "final_native_qualification_20261020": [
+   {
+    "release": "original",
+    "job": "65542384",
+    "recorded_at": "2026-10-20T19:25:32Z",
+    "plugin_runtime_sha256": "b8a5667f91cf207592205f4338799dd31ba9c0cb015113aa1cf48397872db053",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-final-original/cache",
+    "status": "PASS (fresh)",
+    "label": "2h class=experiment slurm_time_min=180"
+   },
+   {
+    "release": "june",
+    "job": "65542412",
+    "recorded_at": "2026-10-20T19:25:39Z",
+    "plugin_runtime_sha256": "b8a5667f91cf207592205f4338799dd31ba9c0cb015113aa1cf48397872db053",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-final-june/cache",
+    "status": "PASS (fresh)",
+    "label": "2h class=experiment slurm_time_min=180"
+   }
+  ],
+  "eval_suite_final_20261020": {
+   "utc": "2026-10-20T19:41:45Z",
+   "command": "claude plugin eval . --runs 2 --ablation none --trust-plugin --no-publish (prompts name the method without a slash command, so skill triggering is measured; Skill fired in every run)",
+   "results": {
+    "structural-first": "2/2",
+    "hazard-is-existential": "2/2",
+    "refuse-unlimited-run": "2/2 (after the no-unlimited-run rewrite)",
+    "inert-lemma-admission": "1/2 in each of three run-pairs: the failing answers followed the written rule (one admitted B by sufficiency as a single predicate, one split B after spotting its excess strength); judge disagreement, rubric widened to accept both, residual variance recorded, not tuned further",
+    "depth-ladder-reading": "1/2 in each of three run-pairs on method-correct answers (ladder identified, no mined lemma, structural candidates next); judge variance"
+   },
+   "reading": "LLM-judged evals are a behaviour signal, not a certificate: the plugin's behaviour matched the text in every run read; the two residual failures are rubric/judge variance on long correct answers. Total eval cost this day ~ USD 12."
+  }
+ }
+}

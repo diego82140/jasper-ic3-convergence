@@ -1,0 +1,33 @@
+{
+  "worker_sha256": "690e3ca961c62999509196ddb8a7f94a1707c6b129fa6f392f25b038206dad47",
+  "release": "Atlas internal source 51a5cecdf71a3ec1a6e88cc92fe6b4d38d5cae77",
+  "tier": "basic_with_retained_atom_names",
+  "name_layout": {
+    "circuit_from_jip": 64,
+    "names_data_from_circuit": 0,
+    "names_count_from_circuit": 8,
+    "pointer_stride": 8,
+    "formula_index_shift": 3,
+    "formula_sign_mask": 4,
+    "formula_composite_mask": 2
+  },
+  "native_report_layout": {
+    "report_object_from_jip": 472,
+    "vtable_slot": 0,
+    "signature": "void(object,const char*)",
+    "pure_console_helper_rva": "ca6390",
+    "pure_console_helper_guard": "4883ec08e847ca7bff488b0590ca2301"
+  },
+  "unqualified": [
+    "full_native_frames",
+    "full_native_queues",
+    "native_predecessor_pairs",
+    "RTL_roles",
+    "composite_formula_expansion"
+  ],
+  "qualification_scope": "Finite M/M4 native proven/cex checks and same-run fingerprint-matched retained-name display differential; rerun after producer change.",
+  "development_evidence": {
+    "job": 59463781,
+    "qualification": "/home/diego1/.cache/jipstats/1.6.1/qualification-acefl7cu"
+  }
+}
