@@ -9,7 +9,7 @@ Two versions ship from this repository and install side by side (distinct plugin
 ```
 
 Invoke the skill as `/jasper-ic3-convergence-v2:jasper-ic3-convergence` (v2) or `/jasper-ic3-convergence:jasper-ic3-convergence` (v1).
-v1 is a byte-for-byte snapshot of the original release (commit 98a455d) and is not maintained; everything below describes v2.
+v1 is a byte-for-byte snapshot of the original release (commit 98a455d) and is not maintained; everything below describes v2. What changed is summarised in [CHANGELOG.md](CHANGELOG.md).
 
 Development of the Claude Code convergence plugin and jipstats with complete, lossless disk capture. The current agent candidate is plugin 1.4.42-dev / jipstats 1.6.13-dev, with native components qualified in kit 1.4.41; the primary prebuilt files in this working tree remain the older 1.4.22 / 1.6.4 until final acceptance. The disk sink bypasses Jasper's GUI report callback for captured M/M4 cubes, frames, obligations and queries; exact-build capability limits are below. Streaming gzip stores the canonical evidence; optional verified post-close chain packing reduces permanent storage while reconstructing every original decoded byte. A disposable offline SQLite index supports complete payload exports without loading the history into memory.
 
