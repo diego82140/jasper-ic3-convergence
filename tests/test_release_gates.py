@@ -217,7 +217,10 @@ class SubmitGate(unittest.TestCase):
 class FakeSbatchSubmit(unittest.TestCase):
     """Drive submit.sh through its post-gate path with a fake sbatch that records its arguments."""
     def setUp(self):
-        # submit.sh rejects run directories under /tmp (not visible from the nodes): use a scratch dir inside tests/
+        # submit.sh rejects run directories under /tmp (not visible from the nodes): use a scratch dir inside tests/,
+        # and skip when the kit itself lives under /tmp (an installed copy in a scratch config dir)
+        if str(ROOT).startswith(('/tmp/', '/var/tmp/')):
+            self.skipTest('kit is under /tmp; submit.sh refuses run directories there by design')
         (ROOT / 'tests' / '.tmp').mkdir(exist_ok=True)
         self.d = Path(tempfile.mkdtemp(dir=ROOT / 'tests' / '.tmp')); (self.d / 'bin').mkdir(); (self.d / 'launch').mkdir(); (self.d / 'jasper' / 'bin').mkdir(parents=True)
         (self.d / 'jasper' / 'bin' / 'jaspergold').write_text('#!/bin/sh\n'); (self.d / 'jasper' / 'bin' / 'jaspergold').chmod(0o755)

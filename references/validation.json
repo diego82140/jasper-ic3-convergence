@@ -622,6 +622,33 @@
     "depth-ladder-reading": "1/2 in each of three run-pairs on method-correct answers (ladder identified, no mined lemma, structural candidates next); judge variance"
    },
    "reading": "LLM-judged evals are a behaviour signal, not a certificate: the plugin's behaviour matched the text in every run read; the two residual failures are rubric/judge variance on long correct answers. Total eval cost this day ~ USD 12."
+  },
+  "release_candidate_20261020": {
+   "utc": "2026-10-20T20:36:54Z",
+   "branch": "v2-release",
+   "tags": {
+    "v2.0.0": "head of v2-release",
+    "v1.3.0": "98a455d (GitHub main as of 2026-10-20; also frozen in-tree under v1/)"
+   },
+   "requalification_c993d69": [
+    {
+     "release": "original",
+     "job": "65552306",
+     "recorded_at": "2026-10-20T19:57:53Z",
+     "plugin_runtime_sha256": "42c1e1c893d93a1fa3eb2f4cfe25211dbd90e84babaf08df6c595d5dc8d5993b",
+     "status": "PASS (fresh)"
+    },
+    {
+     "release": "june",
+     "job": "65552307",
+     "recorded_at": "2026-10-20T19:58:22Z",
+     "plugin_runtime_sha256": "42c1e1c893d93a1fa3eb2f4cfe25211dbd90e84babaf08df6c595d5dc8d5993b",
+     "status": "PASS (fresh)"
+    }
+   ],
+   "install_test": "claude plugin marketplace add <kit path> + install of both jasper-ic3-convergence-v2@jasper-ic3-convergence (2.0.0; skill + PreToolUse/Stop hooks) and jasper-ic3-convergence@jasper-ic3-convergence (1.3.0; skill only) into an isolated CLAUDE_CONFIG_DIR: both install side by side; file modes preserved (jipstats, submit.sh, send.sh executable), jipstats byte-identical, gate tests and audit run from the installed copy. Finding: a local-path install copies git-ignored build directories, so rebuilt/ (94 MB) and third_party/ (109 MB) were moved beside the kit (jasper-ic3-convergence-build/) and package_release.py takes --inputs",
+   "shared_readability": "all evidence trees chmod a+rX (3,916 + 695 entries were unreadable to other users); submit.sh/jasper_job.sh now umask 022",
+   "publication": "GitHub main is still 98a455d; /formal_shared/diego1/ic3-agent main is d87c4ba. Publishing v2 = push v2-release and merge to main there, then `claude plugin marketplace update jasper-ic3-convergence` + install v2 on each user's machine. Not done: the user's go is required."
   }
  }
 }
