@@ -89,6 +89,7 @@ def chainpack(directory,verified_index=None,level=9):
         if not verified_index:reader.ingest(directory,index)
         reader.verify_index(index)
         with sqlite3.connect(index.resolve().as_uri()+'?mode=ro',uri=True) as db:
+            reader.require_current_validation(db)
             metadata=dict(db.execute('SELECT * FROM metadata'))
             reader.require(metadata.get('integrity')=='verified_observed_worker_files' and metadata.get('selection')=='all_worker_files','chainpack requires a complete strict index of all observed worker files')
             signatures=reader.verify_sources(db)

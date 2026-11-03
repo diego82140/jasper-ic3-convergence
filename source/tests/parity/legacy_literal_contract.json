@@ -1,0 +1,1392 @@
+{
+  "scope": "Literal call-site fields only; dynamic fragments and semantic applicability require separate review",
+  "source_sha256": {
+    "events.c": "53cd665c156e03018f9c06a1ad0f72df10588235446654bb998d3a762b001fa9",
+    "details.h": "9368dfec0467a12b86cfd3dbd2a1604ddfd898886a097f0b4052e1ab054c01da",
+    "semantics.h": "501d282480789c2562fa6a3acf18d66477a2ab8b3fb16d83d24fbc01355ced33",
+    "parity.h": "aa4288905b41df5ae7be3ef2fd9246c68afe660e7409ab6ff61a8eec1b95fc55",
+    "activations.h": "c6b251f3766b41b5f5404b94c7060b7c168b474e0b94bab7541f6d4d64bf5460"
+  },
+  "sites": [
+    {
+      "phases": [
+        "native_validation_missing"
+      ],
+      "fields": [
+        "boundary",
+        "capture_complete",
+        "expected_native_validation",
+        "native_final_event",
+        "validation_observed"
+      ]
+    },
+    {
+      "phases": [
+        "native_validation_abort"
+      ],
+      "fields": [
+        "abort_event",
+        "native_final_event",
+        "native_return_observed",
+        "native_validation_end_observed",
+        "reason",
+        "validation_outcome",
+        "validation_pass_observed"
+      ]
+    },
+    {
+      "phases": [
+        "native_tail_begin"
+      ],
+      "fields": [
+        "context_retained_until",
+        "native_final_event",
+        "native_lifetime_certified",
+        "native_validation_abort_event",
+        "native_validation_aborted",
+        "native_validation_expected",
+        "native_validation_observed",
+        "native_verdict_already_observed",
+        "proof_frontier",
+        "tail_binding"
+      ]
+    },
+    {
+      "phases": [
+        "tail_scope_violation"
+      ],
+      "fields": [
+        "capture_complete",
+        "hook",
+        "search_resumption_not_classified_as_cleanup"
+      ]
+    },
+    {
+      "phases": [
+        "init"
+      ],
+      "fields": [
+        "depth",
+        "details_abi"
+      ]
+    },
+    {
+      "phases": [
+        "frame_begin"
+      ],
+      "fields": [
+        "depth",
+        "observed_frame_calls"
+      ]
+    },
+    {
+      "phases": [
+        "relative_begin"
+      ],
+      "fields": [
+        "cube_lits",
+        "depth",
+        "flags",
+        "frame",
+        "generalization",
+        "nested_hooks_can_share_solver_work",
+        "operation",
+        "parent_query",
+        "query"
+      ]
+    },
+    {
+      "phases": [
+        "sat_begin"
+      ],
+      "fields": [
+        "assumptions",
+        "assumptions_id",
+        "budget",
+        "call",
+        "cube_lits",
+        "depth",
+        "flags",
+        "frame",
+        "relative_query"
+      ]
+    },
+    {
+      "phases": [
+        "push_begin"
+      ],
+      "fields": [
+        "call",
+        "depth",
+        "early",
+        "mode"
+      ]
+    },
+    {
+      "phases": [
+        "block_cube_begin",
+        "block_begin"
+      ],
+      "fields": [
+        "cube_lits",
+        "depth",
+        "operation"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_process_begin"
+      ],
+      "fields": [
+        "depth",
+        "obligation_id",
+        "operation",
+        "process_calls"
+      ]
+    },
+    {
+      "phases": [
+        "generalize_begin"
+      ],
+      "fields": [
+        "call",
+        "cube_lits",
+        "depth",
+        "frame",
+        "generalization"
+      ]
+    },
+    {
+      "phases": [
+        "run_begin"
+      ],
+      "fields": [
+        "depth"
+      ]
+    },
+    {
+      "phases": [
+        "final_begin"
+      ],
+      "fields": [
+        "depth",
+        "result_raw"
+      ]
+    },
+    {
+      "phases": [
+        "clause_insert_begin"
+      ],
+      "fields": [
+        "cube_id",
+        "frame",
+        "operation",
+        "pushed"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_enqueue_begin"
+      ],
+      "fields": [
+        "native_count",
+        "obligation_id",
+        "operation",
+        "queue_address"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_destroy"
+      ],
+      "fields": [
+        "native_address",
+        "obligation_id"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_cex_chain"
+      ],
+      "fields": [
+        "head_id",
+        "scope"
+      ]
+    },
+    {
+      "phases": [
+        "predecessor_cubes"
+      ],
+      "fields": [
+        "complete",
+        "frame",
+        "predecessor_cube_id",
+        "scope",
+        "source_cube_id"
+      ]
+    },
+    {
+      "phases": [
+        "relative_end"
+      ],
+      "fields": [
+        "cube_lits",
+        "frame",
+        "process_cpu_ns",
+        "query",
+        "result",
+        "result_raw",
+        "thread_cpu_ns",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "sat_end"
+      ],
+      "fields": [
+        "call",
+        "cube_lits",
+        "depth",
+        "elapsed",
+        "frame",
+        "process_cpu_ns",
+        "relative_query",
+        "result",
+        "result_raw",
+        "thread_cpu_ns",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "push_end"
+      ],
+      "fields": [
+        "depth",
+        "early",
+        "fixpoint",
+        "mode",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "block_end"
+      ],
+      "fields": [
+        "cube_lits",
+        "depth",
+        "operation",
+        "return_bool",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_process_end"
+      ],
+      "fields": [
+        "depth",
+        "obligation_id",
+        "operation",
+        "return_bool",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "generalize_end"
+      ],
+      "fields": [
+        "after",
+        "before",
+        "frame",
+        "generalization",
+        "return_bool",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "generalization_relation"
+      ],
+      "fields": [
+        "after_cube_id",
+        "before_cube_id",
+        "frame",
+        "generalization",
+        "improved",
+        "parent_generalization"
+      ]
+    },
+    {
+      "phases": [
+        "frame_end"
+      ],
+      "fields": [
+        "depth"
+      ]
+    },
+    {
+      "phases": [
+        "init_end"
+      ],
+      "fields": [
+        "depth",
+        "return_bool"
+      ]
+    },
+    {
+      "phases": [
+        "run_end"
+      ],
+      "fields": [
+        "depth",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "native_getstats"
+      ],
+      "fields": [
+        "clauses",
+        "coi_flops",
+        "fixpoint_clauses",
+        "fixpoint_frame",
+        "invariant_flops",
+        "source"
+      ]
+    },
+    {
+      "phases": [
+        "native_population_check"
+      ],
+      "fields": [
+        "include_invars",
+        "match",
+        "observed",
+        "original"
+      ]
+    },
+    {
+      "phases": [
+        "clause_insert_end"
+      ],
+      "fields": [
+        "cube_id",
+        "frame",
+        "operation",
+        "pushed"
+      ]
+    },
+    {
+      "phases": [
+        "subsumption_end"
+      ],
+      "fields": [
+        "by_cube_id",
+        "frame",
+        "method",
+        "operation",
+        "result_known",
+        "result_raw"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_enqueue_end"
+      ],
+      "fields": [
+        "after",
+        "before",
+        "obligation_id",
+        "operation",
+        "queue_address"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_dequeue"
+      ],
+      "fields": [
+        "discharge",
+        "list_node",
+        "obligation_id",
+        "source"
+      ]
+    },
+    {
+      "phases": [
+        "block_begin"
+      ],
+      "fields": [
+        "boundary",
+        "depth"
+      ]
+    },
+    {
+      "phases": [
+        "block_sample"
+      ],
+      "fields": [
+        "boundary",
+        "depth",
+        "early_push",
+        "long_queue",
+        "short_queue"
+      ]
+    },
+    {
+      "phases": [
+        "capture_error"
+      ],
+      "fields": [
+        "complete",
+        "operation"
+      ]
+    },
+    {
+      "phases": [
+        "model_epoch_begin"
+      ],
+      "fields": [
+        "boundary",
+        "mapping_equivalence",
+        "membership_baseline",
+        "old_records_retained"
+      ]
+    },
+    {
+      "phases": [
+        "model_context"
+      ],
+      "fields": [
+        "actual_circuit",
+        "actual_dims_read",
+        "actual_jip",
+        "actual_latches",
+        "actual_read",
+        "actual_vars",
+        "bound_circuit",
+        "bound_dims_read",
+        "bound_jip",
+        "bound_latches",
+        "bound_read",
+        "bound_vars",
+        "cause",
+        "epoch_circuit",
+        "epoch_latches",
+        "epoch_vars",
+        "lifetime_verified",
+        "run_unwound",
+        "seq"
+      ]
+    },
+    {
+      "phases": [
+        "signal"
+      ],
+      "fields": [
+        "active",
+        "active_known",
+        "init_known",
+        "init_raw",
+        "mapping",
+        "name_status",
+        "next_known",
+        "next_raw",
+        "role",
+        "variable"
+      ]
+    },
+    {
+      "phases": [
+        "signal_name_chunk"
+      ],
+      "fields": [
+        "bytes",
+        "offset",
+        "utf8_hex",
+        "variable"
+      ]
+    },
+    {
+      "phases": [
+        "signal_name_end"
+      ],
+      "fields": [
+        "bytes",
+        "complete",
+        "variable"
+      ]
+    },
+    {
+      "phases": [
+        "model"
+      ],
+      "fields": [
+        "formula_composite_mask",
+        "formula_index_shift",
+        "formula_sign_mask",
+        "frames_available",
+        "mapping",
+        "model_instance",
+        "n_inputs",
+        "n_latches",
+        "n_vars",
+        "native_context_known",
+        "queues_available",
+        "role_mapping",
+        "signal_names",
+        "worker_sha256"
+      ]
+    },
+    {
+      "phases": [
+        "model"
+      ],
+      "fields": [
+        "bad_raw",
+        "circuit_address",
+        "engine_index",
+        "formula_composite_mask",
+        "formula_index_shift",
+        "formula_sign_mask",
+        "model_instance",
+        "n_inputs",
+        "n_latches",
+        "n_vars",
+        "properties",
+        "restart_mode",
+        "signal_names",
+        "start_raw",
+        "worker_sha256"
+      ]
+    },
+    {
+      "phases": [
+        "cube_definition"
+      ],
+      "fields": [
+        "chunks",
+        "cube_id",
+        "domain",
+        "literals",
+        "model_qualified",
+        "order",
+        "scope",
+        "sha256"
+      ]
+    },
+    {
+      "phases": [
+        "cube_chunk"
+      ],
+      "fields": [
+        "count",
+        "cube_id",
+        "formulas",
+        "offset",
+        "values"
+      ]
+    },
+    {
+      "phases": [
+        "cube_definition_end"
+      ],
+      "fields": [
+        "complete",
+        "cube_id",
+        "literals"
+      ]
+    },
+    {
+      "phases": [
+        "cube"
+      ],
+      "fields": [
+        "capture_complete",
+        "cube_id",
+        "encoding",
+        "generalization",
+        "query",
+        "shown",
+        "total",
+        "truncated",
+        "when"
+      ]
+    },
+    {
+      "phases": [
+        "frame_chunk"
+      ],
+      "fields": [
+        "chunk_id",
+        "complete",
+        "encoding",
+        "members",
+        "sha256",
+        "tuples_hex"
+      ]
+    },
+    {
+      "phases": [
+        "frames_begin"
+      ],
+      "fields": [
+        "cause",
+        "frontier_count",
+        "invariant_frame",
+        "operation",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "frame"
+      ],
+      "fields": [
+        "cubes",
+        "frame",
+        "scope",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "frame_chunk_ref"
+      ],
+      "fields": [
+        "chunk_id",
+        "frame",
+        "members",
+        "offset",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "frame_member"
+      ],
+      "fields": [
+        "cube_id",
+        "frame",
+        "index",
+        "max_level",
+        "snapshot",
+        "validated"
+      ]
+    },
+    {
+      "phases": [
+        "frame_membership_add"
+      ],
+      "fields": [
+        "cause",
+        "cube_id",
+        "frame",
+        "operation",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "frame"
+      ],
+      "fields": [
+        "complete",
+        "cubes",
+        "frame",
+        "ref_chunk",
+        "scope",
+        "sha256",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "frame_manifest_end"
+      ],
+      "fields": [
+        "complete",
+        "cubes",
+        "frame",
+        "refs",
+        "sha256",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "frame_membership_remove"
+      ],
+      "fields": [
+        "cause",
+        "cube_id",
+        "frame",
+        "operation",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "frames_end"
+      ],
+      "fields": [
+        "complete",
+        "members",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "obligation_update",
+        "obligation"
+      ],
+      "fields": [
+        "cex_size",
+        "cube_id",
+        "disabled",
+        "frame",
+        "may",
+        "native_address",
+        "obligation_id",
+        "parent_id",
+        "previous_frame",
+        "relation"
+      ]
+    },
+    {
+      "phases": [
+        "queues_begin"
+      ],
+      "fields": [
+        "budget",
+        "cause",
+        "early_push_countdown",
+        "long_processed",
+        "long_queue",
+        "long_window",
+        "max_sampling_window",
+        "operation",
+        "sampling_window",
+        "short_processed",
+        "short_queue",
+        "short_window",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "queue_member"
+      ],
+      "fields": [
+        "frame",
+        "index",
+        "obligation_id",
+        "queue",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "queue_end"
+      ],
+      "fields": [
+        "complete",
+        "native_count",
+        "observed",
+        "queue",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "queue_membership_remove"
+      ],
+      "fields": [
+        "cause",
+        "list_node",
+        "obligation_id",
+        "operation",
+        "semantics",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "queues_end"
+      ],
+      "fields": [
+        "complete",
+        "snapshot"
+      ]
+    },
+    {
+      "phases": [
+        "native_final_check"
+      ],
+      "fields": [
+        "match",
+        "observed_clauses",
+        "observed_coi_flops",
+        "observed_fixpoint_clauses",
+        "observed_invariant_flops",
+        "original_clauses",
+        "original_coi_flops",
+        "original_fixpoint_clauses",
+        "original_invariant_flops",
+        "read_complete"
+      ]
+    },
+    {
+      "phases": [
+        "final"
+      ],
+      "fields": [
+        "block_calls",
+        "callback_failures",
+        "clauses",
+        "coi_flops",
+        "cube_definitions",
+        "depth",
+        "final_native_stats_available",
+        "final_stats_checks",
+        "final_stats_mismatch",
+        "fixpoint_clauses",
+        "fixpoint_frame",
+        "frame_snapshots",
+        "frontier_count",
+        "generalize_calls",
+        "invariant_flops",
+        "lost",
+        "obligation_identities",
+        "obligation_process_calls",
+        "obligations_created",
+        "population_checks",
+        "population_mismatch",
+        "push_calls",
+        "queue_snapshots",
+        "read_failures",
+        "relative_calls",
+        "relative_limit",
+        "relative_sat",
+        "relative_unsat",
+        "result",
+        "result_raw",
+        "solver_calls",
+        "solver_limit",
+        "solver_sat",
+        "solver_unsat"
+      ]
+    },
+    {
+      "phases": [
+        "subsumption_result"
+      ],
+      "fields": [
+        "by_cube_id",
+        "frame",
+        "method",
+        "operation",
+        "removed",
+        "result_bool",
+        "result_known"
+      ]
+    },
+    {
+      "phases": [
+        "subsumption_edge"
+      ],
+      "fields": [
+        "frame",
+        "operation",
+        "removed_cube_id",
+        "source",
+        "subsuming_cube_id"
+      ]
+    },
+    {
+      "phases": [
+        "sat_begin"
+      ],
+      "fields": [
+        "assumptions",
+        "assumptions_id",
+        "avoid_model",
+        "budget",
+        "call",
+        "cube_lits",
+        "depth",
+        "flags",
+        "frame",
+        "native_callsite",
+        "query_kind",
+        "relative_query"
+      ]
+    },
+    {
+      "phases": [
+        "sat_end"
+      ],
+      "fields": [
+        "call",
+        "cube_lits",
+        "depth",
+        "elapsed",
+        "frame",
+        "native_callsite",
+        "process_cpu_ns",
+        "query_kind",
+        "relative_query",
+        "result",
+        "result_raw",
+        "thread_cpu_ns",
+        "wall_ns"
+      ]
+    },
+    {
+      "phases": [
+        "run_contract"
+      ],
+      "fields": [
+        "abort_terminal_tracking",
+        "activation_tracking",
+        "additional_Dollar_record_schema",
+        "chain_algorithm",
+        "completion_tail_tracking",
+        "context_formula_closed",
+        "cubes_enabled",
+        "details_abi",
+        "frame_encoding",
+        "manifest_scope",
+        "model_epoch_tracking",
+        "native_exception_transparency_qualified",
+        "native_query_results_are_not_proof_certificates",
+        "native_unwind_return_restore",
+        "producer",
+        "relative_false",
+        "relative_true",
+        "relative_unknown",
+        "rtl_mapping_complete",
+        "semantic_schema",
+        "snapshot_policy",
+        "solver_model",
+        "solver_unsat",
+        "solver_unsat_assume",
+        "source_contract",
+        "source_sha256",
+        "transition_graph_exported",
+        "validation_abort_tracking",
+        "worker_sha256"
+      ]
+    },
+    {
+      "phases": [
+        "semantic_rule"
+      ],
+      "fields": [
+        "concrete_reachability",
+        "formula",
+        "global_invariant",
+        "rule",
+        "sat_conclusion",
+        "unsat_conclusion"
+      ]
+    },
+    {
+      "phases": [
+        "semantic_rule"
+      ],
+      "fields": [
+        "formula",
+        "missing_checks",
+        "rule",
+        "unsat_conclusion"
+      ]
+    },
+    {
+      "phases": [
+        "semantic_rule"
+      ],
+      "fields": [
+        "base_repair",
+        "blocking_clause",
+        "frame_membership",
+        "minimize_output",
+        "rule",
+        "state_vs_transition",
+        "verdict"
+      ]
+    },
+    {
+      "phases": [
+        "operation_enter"
+      ],
+      "fields": [
+        "entry_revision",
+        "kind",
+        "native_entry",
+        "operation",
+        "parent_operation"
+      ]
+    },
+    {
+      "phases": [
+        "context_mutation"
+      ],
+      "fields": [
+        "coverage",
+        "kind",
+        "operation",
+        "revision"
+      ]
+    },
+    {
+      "phases": [
+        "operation_exit"
+      ],
+      "fields": [
+        "entry_revision",
+        "exit_revision",
+        "kind",
+        "operation",
+        "parent_operation"
+      ]
+    },
+    {
+      "phases": [
+        "query_context"
+      ],
+      "fields": [
+        "abstraction_status",
+        "assumes_not_cube_current",
+        "base_check",
+        "basis",
+        "context_complete",
+        "entry_revision",
+        "fixed_budget_requested",
+        "flags",
+        "frame",
+        "growing_budget_requested",
+        "input_cube_id",
+        "native_entry",
+        "operation",
+        "parent_kind",
+        "parent_operation",
+        "query",
+        "query_class",
+        "request_minimize",
+        "request_model"
+      ]
+    },
+    {
+      "phases": [
+        "query_conclusion"
+      ],
+      "fields": [
+        "conclusion",
+        "concrete_cex_validated",
+        "entry_revision",
+        "exit_revision",
+        "global_step_validated",
+        "initialization_validated",
+        "input_cube_id",
+        "model_witness_exported",
+        "output_cube_id",
+        "output_initial_repair",
+        "promote_to_global_lemma",
+        "query",
+        "result_raw",
+        "scope",
+        "unsat_core_exported"
+      ]
+    },
+    {
+      "phases": [
+        "run_abort_seal",
+        "run_seal"
+      ],
+      "fields": [
+        "abort_event",
+        "activation_aborts",
+        "activation_begins",
+        "activation_live",
+        "activation_returns",
+        "capture_status",
+        "context_revision",
+        "emission_wall_ns_lower_bound",
+        "events_before_seal",
+        "final_event",
+        "global_lemma_validation",
+        "native_exception_transparency_qualified",
+        "native_final_observed",
+        "native_unwind_aborts",
+        "native_unwind_return_restore",
+        "native_unwind_runtime_fault",
+        "observer_errors",
+        "relative_queries",
+        "run_closed",
+        "session_scope",
+        "solver_queries",
+        "terminal_kind"
+      ]
+    },
+    {
+      "phases": [
+        "parity_record"
+      ],
+      "fields": [
+        "bytes",
+        "family",
+        "parity_sequence",
+        "sha256",
+        "source"
+      ]
+    },
+    {
+      "phases": [
+        "parity_record_chunk"
+      ],
+      "fields": [
+        "bytes",
+        "offset",
+        "parity_sequence",
+        "utf8_hex"
+      ]
+    },
+    {
+      "phases": [
+        "parity_record_end"
+      ],
+      "fields": [
+        "bytes",
+        "complete",
+        "parity_sequence"
+      ]
+    },
+    {
+      "phases": [
+        "dollar_scalar_extension"
+      ],
+      "fields": [
+        "generalize_success",
+        "generalized_lits",
+        "relative_limit",
+        "relative_sat",
+        "relative_unsat"
+      ]
+    },
+    {
+      "phases": [
+        "native_validation_begin"
+      ],
+      "fields": [
+        "context",
+        "not_inferred_from_final_verdict",
+        "props"
+      ]
+    },
+    {
+      "phases": [
+        "native_validation_stage"
+      ],
+      "fields": [
+        "checks",
+        "result",
+        "stage"
+      ]
+    },
+    {
+      "phases": [
+        "native_validation_stage"
+      ],
+      "fields": [
+        "checks",
+        "result",
+        "stage"
+      ]
+    },
+    {
+      "phases": [
+        "native_validation_stage"
+      ],
+      "fields": [
+        "checks",
+        "result",
+        "stage"
+      ]
+    },
+    {
+      "phases": [
+        "native_validation_solver"
+      ],
+      "fields": [
+        "callsite",
+        "native_reachable_cex",
+        "real_solver",
+        "result",
+        "result_raw"
+      ]
+    },
+    {
+      "phases": [
+        "native_validation_end"
+      ],
+      "fields": [
+        "all_three_native_success_boundaries",
+        "base_checks",
+        "failed",
+        "inconclusive",
+        "outcome",
+        "property_checks",
+        "step_checks"
+      ]
+    },
+    {
+      "phases": [
+        "native_ic3_configuration"
+      ],
+      "fields": [
+        "abstraction_mode",
+        "config_source",
+        "engine_index",
+        "m4_quip_serialization_key",
+        "quip_mode",
+        "restart_mode",
+        "satelite"
+      ]
+    },
+    {
+      "phases": [
+        "observer_error"
+      ],
+      "fields": [
+        "native_return_inferred",
+        "reason"
+      ]
+    },
+    {
+      "phases": [
+        "sat_abort"
+      ],
+      "fields": [
+        "activation",
+        "call",
+        "native_callsite",
+        "native_return_observed",
+        "reason",
+        "relative_query"
+      ]
+    },
+    {
+      "phases": [
+        "query_abort"
+      ],
+      "fields": [
+        "activation",
+        "frame",
+        "native_return_observed",
+        "operation",
+        "output_cube_inferred",
+        "query",
+        "reason"
+      ]
+    },
+    {
+      "phases": [
+        "sat_abort"
+      ],
+      "fields": [
+        "activation",
+        "call",
+        "native_return_observed",
+        "reason",
+        "relative_query"
+      ]
+    },
+    {
+      "phases": [
+        "invocation_abort"
+      ],
+      "fields": [
+        "activation",
+        "gum_depth",
+        "hook",
+        "native_return_observed",
+        "operation",
+        "query",
+        "reason"
+      ]
+    },
+    {
+      "phases": [
+        "operation_abort"
+      ],
+      "fields": [
+        "entry_revision",
+        "exit_revision",
+        "kind",
+        "native_return_observed",
+        "operation",
+        "parent_operation",
+        "reason"
+      ]
+    },
+    {
+      "phases": [
+        "unwind_handler"
+      ],
+      "fields": [
+        "actions",
+        "activation",
+        "native_activation_cfa",
+        "native_handler_cfa",
+        "native_resume_preserved"
+      ]
+    },
+    {
+      "phases": [
+        "listener_alias"
+      ],
+      "fields": [
+        "activation",
+        "canonical_entry",
+        "distinct_native_call",
+        "duplicate_listener",
+        "native_entry",
+        "resolved_entry"
+      ]
+    },
+    {
+      "phases": [
+        "invocation_begin"
+      ],
+      "fields": [
+        "activation",
+        "binding",
+        "gum_depth",
+        "hook",
+        "native_lifetime_certified",
+        "operation",
+        "parent_activation",
+        "run_generation"
+      ]
+    },
+    {
+      "phases": [
+        "invocation_return"
+      ],
+      "fields": [
+        "activation",
+        "gum_depth",
+        "hook",
+        "native_return_observed",
+        "operation"
+      ]
+    }
+  ],
+  "source_revision": "f358b1a924bbc7915ea010e963be8c7ee4bf9940"
+}

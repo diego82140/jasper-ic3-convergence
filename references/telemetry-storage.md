@@ -20,7 +20,7 @@ The disk sink diverts observer reports before Jasper's report callback, avoiding
 
 Every observed record/payload is emitted without a record cap, as bounded chunks into streaming gzip level 1. Cube dedup retains at most 65,536 hash/ID/count entries, without literal copies; eviction re-emits a fresh full definition. Adaptive frames preserve every ordered `(cube_id, packed_flags)` tuple, including duplicates, using 64-member immutable chunks and a bounded 16,384-entry reuse cache. Empty/tiny frames have an atomic declaration; larger frames have an independently checked closure. Live membership, variable-name and obligation state still scale with the native model; this is not a constant-memory theorem. At checkpoints/seals, gzip finishes a CRC-protected member before synchronization and manifest publication. Later records can start another member. Disk/compression failure exits 74 rather than silently losing data. Abrupt termination can still leave an unsealed or unreadable stream.
 
-`full` means complete **observed** data at qualified hooks, not every hidden SAT formula, transition-graph mapping or concrete trace. The two Cadence adapters expose cubes, names, frame snapshots/deltas, predecessor pairs, queries/operations and queues at their qualified boundaries. Native sampled displays remain distinct from full schema payloads.
+`full` means complete **observed** data at qualified hooks, not every hidden SAT formula, transition-graph mapping or concrete trace. The four exact Cadence adapters expose cubes, names, frame snapshots/deltas, predecessor pairs, queries/operations and queues at their qualified boundaries. Native sampled displays remain distinct from full schema payloads.
 
 Membership add/remove records describe set changes; duplicate occurrences and flags remain in the ordered tuples. Adds from an unfinished snapshot are provisional. Apply deltas only after its `frames_end complete=1`; a failed scan rolls back new internal entries so a later successful scan can re-emit them.
 
@@ -32,8 +32,10 @@ Supported exact workers:
 |---|---|---|
 | `/projects/external_ip/cadence/jasper_2026.0920260826065032` | `b5006df1` | Qualified full-detail ABI |
 | `/projects/external_ip/cadence/jasper_2026.06p002` | `e8cbfa93` | Full-detail ABI; old Dollar named renderer/getCex convenience hook unqualified |
+| `/projects/external_ip/cadence/jasper_2026.09` | `b3e7723c` | Qualified production full-detail ABI |
+| `/projects/external_ip/cadence/jasper_2026.09p001` | `e1b53cf5` | Qualified p001 full-detail ABI |
 
-Unknown hashes fail closed. Qualification keys include worker, profile, library, launcher and capture/transport policy. Another release's PASS or a previous producer's PASS is insufficient. `--check` compares M/M4 native proof/CEX fixtures with and without instrumentation; it is not a target proof or universal hidden-formula certificate. Fresh checks use RUN/cache; logs identify fresh/cached provenance, native job and timestamp. To reuse one, pass `XDG_CACHE_HOME=CHECK/cache` through `PASS_ENV`.
+At this site `/projects/external_ip` resolves into `/projects/external_ip2`; a resolved path alone is not a release mismatch. Verify the exact worker hash. Unknown hashes fail closed. Qualification keys include worker, profile, library, launcher and capture/transport policy. Another release's PASS or a previous producer's PASS is insufficient. `--check` compares M/M4 native proof/CEX fixtures with and without instrumentation; it is not a target proof or universal hidden-formula certificate. Fresh checks use RUN/cache; logs identify fresh/cached provenance, native job and timestamp. To reuse one, pass `XDG_CACHE_HOME=CHECK/cache` through `PASS_ENV`.
 
 The current development launcher defaults to disk/full/gzip with `tuple_chunks_v2`; direct launches without `--evidence-dir` print a fresh capture directory in the working directory. Slurm supplies an explicit shared directory. Console transport is an explicit retention-comparison option. Full-detail qualification uses the same strict streaming reader as analysis, with a disposable index and no uncompressed mirror. It requires standard Python 3 and the complete plugin's `tools/` directory; the launcher's own runtime remains bundled. Reader SHA joins the qualification key. Unreleased candidates and their actual dispositions are recorded in `validation.json`; do not infer that the older primary binary has these defaults.
 
@@ -86,15 +88,27 @@ Canonical files are `RUN/telemetry/events-*.log.gz` and worker manifests. `captu
 Index only stable files after workers stop:
 
 ```bash
+set -euo pipefail   # stop at the first failed stage: nothing later runs, no temp file is promoted
 python3 "$K/tools/telemetry_db.py" ingest /shared/diag/telemetry /shared/diag/index.db
 python3 "$K/tools/telemetry_db.py" summary /shared/diag/index.db
 python3 "$K/tools/telemetry_db.py" frame-members /shared/diag/index.db '<exact-key>' 3 2
-python3 "$K/tools/telemetry_db.py" frame-members /shared/diag/index.db '<exact-key>' 3 --all-frames > /shared/diag/frontier.tmp && mv /shared/diag/frontier.tmp /shared/diag/frontier.jsonl
+python3 "$K/tools/telemetry_db.py" frame-members /shared/diag/index.db '<exact-key>' 3 --all-frames > /shared/diag/frontier.tmp
+mv /shared/diag/frontier.tmp /shared/diag/frontier.jsonl
 python3 "$K/tools/telemetry_db.py" export /shared/diag/index.db --run '<exact-key>' --cube 123
 python3 "$K/tools/telemetry_db.py" payload /shared/diag/index.db '<exact-key>' cube 123
-python3 "$K/tools/telemetry_db.py" cube-ids /shared/diag/index.db '<exact-key>' --domain jip_formula > /shared/diag/ids.txt
-python3 "$K/tools/telemetry_db.py" decode-cubes /shared/diag/index.db '<exact-key>' --ids-file /shared/diag/ids.txt > /shared/diag/decoded.tmp && mv /shared/diag/decoded.tmp /shared/diag/decoded.jsonl
+# optional inventory of every complete payload in one domain (not needed for a selection)
+python3 "$K/tools/telemetry_db.py" cube-ids /shared/diag/index.db '<exact-key>' --domain jip_formula > /shared/diag/all-ids.tmp
+mv /shared/diag/all-ids.tmp /shared/diag/all-ids.txt
+# selection streamed from the same-run frontier export above (unique IDs; frontier.jsonl keeps order and duplicates)
+python3 -c 'import json,sys;sys.stdout.writelines("%d\n"%json.loads(l)["cube_id"] for l in sys.stdin)' < /shared/diag/frontier.jsonl | sort -n -u -S 64M -T /shared/diag > /shared/diag/selected.tmp
+mv /shared/diag/selected.tmp /shared/diag/selected-ids.txt
+python3 "$K/tools/telemetry_db.py" decode-cubes /shared/diag/index.db '<exact-key>' --ids-file /shared/diag/selected-ids.txt > /shared/diag/decoded.tmp
+mv /shared/diag/decoded.tmp /shared/diag/decoded.jsonl
 ```
+
+`export` emits canonical text records, not JSON; `summary`, `frame-members` and `decode-cubes` emit JSON lines. `payload` returns the selected payload bytes. `decode-cubes` still checks each ID's domain and mapping and fails rather than skipping.
+
+Strict `ingest` already verified the whole capture, so completeness alone does not require a decoded text copy. Choose the scope from the question (a closed frontier, one consumer's CTIs, a family, or the whole history when the question needs it), estimate output size first and stream large analyses. Every selected payload is decoded completely.
 
 No selector truncates output. Frame rows label `native_phase=search` or `post_final_cleanup` from the actual frame event boundary. `frame-members` expands every ordered tuple for either legacy or compact transport; raw `export --phase frame_member` applies only to legacy records. Explicit `--offset`/`--limit` permit display pages without capping the canonical archive or the default export. Cube IDs are run-local: `export --cube` requires `--run`; it includes all source/predecessor/before/after roles once and every referencing compact snapshot. Unknown runs fail. Older indexes require fresh ingestion. `summary` distinguishes the last closed search frame (possibly empty) from an earlier nonempty snapshot and excludes post-final cleanup; neither is a global invariant.
 
@@ -104,9 +118,11 @@ Ingest verifies sequence/hash chains, payload reconstruction, manifest count/tip
 
 Successful ingestion closes SQLite, then writes `INDEX.db.integrity.json`. Keep it with the index; old indexes require fresh ingestion, never an arbitrary checksum for an untrusted cache. Each query verifies index SHA/length and every source's decoded SHA/length/CRC before output and again at completion, with 1 MiB buffers. This detects accidental source/cache changes and persistent concurrent writes, including coarse shared-filesystem mtimes. A failed command may already have printed a prefix: discard it; publish temporary outputs only after exit 0. These trusted checksums are not authentication against rewriting both data and receipts. Batch queries share the two source passes and two index hash passes.
 
-Decode only same-run `jip_formula` literals using captured shift/sign and retained name inversion (`retained_name_inverted`). SAT-raw literals have a different unqualified encoding. Missing/composite/empty names, unresolved RTL roles and absent vector bits stay unknown; verify RTL widths before reconstructing vectors. A valid zero-byte terminal name chunk is not a missing whole name. Operation IDs/nesting distinguish multiple native init calls in one run; budget-stopped unmatched begins stay unmatched. Property names are not yet provably mapped to every worker/run: retain per-prove/dispatch receipts and label ambiguous associations.
+A `predecessor_cubes` event has no explicit query field. A shared enclosing `op_id` or adjacent SAT query establishes context or sequence, not a unique query-to-predecessor binding; leave that association unqualified unless another qualified record supplies it.
 
-`native-display` streams tagged `NATIVE_IC3_REPORT` text only. Never substitute it for full cubes or invent identities for untagged projections. Validation-stage outcomes aggregate checks seen so far in that run; a pass with `checks=0` reports an empty conjunction at an observed boundary, not a property certificate. Legacy `jipstats --analyse --details` and `basis.py` load substantial history: use only a deliberately small complete selected run. Statistical name voting, merging M/M4 IDs, unknown-as-zero and CTI-as-reachable labels are forbidden.
+Decode only same-run `jip_formula` literals using captured shift/sign and retained name inversion (`retained_name_inverted`). SAT-raw literals have a different unqualified encoding. Missing/composite/empty names, unresolved RTL roles and absent vector bits stay unknown; verify RTL widths before reconstructing vectors. A projection statistic such as `max_bit_seen` is the highest constrained index, not a declared width; obtain widths from the elaborated types/parameters, leaving absent higher bits unknown. A valid zero-byte terminal name chunk is not a missing whole name. Operation IDs/nesting distinguish multiple native init calls in one run; budget-stopped unmatched begins stay unmatched. Property names are not yet provably mapped to every worker/run: retain per-prove/dispatch receipts and label ambiguous associations.
+
+`native-display` streams tagged `NATIVE_IC3_REPORT` text only. Dollar-compatible named CTI displays are also stored as verified `parity_record` payloads: retrieve the selected full payload with `payload ... parity ID`. Empty `native-display` output does not establish that no CTIs were captured. Never substitute it for full cubes or invent identities for untagged projections. Validation-stage outcomes aggregate checks seen so far in that run; a pass with `checks=0` reports an empty conjunction at an observed boundary, not a property certificate. Legacy `jipstats --analyse --details` and `basis.py` load substantial history: use only a deliberately small complete selected run. Statistical name voting, merging M/M4 IDs, unknown-as-zero and CTI-as-reachable labels are forbidden.
 
 For minimal retained space, keep compressed canonical records/manifests plus small native/evaluation receipts. Delete disposable indexes, their integrity receipts and temporary exports when no longer needed; retain small disposal/hash receipts needed for audit. After all workers close, `archive_pack.py DIRECTORY --recompress` verifies exact decoded SHA/length and stability, then atomically keeps a smaller gzip-9 result. Decoded bytes/offsets stay unchanged; rebuild indexes if source paths move. Unlimited exact history has no finite disk quota: stop cleanly with an explicit incomplete diagnostic at capacity, rather than cap or truncate evidence.
 

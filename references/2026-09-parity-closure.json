@@ -1,0 +1,217 @@
+{
+  "status": "PASS_FINITE_CTI_AGENT_PARITY",
+  "strict_complete_stream_status": "FAIL",
+  "publication_allowed": false,
+  "updated_at": "2026-11-03T15:57:47.534465+00:00",
+  "producer_version": "1.6.15-dev",
+  "library_sha256": "98d9f845e177f941b7422656549159ca382a3ba6efb3a04deff6150a46ead78b",
+  "jipstats_sha256": "a25a738508d8a28b5278c7f9e79985126b26e20d6646c9b763c728927e24bee5",
+  "streaming_reader_sha256": "f81199d461a0cfdbaa23c3eaefc3bf5adc4365ff50ffd076b14f6069649e6608",
+  "native_qualifications": [
+    {
+      "build": "production",
+      "job": "2385172",
+      "status": "PASS",
+      "worker_sha256": "b3e7723c4335266b1cd1436277111d54ee7802944b8b4f7d6eaacaa28b7c84b4",
+      "checks": 8,
+      "peak_rss": 1187115008,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-reader-production/cache/jipstats/1.6.15-dev/qualification-5c5v5aqv/QUALIFICATION.json",
+      "sha256": "df3ea1087e225369d1429491414b18fee7c3c8979a498b11107dfb45713dc847"
+    },
+    {
+      "build": "production-p001",
+      "job": "2385374",
+      "status": "PASS",
+      "worker_sha256": "e1b53cf546e048df0f9996646afba34b0faf7b38095b22ed700a507b64cf4e7b",
+      "checks": 8,
+      "peak_rss": 1073594368,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-production-p001/cache/jipstats/1.6.15-dev/qualification-3v8w_2st/QUALIFICATION.json",
+      "sha256": "632e5446436e8b2e314917924ad3723d900ea5b93a433510c9644970ea427f14"
+    },
+    {
+      "build": "prerelease",
+      "job": "2385297",
+      "status": "PASS",
+      "worker_sha256": "b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604",
+      "checks": 8,
+      "peak_rss": 1180569600,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-prerelease/cache/jipstats/1.6.15-dev/qualification-fd9mnx2h/QUALIFICATION.json",
+      "sha256": "010ace4154e2911597841c89262a05d28aae2ba39cf9d0e089b1eabecd6db918"
+    },
+    {
+      "build": "june",
+      "job": "2385520",
+      "status": "PASS",
+      "worker_sha256": "e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d",
+      "checks": 8,
+      "peak_rss": 1165570048,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-june/cache/jipstats/1.6.15-dev/qualification-zayaod9u/QUALIFICATION.json",
+      "sha256": "b4a5c136f5db3ca5c069ddb9240d74044688181905f71600bcece209f41c4251"
+    }
+  ],
+  "native_corpus": {
+    "job": "2385636",
+    "path": "/projects/diego1/jasper-202609-validation/information-parity-r7/INFORMATION-PARITY.json",
+    "sha256": "abeb1aa7d04a9a4dd6af7b775d7557ecf8314a44d62a9256ce0ea4028f134452",
+    "status": "FAIL",
+    "capture_cells": 30,
+    "plain_controls": 30,
+    "canonical_records": 433086,
+    "strict_failures": 4,
+    "required_content_exercised": true,
+    "phase_inventories_equal": true,
+    "legacy_displays_equal": true,
+    "native_verdicts_equal": true,
+    "only_differing_fields": [
+      "list_node",
+      "native_address"
+    ],
+    "full_difference_audit": {
+      "path": "/projects/diego1/jasper-202609-validation/parity-closure/ALL-STRICT-DIFFERENCES-r7.json",
+      "sha256": "c72fa19db3aa06505f0b8386b8570d92256629d6ce65feb3c99ba419245025d2"
+    }
+  },
+  "raw_alias_history": {
+    "path": "/projects/diego1/jasper-202609-validation/parity-closure/RAW-ALIAS-WITNESSES-r7.json",
+    "sha256": "eef276c7e41ddf6d03978263d4b1d884a57c62323e315882ce84c85f5fa20187",
+    "status": "BIJECTION_REFUTED_ON_CORPUS",
+    "meaning": "Different allocator address-reuse histories; no single worker-wide numeric-address bijection. This is not a missing-field finding."
+  },
+  "observer_associations": {
+    "job": "2385798",
+    "path": "/projects/diego1/jasper-202609-validation/parity-closure/ASSOCIATION-REPLAY-r7.json",
+    "sha256": "699914d652e89126bc7bd60ae11f23551b7190dc41ad5f2539f9b47ed71eab73",
+    "status": "PASS",
+    "cases": 30,
+    "counts": {
+      "complete_queue_snapshots": 7473,
+      "qualified_owner_uses": 12297,
+      "obligation_definitions": 2061,
+      "paired_enqueues": 2493,
+      "queue_occurrences": 127536,
+      "obligation_retirements": 2061,
+      "qualified_unlinks": 6
+    },
+    "scope": "strictly reconstructed emitted observer associations; not a native allocation-lifetime proof or an information-parity verdict"
+  },
+  "tests": {
+    "job": "2396264",
+    "automated": 203,
+    "status": "PASS",
+    "native_archive_corruption_checks": "PASS",
+    "adapted_independent_review_selftests": 16,
+    "feature_matrix_job": "2384952",
+    "feature_matrix_status": "PASS",
+    "negative_semantic_binding_mutations": 6,
+    "negative_semantic_binding_job": "2375296"
+  },
+  "source_contract": {
+    "baseline_revision": "f358b1a924bbc7915ea010e963be8c7ee4bf9940",
+    "baseline_emit_sites": 102,
+    "literal_phase_coverage": [
+      95,
+      95
+    ],
+    "missing_literal_fields": {},
+    "unexercised_emit_sites": [],
+    "path": "/projects/diego1/jasper-202609-validation/parity-closure/COVERAGE-r7.json",
+    "sha256": "a41cad1eb5c05ecf70fe5854ea62914b4a10e87d097771b6484ee90f9028eb32"
+  },
+  "legacy_preservation": {
+    "path": "/projects/diego1/jasper-202609-validation/parity-closure/LEGACY-PRESERVATION.json",
+    "sha256": "9dff92940e3e666ed4d70578bb6d98f6afc770405214c5c20513339179222514"
+  },
+  "reviews": [
+    {
+      "request_id": "433aa06a-81e1-4429-b8e8-65e273fca348",
+      "status": "done",
+      "send_count": 1,
+      "model": "GPT-6 Pro",
+      "reasoning": "4/max4",
+      "path": "/projects/diego1/jasper-202609-validation/review/receipt.json",
+      "sha256": "f8226926b162a540a0ac52a16b9fc847808aafa262942e807ddef679ae21d579"
+    },
+    {
+      "request_id": "94ca0207-ed25-4fc2-aa17-96c3072f964b",
+      "status": "done",
+      "send_count": 1,
+      "model": "GPT-6 Pro",
+      "reasoning": "4/max4",
+      "path": "/projects/diego1/jasper-202609-validation/parity-closure-review/receipt.json",
+      "sha256": "7547ea927c1525c7b2e6536938e19b7ee3fae8b41bdc9e42241b3e1cbb3f7da2"
+    },
+    {
+      "request_id": "a8b04c48-acb7-4032-8e8d-d84501e883bb",
+      "status": "done",
+      "send_count": 1,
+      "model": "GPT-6 Pro",
+      "reasoning": "4/max4",
+      "path": "/projects/diego1/jasper-202609-validation/parity-closure-protocol-review/receipt.json",
+      "sha256": "4f6302a7a61d3fc7f8579d548daf785d79490c91583e438ef24648e702f15ad1"
+    },
+    {
+      "request_id": "06cc150e-dd2e-4572-a307-ca848452374a",
+      "status": "done",
+      "send_count": 1,
+      "model": "GPT-6 Pro",
+      "reasoning": "4/max4",
+      "path": "/projects/diego1/jasper-202609-validation/parity-address-contract-review/receipt.json",
+      "sha256": "384275930ed2996d934a03246da4c03cfaeb4568ad453bd792da73052b42298a"
+    }
+  ],
+  "further_review": {
+    "request_id": "a7d9ba24-045e-4932-84ba-f9382598ae8e",
+    "status": "failed",
+    "send_count": 0,
+    "error": "BROWSER_NOT_READY: model menu unavailable; {\"visibility\":\"hidden\",\"ready\":\"complete\",\"editors\":1,\"pickers\":1,\"login\":false}",
+    "maintainer_queue_message": "01a19fda-70d1-7c91-a3e9-e7b9a97c1763",
+    "receipt": {
+      "path": "/projects/diego1/jasper-202609-validation/parity-reader-joins-review/reply.json",
+      "sha256": "6cd1ba14438afb778884d3fb9a20fc7554b0cd27aaa3b5f7b77a29ba94a69ae5"
+    }
+  },
+  "remaining_work": [
+    "Independent new direct-CTI comparison review remains unaccepted: request d0ae36f9 failed before Send; preserve it, no automatic replay.",
+    "Universal native allocation lifetime, full hidden native wire semantics and all-design instrumentation transparency are not claimed by this finite candidate.",
+    "End-to-end natural Claude agent validation and unresolved CEQ target work remain separate tasks; this compatibility update does not certify them."
+  ],
+  "limits": [
+    "June old named-display limitation retained",
+    "No sanitizer PASS; ASAN runtime unavailable on ahc-002",
+    "Finite corpus/qualification is not universal solver or DUT equivalence",
+    "Earlier failed and interrupted receipts remain preserved, not overwritten"
+  ],
+  "observer_graph": {
+    "job": "2395098",
+    "path": "/projects/diego1/jasper-202609-validation/information-parity-r7/OBSERVER-GRAPH-PARITY.json",
+    "sha256": "e1a2a761593c4d660349eec1c3f1ffb82388d28e02cf9a820d0a3d0bffa50d3a",
+    "status": "PASS_FINITE_OBSERVER_GRAPH",
+    "capture_cells": 30,
+    "independent_review_pending": true,
+    "native_lifetime_certified": false,
+    "publication_allowed": false,
+    "strict_report_unchanged": true,
+    "command": "python3 source/tests/parity/cross_release.py --compare-only --observer-graph --output /projects/diego1/jasper-202609-validation/information-parity-r7 --models /projects/diego1/jasper-202609-validation/models",
+    "limits": [
+      "Only a single observing thread per worker is qualified by this candidate; cross-thread archive order is refused",
+      "Reference retirement is not native allocation death",
+      "Native object replacement/lifetime completeness remains OPEN"
+    ]
+  },
+  "mathematical_review_prepared": {
+    "request_id": "f70ae597-5de2-4881-b867-bf49e6dabf64",
+    "status": "PREPARED_NO_SEND_MODEL_MENU_BLOCKED",
+    "new_inference_sent": false,
+    "question_sha256": "8eff86b763aaa138591656d8fd03c51890eee40d8a7a0ff4cb099abe46a4ee59",
+    "context": {
+      "path": "/projects/diego1/jasper-202609-validation/observer-graph-review/request.json",
+      "sha256": "253248d7d3b7821ae5829f680a5da014df4666d3290632997fcf448408857beb"
+    }
+  },
+  "direct_cti_agent_parity": {
+    "path": "/projects/diego1/jasper-202609-telemetry/references/2026-09-cti-agent-parity.json",
+    "sha256": "c4aac9abd995f289d2eee57f1efc36c465679006f633a59338dc7a9a3406fcf5"
+  },
+  "acceptance_scope": "Finite exact-worker frontend and direct CTI-information compatibility; raw allocation-history equivalence and universal native lifetime remain separate/unproved",
+  "agent_reading_report": "v3-agent-cti-reading.json"
+}

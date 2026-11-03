@@ -1,0 +1,180 @@
+{
+  "status": "PASS_FINITE_CTI_AGENT_PARITY",
+  "updated_at": "2026-11-03T15:57:47.534465+00:00",
+  "local_candidate": "/projects/diego1/jasper-202609-telemetry",
+  "plugin_version": "3.0.0",
+  "producer_version": "1.6.15-dev",
+  "runtime": {
+    "jipstats": "a25a738508d8a28b5278c7f9e79985126b26e20d6646c9b763c728927e24bee5",
+    "libjipstats.so": "98d9f845e177f941b7422656549159ca382a3ba6efb3a04deff6150a46ead78b",
+    "tools/telemetry_db.py": "f81199d461a0cfdbaa23c3eaefc3bf5adc4365ff50ffd076b14f6069649e6608"
+  },
+  "qualification_scope": "32 native M/M4 baseline/preload proof/CEX checks across four exact workers; unchanged runtime/reader/profile receipts reused",
+  "native_qualifications": [
+    {
+      "build": "production",
+      "job": "2385172",
+      "status": "PASS",
+      "worker_sha256": "b3e7723c4335266b1cd1436277111d54ee7802944b8b4f7d6eaacaa28b7c84b4",
+      "checks": 8,
+      "peak_rss": 1187115008,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-reader-production/cache/jipstats/1.6.15-dev/qualification-5c5v5aqv/QUALIFICATION.json",
+      "sha256": "df3ea1087e225369d1429491414b18fee7c3c8979a498b11107dfb45713dc847"
+    },
+    {
+      "build": "production-p001",
+      "job": "2385374",
+      "status": "PASS",
+      "worker_sha256": "e1b53cf546e048df0f9996646afba34b0faf7b38095b22ed700a507b64cf4e7b",
+      "checks": 8,
+      "peak_rss": 1073594368,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-production-p001/cache/jipstats/1.6.15-dev/qualification-3v8w_2st/QUALIFICATION.json",
+      "sha256": "632e5446436e8b2e314917924ad3723d900ea5b93a433510c9644970ea427f14"
+    },
+    {
+      "build": "prerelease",
+      "job": "2385297",
+      "status": "PASS",
+      "worker_sha256": "b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604",
+      "checks": 8,
+      "peak_rss": 1180569600,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-prerelease/cache/jipstats/1.6.15-dev/qualification-fd9mnx2h/QUALIFICATION.json",
+      "sha256": "010ace4154e2911597841c89262a05d28aae2ba39cf9d0e089b1eabecd6db918"
+    },
+    {
+      "build": "june",
+      "job": "2385520",
+      "status": "PASS",
+      "worker_sha256": "e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d",
+      "checks": 8,
+      "peak_rss": 1165570048,
+      "path": "/projects/diego1/jasper-202609-validation/closure-final-june/cache/jipstats/1.6.15-dev/qualification-zayaod9u/QUALIFICATION.json",
+      "sha256": "b4a5c136f5db3ca5c069ddb9240d74044688181905f71600bcece209f41c4251"
+    }
+  ],
+  "corpus": {
+    "models": [
+      "shared",
+      "xy",
+      "and_predecessor",
+      "composite_property",
+      "delayed_bug"
+    ],
+    "engines": [
+      "M",
+      "M4"
+    ],
+    "updated_builds": [
+      "prerelease",
+      "production",
+      "production-p001"
+    ],
+    "counts_per_five_model_two_engine_suite": {
+      "unresolved_composite": 20,
+      "cubes": 2159,
+      "literals": 10721,
+      "mapped_literal": 1807,
+      "cube": 6012,
+      "frames": 1547,
+      "frame_members": 25923,
+      "relative_begin": 2581,
+      "query_context": 2581,
+      "relative_end": 2581,
+      "query_conclusion": 2581,
+      "predecessor_pairs": 364,
+      "named_ctis": 38,
+      "generalization_relation": 394
+    },
+    "raw_literals": {
+      "total": 10721,
+      "mapped_JIP_bits": 1807,
+      "unresolved_composite": 20,
+      "unqualified_SAT_words": 8894
+    },
+    "older_references": [
+      "historical Dollar/producer1.5.0",
+      "fresh original-main/solver producer1.6.13 job2509979"
+    ],
+    "strict_archive_integrity": true,
+    "exact_command_and_configuration_checks": true
+  },
+  "reports": {
+    "legacy_comparison": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/results-r3/CTI-AGENT-PARITY.json",
+      "sha256": "d8f6f7814d82b70122ee89ded082a1f2dc411f3255c700d385b2ec9f2303e439"
+    },
+    "complete_comparison": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/complete-results-r3/COMPLETE-AGENT-PARITY.json",
+      "sha256": "fdd0dc93413761b8c6c46fad632a1fe44d6481c78d772317f2dc256e55e65872"
+    },
+    "all_raw_words": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/raw-results/RAW-PAYLOAD-PARITY.json",
+      "sha256": "7af54db562db18834bd5bb1d17c0e078b34009fc3aaf69015f35a5f8d49fcef5"
+    },
+    "actual_data_controls": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/ACTUAL-VIEW-MUTATIONS.json",
+      "sha256": "785ed1dd4aaaf6488b15fee577fa372c636a7236d5d511a1a93b365e0a6e299f"
+    },
+    "declared_xy_mathematics": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/XY-MATHEMATICS.json",
+      "sha256": "eade8ff859b458ec4f2faf55f17e0d8bd83c1db0b612fea0fa0a672aa79b0d82"
+    }
+  },
+  "resources": {
+    "native_old_reference": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/native-1613-resources/resources.json",
+      "sha256": "2e1c383bf0ae9d16cc96f45ba132ca6a464c53e720f81c4387476730ce6fdeac"
+    },
+    "final_comparison": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/final-compare-resources/resources.json",
+      "sha256": "d04d9ca4258be863ada4c94ec0fb2f35c47f4a79cd6e154d05c4bc7fedb1583b"
+    },
+    "raw_words": {
+      "path": "/projects/diego1/jasper-202609-validation/direct-cti-agent-parity-20261103/raw-compare-resources/resources.json",
+      "sha256": "d4c9966c3c55cec5a8b7b602ba6c163c51733b13c05aed55e4775da7f94d9bdd"
+    }
+  },
+  "tests": {
+    "reused_automated": 203,
+    "reused_job": "2396264",
+    "new_consumer_comparator_tests": 10,
+    "actual_native_view_negative_controls": 12
+  },
+  "comparison_rules": [
+    "Exact ordered named CTI bytes versus the independent old Dollar oracle, not event counts",
+    "Every raw cube word, including the SAT domain; no hash-only payload equality",
+    "Actual epoch-aware JIP constrained-bit decoding; inversion preserved; unresolved and absent bits stay unknown",
+    "Complete ordered frames including empty frame layout and duplicates; cube roles, query flags/classes/results and generalization relations",
+    "Exact newer-to-newer complete stream equality; ordered legacy observations with explicit newer-only additions",
+    "No implicit predecessor query attribution, concrete reachable-state label or complete transition/Horn claim"
+  ],
+  "legacy_transport": "Original producer1.5 canonical records are unchanged; a temporary derived reader framing view reinserts only complete SHA-verified captured display hex payloads. Producer1.5 emitted no explicit predecessor_cubes; none were invented.",
+  "historical_raw_address_gate": {
+    "status": "FAIL",
+    "scope": "allocator-address histories, separate from direct CTI content equality",
+    "report": "/projects/diego1/jasper-202609-validation/information-parity-r7/INFORMATION-PARITY.json"
+  },
+  "external_review": {
+    "request_id": "d0ae36f9-3952-4c48-bfef-5b3e9746cc33",
+    "status": "TRANSPORT_CONTEXT_ERROR_BEFORE_REGISTRATION",
+    "send_count": 0,
+    "accepted": false,
+    "automatic_retry": false
+  },
+  "limits": [
+    "Finite pinned models/builds/configurations only; not universal solver/instrumentation transparency or native allocation-lifetime completeness",
+    "June native qualification passes; its older named-display limitation remains",
+    "No CEQ closure, natural Claude agent validation, matched helper speedup or complete hidden transition-system certification",
+    "Sampled analysis/worker RSS is not a hard cap or a design-independent Jasper memory guarantee",
+    "No remote publication, deployment, push or PR authorized"
+  ],
+  "publication_allowed": false,
+  "agent_reading_report": "v3-agent-cti-reading.json",
+  "validation_tool_formatting": {
+    "file": "source/tests/parity/agent_cti_parity.py",
+    "executed_sha256": "3d61a9636d07c980149da9bf41f6b1fd15feb6ccb649b4a7bbc2da0ab40cc45a",
+    "PR_sha256": "6922f7cd9b59e3fe83b38a059030829a3f81b3aa3a41a34f15bc208075456410",
+    "change": "Trailing whitespace only; AST unchanged. Historical comparison reports retain their executed source hash.",
+    "runtime_reader_producer_profile_unchanged": true
+  }
+}

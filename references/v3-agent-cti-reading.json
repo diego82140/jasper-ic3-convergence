@@ -1,0 +1,134 @@
+{
+  "status": "PASS_FINITE_DATA_READING_WITH_EXPLICIT_OBSERVER_AND_THEORY_ERRATA",
+  "utc": "2026-11-03T17:33:23.325540+00:00",
+  "plugin": "jasper-ic3-convergence-v3",
+  "version": "3.0.0",
+  "model": "claude-opus-5-5",
+  "tests": [
+    {
+      "case": "archived_xy_original_vs_production_p001",
+      "session": "af2d9cfd-9bfc-4ea1-9685-96d228eb189e",
+      "result": "PASS_AFTER_QUERY_BINDING_CORRECTION",
+      "report": {
+        "path": "/projects/diego1/jasper-202609-validation/claude-cti-smoke-20261103/OBSERVER-ASSESSMENT.json",
+        "sha256": "104e6ac42363c0a0c2feb336dbfc4cca00354979e7c88bc7fbe35176e0424e68"
+      }
+    },
+    {
+      "case": "real_pagewalker_and_CHI_large_cubes",
+      "session": "b7c3448b-4b27-4f83-b594-dc08e4670ff7",
+      "result": "READ_PASS_MATHEMATICAL_EXCLUSION_INCOMPLETE",
+      "report": {
+        "path": "/projects/diego1/jasper-202609-validation/claude-large-cti-20261103/output/analysis.json",
+        "sha256": "66b6fad3f1357c1bff5aaa3d905dd9a7021ebe4fbc8ba85e0708cd1db05ae0ce"
+      },
+      "largest_cube_literals": 5233,
+      "largest_cube_instances": 7,
+      "CHI_max_literals": 194,
+      "root_observer_validation": "PASS:36631 literal rows redecoded exactly; source/index checks before+after"
+    },
+    {
+      "case": "fresh_projection_and_witness_scope_regression",
+      "session": "c7c7ae7c-d5de-43c3-8284-b28b58a8feca",
+      "result": "MAIN_DISPOSITIONS_CORRECT_EXPLANATION_ERRATA",
+      "report": {
+        "path": "/projects/diego1/jasper-202609-validation/claude-cti-scope-check-20261103/output/answer.json",
+        "sha256": "f4c3d6d3e53d813ec8b182356bcc450d82361f351748c5d0156c4c7fe0d559e9"
+      },
+      "original_grading": "PASS",
+      "post_review_errata": "Ambiguous OR in exclusion requirements and unjustified all-public-relations-impossible vendor prerequisite; original answer preserved"
+    },
+    {
+      "case": "reviewed_consumer_gate_and_theory_scope_regression",
+      "session": "0d333bda-d998-4df8-ab56-1adbb212f4cf",
+      "result": "PASS_REQUESTED_DISPOSITIONS_CAUSAL_EXPLANATION_CORRECTED_AFTER_OBSERVER_FEEDBACK",
+      "report": {
+        "path": "/projects/diego1/jasper-202609-validation/claude-cti-scope-review-20261103/OBSERVER-ASSESSMENT.json",
+        "sha256": "0e11a3155444839c3ff358fbf6320f681128de4891f965818bf2bd8aeeb373ca"
+      }
+    }
+  ],
+  "changes_from_observed_failures": [
+    "Installation table now lists all4 workers and explains resolved site paths",
+    "Reader output formats and lack of implicit predecessor-query bindings are explicit",
+    "max_bit_seen is distinguished from elaborated vector width",
+    "Reusable CTI projection/provenance regression added; core IC3/PDR method unchanged",
+    "Checked consumer witness requires all support/consumer/input/monitor/transition/exclusion conditions together",
+    "Returned cubes retain export flags and frame/clause polarity; no core or full-state inference",
+    "Identical-semantics reachable validity entails initiation, while explicit all-state checks remain separate",
+    "Concrete authorized vendor semantic clarification needs no universal public-only impossibility proof"
+  ],
+  "limits": [
+    "Not a blind compatibility-verdict test: the initial tiny case read400bytes of earlier compatibility summary, without the model-specific answer",
+    "Observer feedback was required to correct query attribution, a width inference and a prospective witness overclaim; original reports and transcripts retained",
+    "Initial focused regression preserved principal dispositions but review found two explanatory overclaims; the revised regression passed requested dispositions and required feedback on an additional unsupported causal explanation",
+    "Large traces came from historical original-release captures; no fresh production-wide-cube native case was generated",
+    "No native target/helper proof, consumer benefit, decrypted IP or complete transition model certified",
+    "No full agent-production or hard-cold-convergence acceptance claim",
+    "Review corrected interpretation and logical wording only; no collector/runtime change, new model certificate or complete unsupervised-reasoning claim"
+  ],
+  "published": false,
+  "observer_verification": {
+    "path": "/projects/diego1/jasper-202609-validation/v3-pr-preparation-20261103/LARGE-OBSERVER-ASSESSMENT-r2.json",
+    "sha256": "7ce5d77ca573624b9e3b51c91ec7d07a6893378b414b16c072c409a8769e059f"
+  },
+  "observer_resources": {
+    "path": "/projects/diego1/jasper-202609-validation/v3-pr-preparation-20261103/validation-r2-resources/resources.json",
+    "sha256": "fafbab6cf60a3562b5ad6d46d671b6d222b1a63389295f1cb22539b87d5e62cb"
+  },
+  "reviewed_interpretation": {
+    "path": "/projects/diego1/jasper-202609-validation/v3-pr-preparation-20261103/pro-review-final/LARGE-INTERPRETATION.md",
+    "sha256": "13dd45081afd790d72d820e960c706fa3cebd1d877687a6245471651d5059447"
+  },
+  "theory_review": {
+    "path": "/projects/diego1/jasper-202609-validation/v3-pr-preparation-20261103/pro-review-final/REVIEW-ADOPTION.json",
+    "sha256": "ff3cbcae555e33a560a794c6f3c361ee20fc47f8487f0ae316e58f247f723be6"
+  },
+  "histogram_reconciliation": {
+    "path": "/projects/diego1/jasper-202609-validation/v3-pr-preparation-20261103/HISTOGRAM-RECONCILIATION.json",
+    "sha256": "abb019f039b05ed5459556f121f6c868c78bff460f52b0ce9ebd8ac3854f20ba"
+  },
+  "fresh_wide_native": {
+    "note": "Fresh current-producer 4-build x M/M4 wide-CTI evidence is separate",
+    "path": "v3-fresh-wide-native.json"
+  },
+  "agent_rules_regression": {
+    "eval": "evals/wide-cti-scope-and-reachability",
+    "changed_instruction_files": [
+      "AGENTS.md",
+      "skills/jasper-ic3-convergence/SKILL.md",
+      "references/telemetry-storage.md"
+    ],
+    "frozen_input_sha256": {
+      "AGENTS.md": "32e8d3d6eff69f6cfdfcb0a1c53a39a1aeb0bedab55e39dfd4e051715e1c47a8",
+      "skills/jasper-ic3-convergence/SKILL.md": "323b9ec1ba521fdcd1f1bac2a75e030317e393bf8884dab8ddbfcf84521f14ef",
+      "references/telemetry-storage.md": "80940a240200d8195623a0f6e89a7ee3f64b52fa4cede51901b845fe52291bef",
+      "evals/wide-cti-scope-and-reachability/prompt.md": "2adf6e33e4bdb61213c80eaed23dceb40a13e3840b103a7a2e741dbfb16fc637",
+      "evals/wide-cti-scope-and-reachability/graders/scope.md": "8c4189c081ffdf0b3cce9c5237e563e24dd5e88bb6fcec4fa156404bd6d5dece"
+    },
+    "fresh_runs": [
+      {
+        "session": "e3b8d0f6-b4fb-4d5e-82b5-144d8efbd45a",
+        "status": "CORE_DECISIONS_PASS_EXPLANATORY_PROVENANCE_NEEDS_REVISION",
+        "assessment": "/projects/diego1/jasper-202609-validation/agent-rules-20261103/fresh-independent/OBSERVER-ASSESSMENT.json",
+        "assessment_sha256": "fce03d53c094525d7705e93d21565d9f714f94b68588931c476d59b385cccbc2"
+      },
+      {
+        "session": "dc268f15-ec31-492e-bb82-2bb00e591187",
+        "status": "CORE_DECISIONS_PASS_SUMMARY_SCOPE_NOT_ACCEPTED_AS_CLEAN",
+        "assessment": "/projects/diego1/jasper-202609-validation/agent-rules-20261103/fresh-independent-r2/OBSERVER-ASSESSMENT.json",
+        "assessment_sha256": "e4e63895d14ab3aab1ae01be5482f88197512c6935f43408409aac71aaa34371"
+      },
+      {
+        "session": "a857d4bf-d0d4-4fd7-809e-404625060b05",
+        "status": "PASS_FOCUSED_FORMAL_DECISION_GATES_WITH_TERMINOLOGY_NOTE",
+        "assessment": "/projects/diego1/jasper-202609-validation/agent-rules-20261103/fresh-independent-r3/OBSERVER-ASSESSMENT.json",
+        "assessment_sha256": "2a271460985c72108558ab0bbd9f529e436236ee179153debc5a37740ac8cd3c",
+        "terminology_note": "says \"shifted out\" once; equation and final cause correctly state LSB clear"
+      }
+    ],
+    "pins": "/projects/diego1/jasper-202609-validation/agent-rules-20261103/PINS.sha256",
+    "prep_review": "/projects/diego1/jasper-202609-validation/agent-rules-20261103/PREP-REVIEW.md",
+    "limits": "finite offline decision regression with hypothetical supplied evidence; not flawless/first-pass autonomy or production guarantee; no native rerun"
+  }
+}

@@ -14,3 +14,10 @@ make
 GumJS/Gum++ are disabled by default; the retained build used the prefixed static Gum devkit and assertions disabled. Configuration can download pinned toolchain/SDK inputs. The observed build produced `build/gum/devkit/frida-gum.h` and `libfrida-gum.a`. A complete clean network rebuild is distinct from the tested offline producer rebuild; do not claim byte-identical debug information across source paths. Copy the generated devkit into `third_party/frida-gum`, verify/update its receipt, then build in an idle plugin clone. Fresh native M/M4 checks are required for the resulting artifact.
 
 The packaged-source offline rebuild matched all allocated sections of the candidate except the build-id note, and required GLIBC at most 2.17. That comparison does not replace native qualification. Reproduction receipts and finite exception/ownership fixtures are retained in the validation ledger.
+
+The September compatibility rebuild used the same patched SDK and extracted
+`libdl`, `librt` and `libpthread` from the official CentOS 7 glibc 2.17 RPM as
+`COMPAT_LIB` link inputs. The earlier local Atlas compatibility-library path no
+longer existed. The sysroot remains a producer-only dependency outside the kit;
+no system library or Jasper installation is replaced. The emitted library's
+version requirements and actual native qualifications must be checked anew.

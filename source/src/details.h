@@ -8,8 +8,10 @@
 #define DETAIL_CHUNK 32
 #define FRAME_CHUNK_MEMBERS 64
 #define FRAME_CHUNK_CACHE 16384
+#define CUBE_CACHE_BYTES (64U*1024U*1024U)
 static gboolean text_equal(gconstpointer a,gconstpointer b){return strcmp(a,b)==0;}
-struct cube_definition { uint64_t id; char hash[65]; int count; bool complete; };
+struct cube_definition { uint64_t id; char hash[65],domain[32]; int count; bool complete; uint32_t values[]; };
+struct frame_chunk_definition { uint64_t id; unsigned count; unsigned char tuples[FRAME_CHUNK_MEMBERS*12]; };
 /* Only live membership is retained. A generation mark replaces the second
  * full string-key table; unconfirmed additions roll back after a failed read. */
 struct frame_membership { uint64_t cube,seen; int frame; bool confirmed; };
@@ -19,7 +21,7 @@ static guint membership_hash(gconstpointer key){
 static gboolean membership_equal(gconstpointer a,gconstpointer b){
  const struct frame_membership*x=a,*y=b;return x->cube==y->cube&&x->frame==y->frame;
 }
-struct po_definition { uint64_t id; uintptr_t address; bool defined; uint32_t flags; int cex_size; uintptr_t cube,parent; };
+struct po_definition { uint64_t id,cube_id,parent_id; uintptr_t address; bool defined; uint32_t flags; int cex_size; uintptr_t cube,parent; };
 struct sat_inflight {
  uintptr_t site,stack;uint64_t id,query,start,cpu,process,owner;int frame,cube_lits;
 };
@@ -28,6 +30,7 @@ struct detailed_state {
  GHashTable *parity_counts[4];uint64_t lens_samples;
  struct sat_inflight sat_stack[32];unsigned sat_depth;
  uint64_t cube_ids,po_ids,operation,snapshot,queue_snapshot,gen_id,current_generalize,frame_chunk_ids;
+ size_t cube_cache_bytes;
  uint64_t total_checks,total_mismatch,stats_checks,stats_mismatch,frame_scans,queue_scans,observed_enqueues,observed_dequeues;
  uintptr_t heap,circuit,relative_cube; bool model_emitted; unsigned push_depth,add_depth;
  int model_vars,model_latches;
@@ -63,9 +66,10 @@ static void destroy_details(struct run_state*s){
  g_hash_table_destroy(d->cubes);g_hash_table_destroy(d->names);g_hash_table_destroy(d->pos);
  g_hash_table_destroy(d->members);g_hash_table_destroy(d->frame_chunks);g_hash_table_destroy(d->nodes);for(int i=0;i<4;i++)if(d->parity_counts[i])g_hash_table_destroy(d->parity_counts[i]);free(d);s->detail=NULL;
 }
+static void reset_cube_cache(struct detailed_state*d){g_hash_table_remove_all(d->cubes);d->cube_cache_bytes=0;}
 static void model_epoch_begin(struct run_state*s){
  struct detailed_state*d=s->detail;s->model_epoch++;
- g_hash_table_remove_all(d->cubes);g_hash_table_remove_all(d->names);
+ reset_cube_cache(d);g_hash_table_remove_all(d->names);
  g_hash_table_remove_all(d->pos);g_hash_table_remove_all(d->members);g_hash_table_remove_all(d->nodes);
  g_hash_table_remove_all(d->frame_chunks);
  d->model_emitted=false;d->circuit=0;
@@ -107,9 +111,12 @@ static void signal_definition(struct run_state*s,uint32_t variable){
  if(full_abi()&&(circ!=d->circuit||nvars!=d->model_vars||latches!=d->model_latches)){
   model_context_observe(s,"signal_context_changed",0);detail_error(s,"signal_model_context_changed");return;
  }
- g_hash_table_add(d->names,key);
  uintptr_t name=0;bool retained=false;
- if(vec_view(s,circ,&names,&count)&&variable<(uint32_t)count)retained=read_u64(names+8*(uintptr_t)variable,&name)&&name;
+ if(!vec_view(s,circ,&names,&count))return;
+ if(variable<(uint32_t)count){
+  if(!read_u64(names+8*(uintptr_t)variable,&name)){detail_error(s,"signal_name_pointer");return;}
+  retained=name!=0;
+ }
  uintptr_t nexts=0,inits=0,active=0;uint32_t next=0;int init=0;unsigned char enabled=0;
  bool nextok=false,initok=false,activeok=false;
  if(full_abi()&&variable<(uint32_t)nvars){
@@ -120,7 +127,7 @@ static void signal_definition(struct run_state*s,uint32_t variable){
  }
  emit(s,"signal",false,"variable=%u role=%s name_status=%s next_known=%u next_raw=%08x init_known=%u init_raw=%d active_known=%u active=%u mapping=retained_engine_model_not_reconstructed_RTL",
   variable,atlas_names()?"unqualified_role":variable<(uint32_t)latches?"state":variable<(uint32_t)nvars?"input":"auxiliary",retained?"retained":"unavailable",nextok,next,initok,init,activeok,enabled);
- if(!retained)return;
+ if(!retained){g_hash_table_add(d->names,key);return;}
  uint64_t offset=0;bool ended=false;char encoded[513];unsigned char buf[256];
  while(offset<16777216){
   /* Read only up to the end of the current memory page. */
@@ -132,13 +139,14 @@ static void signal_definition(struct run_state*s,uint32_t variable){
  }
  emit(s,"signal_name_end",false,"variable=%u bytes=%"PRIu64" complete=%u",variable,offset,ended);
  if(!ended)detail_error(s,"retained_signal_name_incomplete");
+ else g_hash_table_add(d->names,key);
 }
 static void model_record(struct run_state*s){
  if(atlas_names()){
   struct detailed_state*d=ds(s);if(!d||d->model_emitted)return;
   uintptr_t circ=0,names=0;int count=0;
   if(!read_u64(s->jip+64,&circ)||!circ||!vec_view(s,circ,&names,&count)){detail_error(s,"atlas_atom_name_table");return;}
-  d->model_emitted=true;d->circuit=circ;g_hash_table_remove_all(d->cubes);
+  d->model_emitted=true;d->circuit=circ;reset_cube_cache(d);
   emit(s,"model",false,"model_instance=%"PRIu64" worker_sha256=%s n_vars=%d n_latches=-1 n_inputs=-1 formula_index_shift=3 formula_sign_mask=4 formula_composite_mask=2 signal_names=on_first_reference mapping=direct_retained_atom_names role_mapping=unqualified native_context_known=0 frames_available=0 queues_available=0",
        s->id,P.hash,count);
   return;
@@ -148,31 +156,44 @@ static void model_record(struct run_state*s){
  uintptr_t circ=0,cfg=0;if(!read_u64(s->jip+64,&circ)||!circ||!read_u64(s->seq,&cfg)){detail_error(s,"model_header");return;}
  int n=read_i32(s,circ,24),l=read_i32(s,circ,16),inputs=read_i32(s,circ,20);
  if(n<0||n>DETAIL_MAX_ITEMS||l<0||l>n||inputs<0){detail_error(s,"model_dimensions");return;}
- d->model_emitted=true;d->circuit=circ;d->model_vars=n;d->model_latches=l;g_hash_table_remove_all(d->cubes);
+ d->model_emitted=true;d->circuit=circ;d->model_vars=n;d->model_latches=l;reset_cube_cache(d);
  emit(s,"model",false,"model_instance=%"PRIu64" worker_sha256=%s circuit_address=%"PRIxPTR" n_vars=%d n_latches=%d n_inputs=%d engine_index=%d restart_mode=%d properties=%d bad_raw=%08x start_raw=%08x formula_index_shift=3 formula_sign_mask=4 formula_composite_mask=2 signal_names=on_first_reference",
  s->id,P.hash,circ,n,l,inputs,read_i32(s,cfg,0),read_i32(s,cfg,4),read_i32(s,s->seq,224),(unsigned)read_i32(s,s->seq,264),(unsigned)read_i32(s,s->seq,268));
 }
 static uint64_t capture_vector_data(struct run_state*s,uintptr_t data,int total,const char*domain){
  struct detailed_state*d=ds(s);if(!d)return 0;
- if(total<0||total>DETAIL_MAX_ITEMS||(total&&!data)){detail_error(s,"payload_dimensions");return 0;}
+ if(total<0||total>DETAIL_MAX_ITEMS||(total&&!data)||strlen(domain)>=32){detail_error(s,"payload_dimensions");return 0;}
+ /* Read once into observer-owned storage. Hashing, exact cache comparison and
+  * emitted chunks all use these same bytes, never a second native read. */
+ size_t bytes=(size_t)total*4,allocation=sizeof(struct cube_definition)+bytes;
+ struct cube_definition*captured=calloc(1,allocation);if(!captured){s->lost++;return 0;}
+ captured->count=total;strcpy(captured->domain,domain);
  js_sha hash;sha_begin(&hash);js_update(&hash,(const unsigned char*)domain,strlen(domain)+1);
- uint32_t count=(uint32_t)total;js_update(&hash,(unsigned char*)&count,4);uint32_t raw[256];
+ uint32_t count=(uint32_t)total;js_update(&hash,(unsigned char*)&count,4);
  for(int at=0;at<total;){int n=total-at;if(n>256)n=256;
-  if(!read_bytes(data+(uintptr_t)at*4,raw,(size_t)n*4)){detail_error(s,"payload_hash_read");return 0;}
-  js_update(&hash,(unsigned char*)raw,(size_t)n*4);at+=n;
+  if(!read_bytes(data+(uintptr_t)at*4,captured->values+at,(size_t)n*4)){free(captured);detail_error(s,"payload_hash_read");return 0;}
+  js_update(&hash,(unsigned char*)(captured->values+at),(size_t)n*4);at+=n;
  }
  char hex[65];sha_end(&hash,hex);
- struct cube_definition*known=g_hash_table_lookup(d->cubes,hex);if(known)return known->id;
+ struct cube_definition*known=g_hash_table_lookup(d->cubes,hex);
+ if(known&&known->complete&&known->count==total&&!strcmp(known->domain,domain)&&!memcmp(known->values,captured->values,bytes)){
+  uint64_t id=known->id;free(captured);return id;
+ }
+ /* Hashes select candidates; exact bytes establish equality. A collision or
+  * incomplete definition gets a new ID, retaining the old disk definition. */
+ if(known){d->cube_cache_bytes-=sizeof *known+(size_t)known->count*4;g_hash_table_remove(d->cubes,hex);}
  /* A bounded deduplication cache. Re-emission creates a fresh monotonic ID;
   * complete definitions remain on disk, so eviction never drops evidence. */
- if(g_hash_table_size(d->cubes)>=65536)g_hash_table_remove_all(d->cubes);
- known=calloc(1,sizeof *known);if(!known){s->lost++;return 0;}
+ if(g_hash_table_size(d->cubes)>=65536||d->cube_cache_bytes+allocation>CUBE_CACHE_BYTES)reset_cube_cache(d);
+ known=captured;
  known->id=++d->cube_ids;known->count=total;memcpy(known->hash,hex,sizeof hex);
- g_hash_table_insert(d->cubes,strdup(hex),known);
- uint64_t loss=s->lost;bool complete=true;
+ char*key=strdup(hex);if(!key){free(known);s->lost++;return 0;}
+ g_hash_table_insert(d->cubes,key,known);
+ d->cube_cache_bytes+=allocation;
+ uint64_t loss=s->lost,failures=s->read_failures;bool complete=true;
  emit(s,"cube_definition",false,"cube_id=%"PRIu64" domain=%s literals=%d sha256=%s chunks=%d model_qualified=%u order=native scope=engine_cube_not_a_proven_global_lemma",known->id,domain,total,hex,(total+DETAIL_CHUNK-1)/DETAIL_CHUNK,d->model_emitted);
  for(int at=0;at<total;){int n=total-at;if(n>DETAIL_CHUNK)n=DETAIL_CHUNK;
-  if(!read_bytes(data+(uintptr_t)at*4,raw,(size_t)n*4)){detail_error(s,"payload_chunk_read");complete=false;break;}
+  const uint32_t*raw=known->values+at;
   char values[DETAIL_CHUNK*9+1],decoded[DETAIL_CHUNK*32+1];size_t p=0,q=0;
   for(int i=0;i<n;i++){
    p+=(size_t)snprintf(values+p,sizeof values-p,"%s%08x",i?",":"",raw[i]);
@@ -187,9 +208,10 @@ static uint64_t capture_vector_data(struct run_state*s,uintptr_t data,int total,
   if(!strcmp(domain,"jip_formula")&&name_abi())for(int i=0;i<n;i++)if(!(raw[i]&2)&&(raw[i]>>3)<0x1ffffffeU)signal_definition(s,raw[i]>>3);
   at+=n;
  }
- known->complete=complete&&s->lost==loss;
+ known->complete=complete&&s->lost==loss&&s->read_failures==failures;
  emit(s,"cube_definition_end",false,"cube_id=%"PRIu64" literals=%d complete=%u",known->id,total,known->complete);
- return known->id;
+ known->complete=known->complete&&s->lost==loss;
+ return known->complete?known->id:0;
 }
 static uint64_t full_cube(struct run_state*s,uintptr_t cube){
  uintptr_t data=0;int n=0;if(!cube||!vec_view(s,cube,&data,&n))return 0;
@@ -245,7 +267,8 @@ static uint64_t frame_chunk(struct run_state*s,const unsigned char*data,unsigned
  static const char domain[]="jipstats-frame-chunk-v1";
  sha_begin(&h);js_update(&h,(const unsigned char*)domain,sizeof domain);
  frame_le(size,count,4);js_update(&h,size,4);js_update(&h,data,(size_t)count*12);sha_end(&h,digest);
- uint64_t*known=g_hash_table_lookup(d->frame_chunks,digest);if(known)return *known;
+ struct frame_chunk_definition*known=g_hash_table_lookup(d->frame_chunks,digest);
+ if(known&&known->count==count&&!memcmp(known->tuples,data,(size_t)count*12))return known->id;
  if(g_hash_table_size(d->frame_chunks)>=FRAME_CHUNK_CACHE)g_hash_table_remove_all(d->frame_chunks);
  uint64_t id=++d->frame_chunk_ids,loss=s->lost;char hex[FRAME_CHUNK_MEMBERS*24+1];
  hexbytes(data,(size_t)count*12,hex);
@@ -253,7 +276,8 @@ static uint64_t frame_chunk(struct run_state*s,const unsigned char*data,unsigned
  if(s->lost!=loss)return 0;
  known=malloc(sizeof *known);char*key=strdup(digest);
  if(!known||!key){free(known);free(key);s->lost++;return 0;}
- *known=id;g_hash_table_insert(d->frame_chunks,key,known);return id;
+ known->id=id;known->count=count;memcpy(known->tuples,data,(size_t)count*12);
+ g_hash_table_insert(d->frame_chunks,key,known);return id;
 }
 static void frame_snapshot(struct run_state*s,const char*cause,uint64_t operation){
  if(!full_abi())return;
@@ -329,36 +353,81 @@ static struct po_definition*reserve_po(struct run_state*s,uintptr_t address){
 }
 static uint64_t define_po(struct run_state*s,uintptr_t address){
  struct po_definition*first=reserve_po(s,address);if(!first)return 0;uint64_t first_id=first->id;
- uintptr_t p=address;unsigned count=0;
+ uintptr_t p=address;unsigned count=0;bool okay=true;
+ uint64_t loss=s->lost,failures=s->read_failures;
+ GHashTable*seen=g_hash_table_new(g_direct_hash,g_direct_equal);
  while(p){
-  struct po_definition*po=reserve_po(s,p);if(!po)break;
+  if(count++>=DETAIL_MAX_ITEMS||g_hash_table_contains(seen,(gpointer)p)){
+   detail_error(s,"obligation_chain_cycle_or_bounds");okay=false;break;
+  }
+  g_hash_table_add(seen,(gpointer)p);
+  struct po_definition*po=reserve_po(s,p);if(!po){okay=false;break;}
   uint32_t flags;int path;uintptr_t cube=0,parent=0;
-  if(!read_bytes(p,&flags,4)||!read_bytes(p+4,&path,4)||!read_u64(p+8,&cube)||!read_u64(p+16,&parent)){detail_error(s,"proof_obligation");break;}
-  bool existed=po->defined;
-  if(existed&&po->flags==flags&&po->cex_size==path&&po->cube==cube&&po->parent==parent)break;
-  int before_frame=existed?((int32_t)po->flags)>>2:-1;
-  po->defined=true;po->flags=flags;po->cex_size=path;po->cube=cube;po->parent=parent;
-  struct po_definition*pa=reserve_po(s,parent);
-  uint64_t id=full_cube(s,cube);
-  emit(s,existed?"obligation_update":"obligation",false,"obligation_id=%"PRIu64" parent_id=%"PRIu64" cube_id=%"PRIu64" frame=%d cex_size=%d may=%u disabled=%u relation=predecessor_to_parent native_address=%"PRIxPTR" previous_frame=%d",
-       po->id,pa?pa->id:0,id,((int32_t)flags)>>2,path,flags&1,(flags>>1)&1,p,before_frame);
-  p=parent;if(++count>DETAIL_MAX_ITEMS){detail_error(s,"obligation_chain_bounds");break;}
+  if(!read_bytes(p,&flags,4)||!read_bytes(p+4,&path,4)||!read_u64(p+8,&cube)||!read_u64(p+16,&parent)){
+   detail_error(s,"proof_obligation");okay=false;break;
+  }
+  uint64_t id=full_cube(s,cube);struct po_definition*pa=reserve_po(s,parent);
+  if(!id||(parent&&!pa)){detail_error(s,"obligation_dependency");okay=false;break;}
+  uint64_t parent_id=pa?pa->id:0;bool existed=po->defined;
+  if(!existed||po->flags!=flags||po->cex_size!=path||po->cube!=cube||po->parent!=parent||po->cube_id!=id||po->parent_id!=parent_id){
+   int before_frame=existed?((int32_t)po->flags)>>2:-1;
+   emit(s,existed?"obligation_update":"obligation",false,"obligation_id=%"PRIu64" parent_id=%"PRIu64" cube_id=%"PRIu64" frame=%d cex_size=%d may=%u disabled=%u relation=predecessor_to_parent native_address=%"PRIxPTR" previous_frame=%d",
+        po->id,parent_id,id,((int32_t)flags)>>2,path,flags&1,(flags>>1)&1,p,before_frame);
+   if(s->lost!=loss||s->read_failures!=failures){okay=false;break;}
+   po->defined=true;po->flags=flags;po->cex_size=path;po->cube=cube;po->parent=parent;
+   po->cube_id=id;po->parent_id=parent_id;
+  }
+  p=parent; /* Unchanged child fields do not certify an unchanged ancestor. */
  }
- return first_id;
+ g_hash_table_destroy(seen);
+ return okay&&s->lost==loss&&s->read_failures==failures?first_id:0;
+}
+static uint64_t record_obligation_cex_chain(struct run_state*s,uintptr_t head){
+ uint64_t id=define_po(s,head);
+ emit(s,"obligation_cex_chain",false,"head_id=%"PRIu64" scope=native_ICProofObl_getCex",id);
+ return id;
 }
 static uintptr_t queue_top(struct run_state*s,uintptr_t heap){
  uintptr_t tree=0,node=0,po=0;
- if(!read_u64(heap+40,&tree)||tree==heap+24)return 0;
+ if(!read_u64(heap+40,&tree)){detail_error(s,"queue_top_header");return 0;}
+ if(tree==heap+24)return 0;
  if(!read_u64(tree+40,&node)||!read_u64(node+16,&po)){detail_error(s,"queue_top");return 0;}
  return po;
+}
+static void queue_membership_removals(struct run_state*s,GHashTable*nodes,uint64_t snapshot,const char*cause,uint64_t operation){
+ struct detailed_state*d=ds(s);GHashTableIter it;gpointer node,po;
+ g_hash_table_iter_init(&it,d->nodes);
+ while(g_hash_table_iter_next(&it,&node,&po))if(g_hash_table_lookup(nodes,node)!=po){
+  /* A list-node address can be recycled for a different obligation between
+   * snapshots. Its continued presence does not preserve the old membership. */
+  uint64_t identity=(uint64_t)(uintptr_t)po;
+  emit(s,"queue_membership_remove",false,"snapshot=%"PRIu64" obligation_id=%"PRIu64" list_node=%"PRIxPTR" cause=%s operation=%"PRIu64" semantics=observed_membership_delta_not_discharge",snapshot,identity,(uintptr_t)node,cause,operation);
+  d->observed_dequeues++;
+ }
+}
+static void record_queue_unlink(struct run_state*s,uintptr_t node){
+ if(!s||!s->live||s->run_unwound||!s->detail||!full_abi())return;
+ uintptr_t po=(uintptr_t)g_hash_table_lookup(s->detail->nodes,(gpointer)node);
+ if(!po)return;
+ uint64_t identity=(uint64_t)po;
+ /* A cached membership does not certify the current node payload. */
+ uintptr_t live_address=0;struct po_definition*live_po=NULL;
+ if(read_u64(node+16,&live_address)&&live_address)
+  live_po=g_hash_table_lookup(s->detail->pos,(gpointer)live_address);
+ if(!live_po||!live_po->defined||live_po->id!=identity){
+  detail_error(s,"queue_unhook_membership_unverified");return;
+ }
+ emit(s,"obligation_dequeue",false,"obligation_id=%"PRIu64" list_node=%"PRIxPTR" source=native_std_list_unhook discharge=not_implied",identity,node);
+ g_hash_table_remove(s->detail->nodes,(gpointer)node);s->detail->observed_dequeues++;
 }
 static void queue_snapshot(struct run_state*s,const char*cause,uint64_t operation){
  if(!full_abi())return;
  if(!full_snapshots&&strcmp(cause,"sample")&&strcmp(cause,"trace_attempt")&&strcmp(cause,"block_leave"))return;
  struct detailed_state*d=ds(s);if(!d||!d->heap)return;
  uintptr_t mgr=d->heap;uint64_t snapshot=++d->queue_snapshot;d->queue_scans++;bool complete=true;
- emit(s,"queues_begin",false,"snapshot=%"PRIu64" cause=%s operation=%"PRIu64" short_queue=%d long_queue=%d sampling_window=%d max_sampling_window=%d short_window=%d long_window=%d short_processed=%d long_processed=%d early_push_countdown=%d budget=%d",
- snapshot,cause,operation,read_i32(s,mgr,52),read_i32(s,mgr,116),read_i32(s,mgr,12),read_i32(s,mgr,16),read_i32(s,mgr,20),read_i32(s,mgr,24),read_i32(s,mgr,4),read_i32(s,mgr,8),read_i32(s,mgr,36),read_i32(s,mgr,40));
+ uint64_t loss=s->lost,failures=s->read_failures;
+ emit(s,"queues_begin",false,"snapshot=%"PRIu64" cause=%s operation=%"PRIu64" short_queue=%d long_queue=%d sampling_window=%d max_sampling_window=%d short_window=%d long_window=%d short_processed=%d long_processed=%d early_push_countdown=%d budget=%d manager_address=%"PRIxPTR" short_queue_address=%"PRIxPTR" long_queue_address=%"PRIxPTR" owner_reference_activation=%"PRIu64" native_lifetime_certified=0",
+ snapshot,cause,operation,read_i32(s,mgr,52),read_i32(s,mgr,116),read_i32(s,mgr,12),read_i32(s,mgr,16),read_i32(s,mgr,20),read_i32(s,mgr,24),read_i32(s,mgr,4),read_i32(s,mgr,8),read_i32(s,mgr,36),read_i32(s,mgr,40),mgr,mgr+48,mgr+112,manager_reference_activation(s,mgr));
  GHashTable*nodes=g_hash_table_new(g_direct_hash,g_direct_equal);
  for(unsigned q=0;q<2;q++){
   uintptr_t heap=mgr+(q?112:48),tree=0;int expected=read_i32(s,heap,4);
@@ -376,40 +445,42 @@ static void queue_snapshot(struct run_state*s,const char*cause,uint64_t operatio
    uintptr_t head=t+40;
    while(node!=head&&observed<=(size_t)expected){
     uintptr_t po=0,next=0;if(!read_u64(node+16,&po)||!read_u64(node,&next)||!po||next==node){detail_error(s,"queue_list_node");complete=false;break;}
-    uint64_t id=define_po(s,po);g_hash_table_insert(nodes,(gpointer)node,(gpointer)(uintptr_t)id);
-    emit(s,"queue_member",false,"snapshot=%"PRIu64" queue=%s index=%zu frame=%d obligation_id=%"PRIu64,snapshot,q?"long":"short",observed,level,id);
+    uint64_t id=define_po(s,po);
+    if(!id||s->lost!=loss||s->read_failures!=failures){complete=false;break;}
+    if(g_hash_table_contains(nodes,(gpointer)node)){detail_error(s,"queue_duplicate_physical_node");complete=false;break;}
+    g_hash_table_insert(nodes,(gpointer)node,(gpointer)(uintptr_t)id);
+    emit(s,"queue_member",false,"snapshot=%"PRIu64" queue=%s index=%zu frame=%d obligation_id=%"PRIu64" list_node=%"PRIxPTR,snapshot,q?"long":"short",observed,level,id,node);
     node=next;observed++;
    }
    if(!complete)break;
   }
   if(observed!=(size_t)expected){detail_error(s,"queue_count_mismatch");complete=false;}
+  complete=complete&&s->lost==loss&&s->read_failures==failures;
   emit(s,"queue_end",false,"snapshot=%"PRIu64" queue=%s observed=%zu native_count=%d complete=%u",snapshot,q?"long":"short",observed,expected,complete);
   g_hash_table_destroy(visited);g_array_free(stack,TRUE);
   if(!complete)break;
  }
+ complete=complete&&s->lost==loss&&s->read_failures==failures;
  if(complete){
-  GHashTableIter it;gpointer node,po;g_hash_table_iter_init(&it,d->nodes);
-  while(g_hash_table_iter_next(&it,&node,&po))if(!g_hash_table_contains(nodes,node)){
-   uint64_t identity=(uint64_t)(uintptr_t)po;
-   emit(s,"queue_membership_remove",false,"snapshot=%"PRIu64" obligation_id=%"PRIu64" list_node=%"PRIxPTR" cause=%s operation=%"PRIu64" semantics=observed_membership_delta_not_discharge",snapshot,identity,(uintptr_t)node,cause,operation);
-   d->observed_dequeues++;
-  }
-  g_hash_table_destroy(d->nodes);d->nodes=nodes;
- }else g_hash_table_destroy(nodes);
+  queue_membership_removals(s,nodes,snapshot,cause,operation);
+  complete=s->lost==loss&&s->read_failures==failures;
+ }
+ if(complete){g_hash_table_destroy(d->nodes);d->nodes=nodes;}
+ else g_hash_table_destroy(nodes);
  emit(s,"queues_end",false,"snapshot=%"PRIu64" complete=%u",snapshot,complete);
 }
 static void verify_native_final(struct run_state*s){
  struct detailed_state*d=ds(s);if(!d||!full_abi()||!d->have_final)return;
  int n=read_i32(s,s->seq,112);uintptr_t circ=d->circuit,active=0;
  bool okay=n>=0&&n<=DETAIL_MAX_ITEMS&&circ&&read_u64(circ+64,&active);
- int total=0,fixed=0,flops=0,coi=0;
+ int64_t total=0,fixed=0;int flops=0,coi=0;
  GHashTable*support=g_hash_table_new(g_direct_hash,g_direct_equal);
  for(int f=1;okay&&f<=n;f++){
   if(f==d->fixpoint)continue;
   uintptr_t data=0;size_t count=0;if(!frontier_range(s,f==n?-1:f,&data,&count)){okay=false;break;}
-  total+=(int)count;
+  total+=(int64_t)count;
   if(f<d->fixpoint)continue;
-  fixed+=(int)count;
+  fixed+=(int64_t)count;
   for(size_t k=0;okay&&k<count;k++){
    uintptr_t cube=0,literals=0;int nr=0;
    if(!read_u64(data+8*k,&cube)||!vec_view(s,cube,&literals,&nr)){okay=false;break;}
@@ -431,7 +502,7 @@ static void verify_native_final(struct run_state*s){
  g_hash_table_destroy(support);
  bool match=okay&&total==d->cubes_total&&fixed==d->cubes_fix&&flops==d->flops&&coi==d->coi;
  if(!match)d->stats_mismatch++;
- emit(s,"native_final_check",false,"read_complete=%u match=%u observed_clauses=%d observed_fixpoint_clauses=%d observed_invariant_flops=%d observed_coi_flops=%d original_clauses=%d original_fixpoint_clauses=%d original_invariant_flops=%d original_coi_flops=%d",okay,match,total,fixed,flops,coi,d->cubes_total,d->cubes_fix,d->flops,d->coi);
+ emit(s,"native_final_check",false,"read_complete=%u match=%u observed_clauses=%"PRId64" observed_fixpoint_clauses=%"PRId64" observed_invariant_flops=%d observed_coi_flops=%d original_clauses=%d original_fixpoint_clauses=%d original_invariant_flops=%d original_coi_flops=%d",okay,match,total,fixed,flops,coi,d->cubes_total,d->cubes_fix,d->flops,d->coi);
  if(!okay)detail_error(s,"native_final_independent_check");
 }
 static void full_final(struct run_state*s,int result){

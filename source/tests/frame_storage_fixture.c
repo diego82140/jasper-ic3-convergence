@@ -52,6 +52,8 @@ int main(int argc,char**argv){
 #endif
  capture_identity();
  P.details=1;P.cube_data=0;P.cube_size=8;
+ const char*fixture_profile=getenv("JIPSTATS_FIXTURE_WORKER_SHA");
+ if(fixture_profile){assert(strlen(fixture_profile)==64);strcpy(P.hash,fixture_profile);assert(release_helpers()!=NULL);}
  oracle=fopen(argv[3],"wb");assert(oracle);
  for(int i=0;i<FIXTURE_CUBES;i++){
   literals[i]=((uint32_t)i<<3)|2; /* Composite IDs avoid invented signal maps. */

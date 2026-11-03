@@ -19,6 +19,22 @@ struct observer_activation {
 static _Thread_local struct observer_activation *observer_top;
 static _Thread_local uint64_t observer_token;
 
+/* A reference interval is an observed active native call, not a manager
+ * allocation lifetime. No persistent owner is inferred from a sampled address. */
+static uint64_t manager_reference_activation(struct run_state*s,uintptr_t manager){
+ if(!s||!manager||!s->live||s->run_unwound)return 0;
+ for(struct observer_activation*a=observer_top;a;a=a->parent)
+  if(a->call.state==s&&a->generation==s->id&&a->call.manager==manager&&
+     (a->hook->kind==H_BLOCK||a->hook->kind==H_OBLIGATION))return a->token;
+ return 0;
+}
+static uint64_t queue_owner_reference(struct run_state*s,uintptr_t manager,uintptr_t queue,const char**role){
+ uint64_t token=manager_reference_activation(s,manager);*role="unqualified";
+ if(token&&queue==manager+48){*role="short";return token;}
+ if(token&&queue==manager+112){*role="long";return token;}
+ return 0;
+}
+
 static void observer_anomaly(struct run_state*s,uint64_t generation,const char*reason){
  if(s&&s->live&&s->id==generation){
   s->observer_errors++;

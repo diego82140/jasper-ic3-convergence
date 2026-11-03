@@ -79,7 +79,8 @@ struct invocation {
  uintptr_t cube; uint64_t id,start,previous_relative;
  int frame,flags,before_size,result; bool enabled,suppressed,pending_front_binding;
  bool semantic_scope; uint64_t parent_operation,input_cube_id,entry_revision; int parent_kind;
- uintptr_t pointers[6],heap,previous_heap; uint64_t cpu_start,process_start,operation,previous_generalize,po_id;
+ uintptr_t pointers[6],heap,previous_heap,manager; uint64_t owner_reference,cpu_start,process_start,operation,previous_generalize,po_id;
+ const char *owner_role;
  uint64_t activation_token,run_generation;
 };
 static struct profile P;
@@ -284,7 +285,7 @@ static void write_worker_manifest(bool closed){
  int fd=open(temp,O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC|O_NOFOLLOW,0600);
  if(fd<0){__atomic_add_fetch(&ledger_failures,1,__ATOMIC_RELAXED);return;}
  FILE*f=fdopen(fd,"w");if(!f){close(fd);return;}
- fprintf(f,"{\"schema\":2,\"producer\":\"jipstats-1.6.13-dev\",\"capture\":\"%s\",\"pid\":%ld,\"scope\":\"one_worker_process\",\"process_closed\":%s,\"ledger_tail_on_each_record\":true,\"gzip_member_at_run_seal\":true,\"runs\":[",capture_id,(long)getpid(),closed?"true":"false");
+ fprintf(f,"{\"schema\":2,\"producer\":\"jipstats-1.6.15-dev\",\"capture\":\"%s\",\"pid\":%ld,\"scope\":\"one_worker_process\",\"process_closed\":%s,\"ledger_tail_on_each_record\":true,\"gzip_member_at_run_seal\":true,\"runs\":[",capture_id,(long)getpid(),closed?"true":"false");
  pthread_mutex_lock(&ledger_mutex);bool comma=false;
  for(struct run_ledger*l=ledger_head;l;l=l->next){
   fprintf(f,"%s{\"key\":\"%s:%ld:%ld:%"PRIu64"\",\"events\":%"PRIu64",\"sealed\":%s,\"tip\":\"%s\"}",comma?",":"",capture_id,(long)getpid(),(long)l->tid,l->run,l->events,l->sealed?"true":"false",l->tip);comma=true;
@@ -345,6 +346,7 @@ static int cube_size(struct run_state*s,uintptr_t cube){
  if(!cube)return UNAVAILABLE;
  int n=read_i32(s,cube,(int)P.cube_size);return n>=0&&n<=10000000?n:UNAVAILABLE;
 }
+static uint64_t manager_reference_activation(struct run_state*s,uintptr_t manager);
 #include "details.h"
 static void semantic_abort_seal(struct run_state*s);
 #include "activations.h"
@@ -412,9 +414,8 @@ static struct run_state *find_seq(uintptr_t seq){
  * worker hash and the installed callee guard qualify the code identity. */
 static bool pending_front_callsite(struct hook*h,uintptr_t caller){
  if(h->kind!=H_FRONTREMOVE||h->fixed_flags!=0)return false;
- if(!strcmp(P.hash,"b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604"))return h->rva==0x17048e0&&caller==bias+0x170121b;
- if(!strcmp(P.hash,"e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d"))return h->rva==0xca6300&&caller==bias+0xca2bf2;
- return false;
+ const struct release_helpers*r=release_helpers();
+ return r&&h->rva==r->pending_entry&&caller==bias+r->pending_return;
 }
 static struct run_state*pending_front_owner(uintptr_t front,uintptr_t seq){
  if(!seq||seq>UINTPTR_MAX-152||front!=seq+152)return NULL;
@@ -450,7 +451,7 @@ static void enter_hook(GumInvocationContext*ctx,gpointer user){
  /* This validation-only listener intentionally excludes other callers of the
   * shared isInitial function; the profiled call-site filter predates binding
   * coverage accounting. A missing context at this site still counts loss. */
- if(h->kind==H_ISINITIAL&&(uintptr_t)gum_invocation_context_get_return_address(ctx)!=bias+(parity_target()?0x16dea1a:0xc8124a)){errno=saved;return;}
+ if(h->kind==H_ISINITIAL&&!initial_validation_caller((uintptr_t)gum_invocation_context_get_return_address(ctx))){errno=saved;return;}
  observer_reconcile(gum_invocation_context_get_depth(ctx),false);
  retire_abandoned_runs();
  begin_ready_completion_tails();
@@ -492,7 +493,7 @@ static void enter_hook(GumInvocationContext*ctx,gpointer user){
   model_context_observe(s,"validation_enter",v->pointers[5]);
   parity_validation_enter(s,argument(ctx,3));break;
  case H_ISINITIAL:
-  v->enabled=s->validation_active && (uintptr_t)gum_invocation_context_get_return_address(ctx)==bias+(parity_target()?0x16dea1a:0xc8124a);break;
+  v->enabled=s->validation_active && initial_validation_caller((uintptr_t)gum_invocation_context_get_return_address(ctx));break;
  case H_INIT:model_epoch_begin(s);parity_configuration(s);emit(s,"init",false,"depth=%d details_abi=%u",depth(s),P.details);break;
  case H_FRAME:s->frame_calls++;emit(s,"frame_begin",false,"depth=%d observed_frame_calls=%"PRIu64" %s",depth(s),s->frame_calls,native);break;
  case H_RELATIVE:
@@ -519,10 +520,12 @@ static void enter_hook(GumInvocationContext*ctx,gpointer user){
   s->push_calls++;emit(s,"push_begin",false,"depth=%d call=%"PRIu64" early=%d mode=%d %s",depth(s),s->push_calls,v->frame,v->flags,native);break;
  case H_BLOCK:
   v->previous_heap=d->heap;if(full_abi())d->heap=argument(ctx,4);
+  v->manager=d->heap;observer_update(v);
   s->block_calls++;emit(s,full_abi()?"block_cube_begin":"block_begin",false,"depth=%d operation=%"PRIu64" cube_lits=%d %s",depth(s),v->operation,v->before_size,native);
   sample_cube(s,v->cube,0,"block_input");queue_snapshot(s,"block_enter",v->operation);break;
  case H_OBLIGATION:{
   v->previous_heap=d->heap;if(full_abi())d->heap=argument(ctx,1);
+  v->manager=d->heap;observer_update(v);
   s->obligation_process_calls++;
   if(full_abi()){
    bool use_long=read_i32(s,d->heap,116)>0&&read_i32(s,d->heap,24)>read_i32(s,d->heap,20);
@@ -549,14 +552,18 @@ static void enter_hook(GumInvocationContext*ctx,gpointer user){
  case H_FRONTREMOVE:
   v->pointers[0]=argument(ctx,0);v->pointers[1]=argument(ctx,2);v->id=full_cube(s,argument(ctx,1));break;
  case H_QUEUEPUSH:{
-  v->heap=argument(ctx,0);uintptr_t po=0;read_u64(argument(ctx,1),&po);v->pointers[0]=po;
+  v->heap=argument(ctx,0);uintptr_t po=0;
+  if(!read_u64(argument(ctx,1),&po))detail_error(s,"enqueue_obligation_reference");
+  v->pointers[0]=po;
   v->po_id=define_po(s,po);v->before_size=read_i32(s,v->heap,4);
-  emit(s,"obligation_enqueue_begin",false,"operation=%"PRIu64" obligation_id=%"PRIu64" queue_address=%"PRIxPTR" native_count=%d",v->operation,v->po_id,v->heap,v->before_size);break;}
+  v->owner_reference=queue_owner_reference(s,d->heap,v->heap,&v->owner_role);
+  v->manager=v->owner_reference?d->heap:0;
+  emit(s,"obligation_enqueue_begin",false,"operation=%"PRIu64" obligation_id=%"PRIu64" queue_address=%"PRIxPTR" native_count=%d manager_address=%"PRIxPTR" queue_role=%s owner_reference_activation=%"PRIu64" owner_reference_scope=borrowed_call_interval native_lifetime_certified=0",v->operation,v->po_id,v->heap,v->before_size,v->manager,v->owner_role,v->owner_reference);break;}
  case H_PODISPOSE:{
   uintptr_t po=argument(ctx,0)+16;struct po_definition*item=g_hash_table_lookup(d->pos,(gpointer)po);
   if(item){emit(s,"obligation_destroy",false,"obligation_id=%"PRIu64" native_address=%"PRIxPTR,item->id,po);g_hash_table_remove(d->pos,(gpointer)po);}break;}
  case H_GETCEX:{
-  v->po_id=define_po(s,argument(ctx,0));emit(s,"obligation_cex_chain",false,"head_id=%"PRIu64" scope=native_ICProofObl_getCex",v->po_id);break;}
+  v->po_id=record_obligation_cex_chain(s,argument(ctx,0));break;}
  default:break;
  }
  observer_update(v);
@@ -650,7 +657,8 @@ static void leave_hook(GumInvocationContext*ctx,gpointer user){
   removed_relationships(s,v->pointers[1],v->pointers[0],v->id,v->operation,(unsigned)h->fixed_flags,result);break;
  case H_QUEUEPUSH:
   d->observed_enqueues++;
-  emit(s,"obligation_enqueue_end",false,"operation=%"PRIu64" obligation_id=%"PRIu64" queue_address=%"PRIxPTR" before=%d after=%d",v->operation,v->po_id,v->heap,v->before_size,read_i32(s,v->heap,4));
+  if(v->owner_reference&&manager_reference_activation(s,v->manager)!=v->owner_reference)detail_error(s,"queue_owner_reference_ended_before_enqueue_return");
+  emit(s,"obligation_enqueue_end",false,"operation=%"PRIu64" obligation_id=%"PRIu64" queue_address=%"PRIxPTR" before=%d after=%d manager_address=%"PRIxPTR" queue_role=%s owner_reference_activation=%"PRIu64" owner_reference_scope=borrowed_call_interval native_lifetime_certified=0",v->operation,v->po_id,v->heap,v->before_size,read_i32(s,v->heap,4),v->manager,v->owner_role,v->owner_reference);
   queue_snapshot(s,"enqueue",v->operation);break;
  default:break;
  }
@@ -688,16 +696,7 @@ static void probe_hook(GumInvocationContext*ctx,gpointer user){
   errno=saved;return;
  }
  if(h->kind==H_QUEUEUNLINK){
-  struct run_state*s=current;
-  if(s&&s->live&&!s->run_unwound&&s->detail&&full_abi()){
-   uintptr_t node=ctx->cpu_context->rdi;
-   uintptr_t po=(uintptr_t)g_hash_table_lookup(s->detail->nodes,(gpointer)node);
-   if(po){
-    uint64_t identity=(uint64_t)po;
-    emit(s,"obligation_dequeue",false,"obligation_id=%"PRIu64" list_node=%"PRIxPTR" source=native_std_list_unhook discharge=not_implied",identity,node);
-    g_hash_table_remove(s->detail->nodes,(gpointer)node);s->detail->observed_dequeues++;
-   }
-  }
+  record_queue_unlink(current,ctx->cpu_context->rdi);
   errno=saved;return;
  }
  struct run_state*s=lookup_run(reg_value(ctx->cpu_context,h->jip_arg),reg_value(ctx->cpu_context,h->seq_arg));

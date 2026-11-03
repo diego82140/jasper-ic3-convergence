@@ -75,7 +75,7 @@ class Queries(unittest.TestCase):
  def test_cli_requires_cube_scope_and_rejects_unknown_runs(self):
   with tempfile.TemporaryDirectory() as d:
    index=Path(d)/'i.db';con=sqlite3.connect(index);con.executescript(db.SCHEMA)
-   con.execute("INSERT INTO metadata VALUES('integrity','incomplete_diagnostic')");con.commit();con.close();db.write_index_receipt(index)
+   con.execute("INSERT INTO metadata VALUES('integrity','incomplete_diagnostic')");con.execute("INSERT INTO metadata VALUES('raw_display_validation',?)",(db.RAW_DISPLAY_VALIDATION,));con.commit();con.close();db.write_index_receipt(index)
    for args,expected in [(['export','--cube','7'],'requires --run'),(['export','--run','typo'],'run unavailable'),(['native-display','--run','typo'],'run unavailable')]:
     run=subprocess.run([sys.executable,str(ROOT/'tools/telemetry_db.py'),args[0],str(index),*args[1:]],capture_output=True,text=True)
     self.assertEqual(run.returncode,1);self.assertEqual(run.stdout,'');self.assertIn(expected,run.stderr)
@@ -84,7 +84,7 @@ class Queries(unittest.TestCase):
    p=Path(d)/'events-1-1.log.gz';line=b'NATIVE_IC3_REPORT capture=c pid=1 tid=1 run=1 text=IC3_CTI projection\n'
    with gzip.open(p,'wb') as f:f.write(line*10000)
    index=Path(d)/'i.db';con=sqlite3.connect(index);con.executescript(db.SCHEMA)
-   con.execute("INSERT INTO metadata VALUES('integrity','incomplete_diagnostic')")
+   con.execute("INSERT INTO metadata VALUES('integrity','incomplete_diagnostic')");con.execute("INSERT INTO metadata VALUES('raw_display_validation',?)",(db.RAW_DISPLAY_VALIDATION,))
    con.execute("INSERT INTO runs(run,event,tip) VALUES('c:1:1:1',10000,'')")
    con.execute('INSERT INTO files VALUES(1,?,?,?)',(str(p),len(line)*10000,hashlib.sha256(line*10000).hexdigest()))
    for i in range(10000):con.execute("INSERT INTO events(run,event,phase,source,offset,length) VALUES(1,?,'test',1,?,?)",(i+1,i*len(line),len(line)))

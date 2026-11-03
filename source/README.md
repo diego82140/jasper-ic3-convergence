@@ -1,6 +1,6 @@
-# jipstats 1.6.13 development sources
+# jipstats 1.6.15-dev development sources
 
-This development tree adds lossless adaptive frame storage, native model/attempt ownership, explicit abort and post-final cleanup transport, and streaming qualification. Both requested Cadence ABIs remain guarded by exact worker hashes. Primary binaries may still be the older release while validation runs use immutable candidates; see `references/validation.json` for actual dispositions. Source implementation and native convergence acceptance are separate.
+This local candidate supports four exact Cadence worker builds, including production September and September p001. Full disk/gzip telemetry and bounded-memory reading remain the default. Current runtime/reader/profile qualification passes all 32 native M/M4 baseline/preload proof/CEX checks. See [the finite CTI parity report](../references/2026-09-cti-agent-parity.md) for direct old/new information comparisons and exact receipts. Native convergence and end-to-end agent acceptance remain separate.
 
 Build in an idle writable clone:
 
@@ -15,7 +15,7 @@ The build embeds library/profile checksums and atomically replaces the portable 
 
 Slurm and development-launcher defaults are disk/full/gzip with `tuple_chunks_v2`. A direct launch prints a fresh working-directory capture path unless `--evidence-dir` is supplied. Console mode is explicit. Run every Jasper process on Formal. Evidence directories must be fresh; disk mode rejects `--live`. Qualification keys include the streaming reader and capture policy. The qualifier discards its verified temporary index after preserving size/hash receipts and does not create an uncompressed history mirror.
 
-The original worker adapter is `b5006df1…`; the June adapter is `e8cbfa93…`. `release_adapters/e8cbfa93-adapter.json` records reviewed ABI decisions, byte guards and exact profile lines. `build_e8cbfa93.py` validates its worker hash and guards before regenerating profiles. Never guess or copy offsets for another release. Run full native M/M4 baseline/preload qualification on both installations after producer changes.
+The exact worker adapters are original `b5006df1…`, June `e8cbfa93…`, production September `b3e7723c…`, and September p001 `e1b53cf5…`. The release adapter scripts validate full worker hashes and instruction guards before profile generation. `build_production_202609.py` regenerates the two production profiles; `build_e8cbfa93.py` regenerates June. Never guess or copy offsets for another release. Producer/runtime/reader/profile changes invalidate matching qualification; requalify changed components with native M/M4 baseline/preload checks.
 
 The worker's solver, arguments, debug selectors and return values remain native. Records are observer-owned; their transport integrity is not a semantic proof certificate. Native validation observations and final proof status remain distinct from cube projections and suggested helpers. The prior 1.5.0 Dollar parity evidence applies only to its pinned build/configurations; it is not universal qualification of this June adapter.
 

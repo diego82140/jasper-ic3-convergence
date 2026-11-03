@@ -24,7 +24,9 @@ struct JSolver {int calls=0;
  __attribute__((noinline)) SolverResult solveLimited(const vec<Formula>& a,int budget,bool avoid);
 };
 SolverResult JSolver::solveLimited(const vec<Formula>& a,int budget,bool avoid){
- (void)budget;(void)avoid;calls++;return a.data[0].data%3==0?UNSAT:a.data[0].data%3==1?MODEL:TIMEOUT;
+ (void)budget;(void)avoid;calls++;
+ if(const char*mode=std::getenv("FIXTURE_UNWIND"))if(!std::strcmp(mode,"sat_throw")&&a.data[0].data==3)throw 5;
+ return a.data[0].data%3==0?UNSAT:a.data[0].data%3==1?MODEL:TIMEOUT;
 }
 class Jip {
  public:JipCallbackHook *callback;JSolver solver;int modified=0;
