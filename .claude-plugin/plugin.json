@@ -1,7 +1,7 @@
 {
   "name": "jasper-ic3-convergence-v2",
-  "version": "2.0.0",
-  "description": "Jasper IC3/PDR convergence v2: structural-first inductiveness analysis, relevance-gated helpers, bounded witness searches, evidence-budgeted resource gates (GRAPH_READY/BUDGET, audit Stop hook), complete disk/gzip M/M4 telemetry with the streaming reader, both Cadence releases qualified.",
+  "version": "2.0.1",
+  "description": "Jasper IC3/PDR convergence v2: structural-first inductiveness analysis, relevance-gated helpers, bounded witness searches, evidence-budgeted resource gates (GRAPH_READY/BUDGET, audit Stop hook), complete disk/gzip M/M4 telemetry with the streaming reader, exact-build Cadence telemetry adapters.",
   "author": {
     "name": "diego82140"
   },

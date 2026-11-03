@@ -13,8 +13,11 @@ def embed(package):
                   'BUILTIN_ADAPTER_METADATA':{k:{'markers_required':False,'details_abi':('details 1' in v),
                      'hook_count':sum(x.startswith('hook ') for x in v.splitlines()),
                      'profile_sha256':hashlib.sha256(v.encode()).hexdigest(),
-                     'Dollar_parity_contract':('cti-validation-lens-queue-focus-and-scalars' if k=='b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604' else 'not_differentially_certified_for_this_profile'),
-                     'validation_scope':'See packaged 1.5.0 differential parity certificate; local --check still required',
+                     'Dollar_parity_contract':('cti-validation-lens-queue-focus-and-scalars' if k in (
+                        'b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604',
+                        'b3e7723c4335266b1cd1436277111d54ee7802944b8b4f7d6eaacaa28b7c84b4',
+                        'e1b53cf546e048df0f9996646afba34b0faf7b38095b22ed700a507b64cf4e7b') else 'not_differentially_certified_for_this_profile'),
+                     'validation_scope':'Exact-profile validation is reported in references/validation.json; fresh matching-installation --check is required',
                      'native_frontend_qualification':'RUN_LOCALLY_FOR_MATCHING_INSTALLATION'} for k,v in profiles.items()}}
     edits=[]
     for node in ast.parse(text).body:

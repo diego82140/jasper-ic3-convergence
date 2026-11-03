@@ -669,5 +669,12 @@
    ],
    "push_gate": "all plugin QA closed at 2026-10-20T20:38Z: tests, plugin validate, evals, install test, both releases PASS on the final runtime hash; the unseeded CEQ search (exp40) is a design finding experiment and does not gate the plugin"
   }
- }
+ },
+  "production_september_compatibility_20261103": {
+    "status": "PASS_EXACT_BUILDS_FINITE_CORPUS",
+    "report": "2026-09-validation.json",
+    "library_sha256": "686b2ba8bb07a71fdae3e9d6efa48a841c7fda0e5bcf07aa6aefec9712fc59c7",
+    "scope": "Exact-build telemetry compatibility and finite information parity; not universal instrumentation equivalence, a complete solver-state export, or a DUT proof certificate",
+    "framework_convergence_status_unchanged": true
+  }
 }

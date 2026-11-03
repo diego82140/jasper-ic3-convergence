@@ -1,5 +1,25 @@
 # What's new
 
+## v2.0.1 (2026-11-02)
+
+- Add exact-build telemetry adapters for production Jasper `2026.09` and
+  `2026.09p001`, including native validation/caller attribution, Formula tables
+  and report callbacks. Keep the existing June and September prerelease profiles
+  unchanged; unknown workers still fail closed.
+- Fix a queue-delta bug: reuse of a list-node address for another obligation no
+  longer hides removal of its prior membership. A regression rejects the old
+  predicate deliberately.
+- Verify all canonical fields, full payloads and named diagnostic text on five
+  models, M/M4 and three September builds: 30 cells, 433,083 canonical records.
+  Native proof/CEX checks pass on those three builds; 160 automated tests pass.
+  This is finite telemetry parity, not universal equivalence or a DUT proof.
+- Retain the older June adapter and its existing display limitation. Its current
+  frontend replay was blocked by licensing; no new June frontend PASS is claimed.
+
+See [compatibility](references/2026-09-compatibility.md),
+[exact results](references/2026-09-validation.json) and
+[independent review dispositions](references/2026-09-review.md).
+
 ## v2.0.0 (2026-10-20)
 
 Installs side by side with the original: `jasper-ic3-convergence-v2` (this) and `jasper-ic3-convergence`

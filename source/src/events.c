@@ -284,7 +284,7 @@ static void write_worker_manifest(bool closed){
  int fd=open(temp,O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC|O_NOFOLLOW,0600);
  if(fd<0){__atomic_add_fetch(&ledger_failures,1,__ATOMIC_RELAXED);return;}
  FILE*f=fdopen(fd,"w");if(!f){close(fd);return;}
- fprintf(f,"{\"schema\":2,\"producer\":\"jipstats-1.6.13-dev\",\"capture\":\"%s\",\"pid\":%ld,\"scope\":\"one_worker_process\",\"process_closed\":%s,\"ledger_tail_on_each_record\":true,\"gzip_member_at_run_seal\":true,\"runs\":[",capture_id,(long)getpid(),closed?"true":"false");
+ fprintf(f,"{\"schema\":2,\"producer\":\"jipstats-1.6.14\",\"capture\":\"%s\",\"pid\":%ld,\"scope\":\"one_worker_process\",\"process_closed\":%s,\"ledger_tail_on_each_record\":true,\"gzip_member_at_run_seal\":true,\"runs\":[",capture_id,(long)getpid(),closed?"true":"false");
  pthread_mutex_lock(&ledger_mutex);bool comma=false;
  for(struct run_ledger*l=ledger_head;l;l=l->next){
   fprintf(f,"%s{\"key\":\"%s:%ld:%ld:%"PRIu64"\",\"events\":%"PRIu64",\"sealed\":%s,\"tip\":\"%s\"}",comma?",":"",capture_id,(long)getpid(),(long)l->tid,l->run,l->events,l->sealed?"true":"false",l->tip);comma=true;
@@ -412,9 +412,8 @@ static struct run_state *find_seq(uintptr_t seq){
  * worker hash and the installed callee guard qualify the code identity. */
 static bool pending_front_callsite(struct hook*h,uintptr_t caller){
  if(h->kind!=H_FRONTREMOVE||h->fixed_flags!=0)return false;
- if(!strcmp(P.hash,"b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604"))return h->rva==0x17048e0&&caller==bias+0x170121b;
- if(!strcmp(P.hash,"e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d"))return h->rva==0xca6300&&caller==bias+0xca2bf2;
- return false;
+ const struct release_helpers*r=release_helpers();
+ return r&&h->rva==r->pending_entry&&caller==bias+r->pending_return;
 }
 static struct run_state*pending_front_owner(uintptr_t front,uintptr_t seq){
  if(!seq||seq>UINTPTR_MAX-152||front!=seq+152)return NULL;
@@ -450,7 +449,7 @@ static void enter_hook(GumInvocationContext*ctx,gpointer user){
  /* This validation-only listener intentionally excludes other callers of the
   * shared isInitial function; the profiled call-site filter predates binding
   * coverage accounting. A missing context at this site still counts loss. */
- if(h->kind==H_ISINITIAL&&(uintptr_t)gum_invocation_context_get_return_address(ctx)!=bias+(parity_target()?0x16dea1a:0xc8124a)){errno=saved;return;}
+ if(h->kind==H_ISINITIAL&&!initial_validation_caller((uintptr_t)gum_invocation_context_get_return_address(ctx))){errno=saved;return;}
  observer_reconcile(gum_invocation_context_get_depth(ctx),false);
  retire_abandoned_runs();
  begin_ready_completion_tails();
@@ -492,7 +491,7 @@ static void enter_hook(GumInvocationContext*ctx,gpointer user){
   model_context_observe(s,"validation_enter",v->pointers[5]);
   parity_validation_enter(s,argument(ctx,3));break;
  case H_ISINITIAL:
-  v->enabled=s->validation_active && (uintptr_t)gum_invocation_context_get_return_address(ctx)==bias+(parity_target()?0x16dea1a:0xc8124a);break;
+  v->enabled=s->validation_active && initial_validation_caller((uintptr_t)gum_invocation_context_get_return_address(ctx));break;
  case H_INIT:model_epoch_begin(s);parity_configuration(s);emit(s,"init",false,"depth=%d details_abi=%u",depth(s),P.details);break;
  case H_FRAME:s->frame_calls++;emit(s,"frame_begin",false,"depth=%d observed_frame_calls=%"PRIu64" %s",depth(s),s->frame_calls,native);break;
  case H_RELATIVE:

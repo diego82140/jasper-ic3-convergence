@@ -352,6 +352,17 @@ static uintptr_t queue_top(struct run_state*s,uintptr_t heap){
  if(!read_u64(tree+40,&node)||!read_u64(node+16,&po)){detail_error(s,"queue_top");return 0;}
  return po;
 }
+static void queue_membership_removals(struct run_state*s,GHashTable*nodes,uint64_t snapshot,const char*cause,uint64_t operation){
+ struct detailed_state*d=ds(s);GHashTableIter it;gpointer node,po;
+ g_hash_table_iter_init(&it,d->nodes);
+ while(g_hash_table_iter_next(&it,&node,&po))if(g_hash_table_lookup(nodes,node)!=po){
+  /* A list-node address can be recycled for a different obligation between
+   * snapshots. Its continued presence does not preserve the old membership. */
+  uint64_t identity=(uint64_t)(uintptr_t)po;
+  emit(s,"queue_membership_remove",false,"snapshot=%"PRIu64" obligation_id=%"PRIu64" list_node=%"PRIxPTR" cause=%s operation=%"PRIu64" semantics=observed_membership_delta_not_discharge",snapshot,identity,(uintptr_t)node,cause,operation);
+  d->observed_dequeues++;
+ }
+}
 static void queue_snapshot(struct run_state*s,const char*cause,uint64_t operation){
  if(!full_abi())return;
  if(!full_snapshots&&strcmp(cause,"sample")&&strcmp(cause,"trace_attempt")&&strcmp(cause,"block_leave"))return;
@@ -388,12 +399,7 @@ static void queue_snapshot(struct run_state*s,const char*cause,uint64_t operatio
   if(!complete)break;
  }
  if(complete){
-  GHashTableIter it;gpointer node,po;g_hash_table_iter_init(&it,d->nodes);
-  while(g_hash_table_iter_next(&it,&node,&po))if(!g_hash_table_contains(nodes,node)){
-   uint64_t identity=(uint64_t)(uintptr_t)po;
-   emit(s,"queue_membership_remove",false,"snapshot=%"PRIu64" obligation_id=%"PRIu64" list_node=%"PRIxPTR" cause=%s operation=%"PRIu64" semantics=observed_membership_delta_not_discharge",snapshot,identity,(uintptr_t)node,cause,operation);
-   d->observed_dequeues++;
-  }
+  queue_membership_removals(s,nodes,snapshot,cause,operation);
   g_hash_table_destroy(d->nodes);d->nodes=nodes;
  }else g_hash_table_destroy(nodes);
  emit(s,"queues_end",false,"snapshot=%"PRIu64" complete=%u",snapshot,complete);

@@ -4,7 +4,7 @@ Two versions ship from this repository and install side by side (distinct plugin
 
 ```
 /plugin marketplace add diego82140/jasper-ic3-convergence     # or the local path of this checkout
-/plugin install jasper-ic3-convergence-v2 --marketplace jasper-ic3-convergence   # v2.0.0: current method, evidence-budgeted gates (this root)
+/plugin install jasper-ic3-convergence-v2 --marketplace jasper-ic3-convergence   # v2: current method, evidence-budgeted gates (this root)
 /plugin install jasper-ic3-convergence --marketplace jasper-ic3-convergence      # v1.3.0: original published method, frozen under ./v1
 ```
 
@@ -21,8 +21,17 @@ Use a shared filesystem, a working `LM_LICENSE_FILE`, and Slurm `Formal` or `For
 
 - `/projects/external_ip/cadence/jasper_2026.0920260826065032` (default)
 - `/projects/external_ip/cadence/jasper_2026.06p002`
+- `/projects/external_ip/cadence/jasper_2026.09` (production; worker `b3e7723c…`)
+- `/projects/external_ip/cadence/jasper_2026.09p001` (worker `e1b53cf5…`)
 
 Qualification compares native M/M4 proofs and counterexamples with and without instrumentation. Unknown worker hashes fail closed. The June adapter exports raw complete cubes and native validation boundaries; its old Dollar named display renderer and `getCex` convenience hook are not qualified. Captured mutation-boundary data does not include every hidden SAT formula or a complete RTL transition graph.
+
+The production September builds differ from the August prerelease: each has its
+own instruction guards, native validation call sites and formula-table addresses.
+Existing adapters are retained. See [September compatibility and information
+parity](references/2026-09-compatibility.md) for the exact comparison scope and
+reproduction commands. A matching installation still needs its own native
+qualification; a release label alone never selects offsets.
 
 ## Run and inspect
 
@@ -76,6 +85,6 @@ The wrapper starts a private Xvnc display with Xauthority and a private Unix RFB
 
 ## Maintenance
 
-Edit a clone, rebuild atomically from `source/`, and follow the change ledger and requalification procedure in the storage reference. Run transport/archive tests, native checks on both builds, and `claude plugin validate .`. Update the skill, agent contract, validation evidence and plugin version together. Run outputs belong outside the kit. Do not replace a library currently mapped by a worker in place.
+Edit a clone, rebuild atomically from `source/`, and follow the change ledger and requalification procedure in the storage reference. Run transport/archive tests, native checks on the selected builds, and `claude plugin validate .`. Update the skill, agent contract, validation evidence and plugin version together. Run outputs belong outside the kit. Do not replace a library currently mapped by a worker in place.
 
 A release can be packaged with `python3 tools/package_release.py . /shared/new-release-directory`. The runtime archive contains the launcher, library, skill/agent, tools, profiles, source and tests; the separate rebuild-inputs archive contains large third-party build dependencies, which live *beside* the kit in `../jasper-ic3-convergence-build/third_party` (as does the `rebuilt/` output) so that a local-path plugin install copies only the runtime (`--inputs` overrides the location). Extract the second archive only when rebuilding offline. RELEASE.json records both archive hashes and the pinned runtime manifest. Neither packaging nor adapter PASS upgrades an open convergence validation to PASS.
