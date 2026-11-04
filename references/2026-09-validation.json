@@ -1,0 +1,1399 @@
+{
+  "schema": 1,
+  "status": "PASS_EXACT_BUILDS_FINITE_CORPUS",
+  "updated_utc": "2026-11-03T01:29:53.480659+00:00",
+  "plugin_version": "2.0.1",
+  "producer_version": "1.6.14",
+  "scope": "Exact-build telemetry compatibility and finite information parity; not universal instrumentation equivalence, a complete solver-state export, or a DUT proof certificate",
+  "artifacts": {
+    "library_sha256": "686b2ba8bb07a71fdae3e9d6efa48a841c7fda0e5bcf07aa6aefec9712fc59c7",
+    "launcher_sha256": "cac609bfd885904463d24714325a1efb90aaba43046269499b526fe858700717",
+    "source_files": {
+      "source/src/activations.h": "c6b251f3766b41b5f5404b94c7060b7c168b474e0b94bab7541f6d4d64bf5460",
+      "source/src/compat.c": "85d015690f9a50854a92a992142d14d18853d20093bc6a195f67024d8c7cefd4",
+      "source/src/compat.h": "862d20f9c0884ed4928876a60f5fbb1dabb74f22f6529ac5885829a96d3dae6b",
+      "source/src/details.h": "0997d6ce3e2c7386899508a0b35b3eac17056676583d9e410b9837bbe1b6fc4c",
+      "source/src/events.c": "863c2e68dac4350f93118272b9d8ad5326689775ba568af204dc795b654f7207",
+      "source/src/launchpropagate.c": "e48a84a86600f5174967d55b59f0de681512ee976b816222fc56701824a9b73f",
+      "source/src/parity.h": "2d5959e1f1415f4b0e1b65e654b15c353a1b41913fee32e01a326fd7bbaa0911",
+      "source/src/semantics.h": "d9c59adca2186dedc9e265ce40e7a428b2b924fcddcf92096b1abc4b10d2006d",
+      "source/src/sha256.h": "5e12035c8e39de53da7aec3d4e5f8ae0d4aa560188fb8e655447f7ab2dbdae75"
+    }
+  },
+  "native_qualifications": [
+    {
+      "worker_sha256": "b3e7723c4335266b1cd1436277111d54ee7802944b8b4f7d6eaacaa28b7c84b4",
+      "qualification_key": "d74e81c6c01a5c07612abf7fc43e9e8e106799e0817aa4c207b8c702de979b6d",
+      "job_id": "2335487",
+      "recorded_at": "2026-11-03T01:22:18Z",
+      "receipt_sha256": "2ef1e19de413d6fab7e16d1f9acffb4b877beba5b738a05ff3d388c04eb8b563",
+      "receipt": "/projects/diego1/jasper-202609-validation/sequential-2026.09/cache/jipstats/1.6.14/qualified-d74e81c6c01a5c07612abf7fc43e9e8e106799e0817aa4c207b8c702de979b6d.json",
+      "status": "PASS",
+      "tests": [
+        {
+          "engine": "M",
+          "property": "p_good",
+          "mode": "baseline",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M",
+          "property": "p_good",
+          "mode": "preload",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M",
+          "property": "p_bad",
+          "mode": "baseline",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M",
+          "property": "p_bad",
+          "mode": "preload",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M4",
+          "property": "p_good",
+          "mode": "baseline",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M4",
+          "property": "p_good",
+          "mode": "preload",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M4",
+          "property": "p_bad",
+          "mode": "baseline",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M4",
+          "property": "p_bad",
+          "mode": "preload",
+          "status": "cex",
+          "trace_length": 51
+        }
+      ],
+      "resources": {
+        "affinity": [
+          3
+        ],
+        "peak_rss": 1186086912,
+        "rss_limit": 1879048192,
+        "seconds": 40.509581468999386,
+        "exit": 0,
+        "reason": "normal"
+      }
+    },
+    {
+      "worker_sha256": "e1b53cf546e048df0f9996646afba34b0faf7b38095b22ed700a507b64cf4e7b",
+      "qualification_key": "ad0a6ad3c03b53151b9dbce75ed2b3cfc4783005c8217af6476198580237cf5c",
+      "job_id": "2335675",
+      "recorded_at": "2026-11-03T01:23:23Z",
+      "receipt_sha256": "f92c056ff61e05544c302c3fa719b2249314c68275b7ac7349d4e14176cacaaa",
+      "receipt": "/projects/diego1/jasper-202609-validation/sequential-2026.09p001/cache/jipstats/1.6.14/qualified-ad0a6ad3c03b53151b9dbce75ed2b3cfc4783005c8217af6476198580237cf5c.json",
+      "status": "PASS",
+      "tests": [
+        {
+          "engine": "M",
+          "property": "p_good",
+          "mode": "baseline",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M",
+          "property": "p_good",
+          "mode": "preload",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M",
+          "property": "p_bad",
+          "mode": "baseline",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M",
+          "property": "p_bad",
+          "mode": "preload",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M4",
+          "property": "p_good",
+          "mode": "baseline",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M4",
+          "property": "p_good",
+          "mode": "preload",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M4",
+          "property": "p_bad",
+          "mode": "baseline",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M4",
+          "property": "p_bad",
+          "mode": "preload",
+          "status": "cex",
+          "trace_length": 51
+        }
+      ],
+      "resources": {
+        "affinity": [
+          5
+        ],
+        "peak_rss": 1074339840,
+        "rss_limit": 1879048192,
+        "seconds": 39.511298298835754,
+        "exit": 0,
+        "reason": "normal"
+      }
+    },
+    {
+      "worker_sha256": "b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604",
+      "qualification_key": "161ad2b0f3575b0b151ab360e8e961da2e3b545e93ca1e22acf35730a5f8546d",
+      "job_id": "2335987",
+      "recorded_at": "2026-11-03T01:24:29Z",
+      "receipt_sha256": "d7729fb8d95e694770943bb69cc3cc1bd9a14266c0b979740ee75e68f192b3cc",
+      "receipt": "/projects/diego1/jasper-202609-validation/sequential-prerelease/cache/jipstats/1.6.14/qualified-161ad2b0f3575b0b151ab360e8e961da2e3b545e93ca1e22acf35730a5f8546d.json",
+      "status": "PASS",
+      "tests": [
+        {
+          "engine": "M",
+          "property": "p_good",
+          "mode": "baseline",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M",
+          "property": "p_good",
+          "mode": "preload",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M",
+          "property": "p_bad",
+          "mode": "baseline",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M",
+          "property": "p_bad",
+          "mode": "preload",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M4",
+          "property": "p_good",
+          "mode": "baseline",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M4",
+          "property": "p_good",
+          "mode": "preload",
+          "status": "proven",
+          "trace_length": 0
+        },
+        {
+          "engine": "M4",
+          "property": "p_bad",
+          "mode": "baseline",
+          "status": "cex",
+          "trace_length": 51
+        },
+        {
+          "engine": "M4",
+          "property": "p_bad",
+          "mode": "preload",
+          "status": "cex",
+          "trace_length": 51
+        }
+      ],
+      "resources": {
+        "affinity": [
+          3
+        ],
+        "peak_rss": 1175359488,
+        "rss_limit": 1879048192,
+        "seconds": 38.90327513590455,
+        "exit": 0,
+        "reason": "normal"
+      }
+    }
+  ],
+  "information_parity": {
+    "scope": "finite five-model M/M4 cross-release information parity; universal equivalence NOT claimed",
+    "normalization": {
+      "identities": [
+        "capture",
+        "chain",
+        "pid",
+        "tid",
+        "worker_sha256"
+      ],
+      "durations": [
+        "cpu_ns",
+        "elapsed",
+        "emission_wall_ns_lower_bound",
+        "process_cpu_ns",
+        "thread_cpu_ns",
+        "wall_ns"
+      ],
+      "pointers": [
+        "actual_circuit",
+        "actual_jip",
+        "bound_circuit",
+        "bound_jip",
+        "circuit_address",
+        "epoch_circuit",
+        "list_node",
+        "native_address",
+        "queue_address",
+        "return_slot",
+        "seq",
+        "stack_pointer"
+      ],
+      "code_addresses": [
+        "callsite",
+        "canonical_entry",
+        "native_callsite",
+        "native_entry",
+        "native_site",
+        "resolved_entry"
+      ]
+    },
+    "library_sha256": "686b2ba8bb07a71fdae3e9d6efa48a841c7fda0e5bcf07aa6aefec9712fc59c7",
+    "models": {
+      "shared": "f60987ad21c43d03b0f802d20e59344787a07f2c92eb2d8b8bf13f4a8c337107",
+      "xy": "366058887187e7957fd1a76fca2adef293db47431166967a7afb76ab79b8e119",
+      "and_predecessor": "91bad8bab37f8f27275b167a15eef49133c0e19cb062ced7d4c662e5690ed531",
+      "composite_property": "0c2a4a0292eb3634d563c4ea1873307b4e65a8222d0e43a13cff802f58fbc0bb",
+      "delayed_bug": "d3ccbd5dc72c9660ea35889c4aac61c82a74b112cceee7a8fd083a8982b91a4b"
+    },
+    "cases": [
+      {
+        "model": "shared",
+        "engine": "M",
+        "release": "prerelease",
+        "records": 100668,
+        "display_records": 47,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              1
+            ],
+            "trace_length": 4
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              3
+            ]
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              4
+            ]
+          },
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              5
+            ],
+            "trace_length": 51
+          }
+        ]
+      },
+      {
+        "model": "shared",
+        "engine": "M",
+        "release": "production",
+        "records": 100668,
+        "display_records": 47,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              1
+            ],
+            "trace_length": 4
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              3
+            ]
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              4
+            ]
+          },
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              5
+            ],
+            "trace_length": 51
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 100668,
+          "candidate_records": 100668
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "shared",
+        "engine": "M",
+        "release": "production-p001",
+        "records": 100668,
+        "display_records": 47,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              1
+            ],
+            "trace_length": 4
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              3
+            ]
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              4
+            ]
+          },
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              5
+            ],
+            "trace_length": 51
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 100668,
+          "candidate_records": 100668
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "shared",
+        "engine": "M4",
+        "release": "prerelease",
+        "records": 41101,
+        "display_records": 25,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              1
+            ],
+            "trace_length": 4
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              3
+            ]
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              4
+            ]
+          },
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              5
+            ],
+            "trace_length": 51
+          }
+        ]
+      },
+      {
+        "model": "shared",
+        "engine": "M4",
+        "release": "production",
+        "records": 41101,
+        "display_records": 25,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              1
+            ],
+            "trace_length": 4
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              3
+            ]
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              4
+            ]
+          },
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              5
+            ],
+            "trace_length": 51
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 41101,
+          "candidate_records": 41101
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "shared",
+        "engine": "M4",
+        "release": "production-p001",
+        "records": 41101,
+        "display_records": 25,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              1
+            ],
+            "trace_length": 4
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              3
+            ]
+          },
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              4
+            ]
+          },
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              5
+            ],
+            "trace_length": 51
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 41101,
+          "candidate_records": 41101
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "xy",
+        "engine": "M",
+        "release": "prerelease",
+        "records": 327,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "xy",
+        "engine": "M",
+        "release": "production",
+        "records": 327,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 327,
+          "candidate_records": 327
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "xy",
+        "engine": "M",
+        "release": "production-p001",
+        "records": 327,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 327,
+          "candidate_records": 327
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "xy",
+        "engine": "M4",
+        "release": "prerelease",
+        "records": 327,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "xy",
+        "engine": "M4",
+        "release": "production",
+        "records": 327,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 327,
+          "candidate_records": 327
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "xy",
+        "engine": "M4",
+        "release": "production-p001",
+        "records": 327,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 327,
+          "candidate_records": 327
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "and_predecessor",
+        "engine": "M",
+        "release": "prerelease",
+        "records": 333,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "and_predecessor",
+        "engine": "M",
+        "release": "production",
+        "records": 333,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 333,
+          "candidate_records": 333
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "and_predecessor",
+        "engine": "M",
+        "release": "production-p001",
+        "records": 333,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 333,
+          "candidate_records": 333
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "and_predecessor",
+        "engine": "M4",
+        "release": "prerelease",
+        "records": 333,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "and_predecessor",
+        "engine": "M4",
+        "release": "production",
+        "records": 333,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 333,
+          "candidate_records": 333
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "and_predecessor",
+        "engine": "M4",
+        "release": "production-p001",
+        "records": 333,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 333,
+          "candidate_records": 333
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "composite_property",
+        "engine": "M",
+        "release": "prerelease",
+        "records": 330,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "composite_property",
+        "engine": "M",
+        "release": "production",
+        "records": 330,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 330,
+          "candidate_records": 330
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "composite_property",
+        "engine": "M",
+        "release": "production-p001",
+        "records": 330,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 330,
+          "candidate_records": 330
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "composite_property",
+        "engine": "M4",
+        "release": "prerelease",
+        "records": 330,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "composite_property",
+        "engine": "M4",
+        "release": "production",
+        "records": 330,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 330,
+          "candidate_records": 330
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "composite_property",
+        "engine": "M4",
+        "release": "production-p001",
+        "records": 330,
+        "display_records": 4,
+        "verdicts": [
+          {
+            "native_message_code": 6,
+            "status": "valid",
+            "target_ids": [
+              0
+            ]
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 330,
+          "candidate_records": 330
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "delayed_bug",
+        "engine": "M",
+        "release": "prerelease",
+        "records": 306,
+        "display_records": 2,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              0
+            ],
+            "trace_length": 4
+          }
+        ]
+      },
+      {
+        "model": "delayed_bug",
+        "engine": "M",
+        "release": "production",
+        "records": 306,
+        "display_records": 2,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              0
+            ],
+            "trace_length": 4
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 306,
+          "candidate_records": 306
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "delayed_bug",
+        "engine": "M",
+        "release": "production-p001",
+        "records": 306,
+        "display_records": 2,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              0
+            ],
+            "trace_length": 4
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 306,
+          "candidate_records": 306
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "delayed_bug",
+        "engine": "M4",
+        "release": "prerelease",
+        "records": 306,
+        "display_records": 2,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              0
+            ],
+            "trace_length": 4
+          }
+        ]
+      },
+      {
+        "model": "delayed_bug",
+        "engine": "M4",
+        "release": "production",
+        "records": 306,
+        "display_records": 2,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              0
+            ],
+            "trace_length": 4
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 306,
+          "candidate_records": 306
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      },
+      {
+        "model": "delayed_bug",
+        "engine": "M4",
+        "release": "production-p001",
+        "records": 306,
+        "display_records": 2,
+        "verdicts": [
+          {
+            "native_message_code": 13,
+            "status": "cex",
+            "target_ids": [
+              0
+            ],
+            "trace_length": 4
+          }
+        ],
+        "records_comparison": {
+          "pass_": true,
+          "reference_records": 306,
+          "candidate_records": 306
+        },
+        "displays_equal": true,
+        "native_verdicts_equal": true
+      }
+    ],
+    "phases": {
+      "prerelease": [
+        "block_begin",
+        "block_cube_begin",
+        "block_end",
+        "block_sample",
+        "clause_insert_begin",
+        "clause_insert_end",
+        "context_mutation",
+        "cube",
+        "cube_chunk",
+        "cube_definition",
+        "cube_definition_end",
+        "dollar_scalar_extension",
+        "final",
+        "final_begin",
+        "frame",
+        "frame_begin",
+        "frame_chunk",
+        "frame_end",
+        "frame_membership_add",
+        "frame_membership_remove",
+        "frames_begin",
+        "frames_end",
+        "generalization_relation",
+        "generalize_begin",
+        "generalize_end",
+        "init",
+        "init_end",
+        "invocation_begin",
+        "invocation_return",
+        "model",
+        "model_context",
+        "model_epoch_begin",
+        "native_final_check",
+        "native_getstats",
+        "native_ic3_configuration",
+        "native_population_check",
+        "native_tail_begin",
+        "native_validation_begin",
+        "native_validation_end",
+        "native_validation_solver",
+        "native_validation_stage",
+        "obligation",
+        "obligation_dequeue",
+        "obligation_destroy",
+        "obligation_enqueue_begin",
+        "obligation_enqueue_end",
+        "obligation_process_begin",
+        "obligation_process_end",
+        "obligation_update",
+        "operation_enter",
+        "operation_exit",
+        "parity_record",
+        "parity_record_chunk",
+        "parity_record_end",
+        "predecessor_cubes",
+        "push_begin",
+        "push_end",
+        "query_conclusion",
+        "query_context",
+        "queue_end",
+        "queue_member",
+        "queue_membership_remove",
+        "queues_begin",
+        "queues_end",
+        "relative_begin",
+        "relative_end",
+        "run_begin",
+        "run_contract",
+        "run_end",
+        "run_seal",
+        "sat_begin",
+        "sat_end",
+        "semantic_rule",
+        "signal",
+        "signal_name_chunk",
+        "signal_name_end",
+        "subsumption_edge",
+        "subsumption_end",
+        "subsumption_result"
+      ],
+      "production": [
+        "block_begin",
+        "block_cube_begin",
+        "block_end",
+        "block_sample",
+        "clause_insert_begin",
+        "clause_insert_end",
+        "context_mutation",
+        "cube",
+        "cube_chunk",
+        "cube_definition",
+        "cube_definition_end",
+        "dollar_scalar_extension",
+        "final",
+        "final_begin",
+        "frame",
+        "frame_begin",
+        "frame_chunk",
+        "frame_end",
+        "frame_membership_add",
+        "frame_membership_remove",
+        "frames_begin",
+        "frames_end",
+        "generalization_relation",
+        "generalize_begin",
+        "generalize_end",
+        "init",
+        "init_end",
+        "invocation_begin",
+        "invocation_return",
+        "model",
+        "model_context",
+        "model_epoch_begin",
+        "native_final_check",
+        "native_getstats",
+        "native_ic3_configuration",
+        "native_population_check",
+        "native_tail_begin",
+        "native_validation_begin",
+        "native_validation_end",
+        "native_validation_solver",
+        "native_validation_stage",
+        "obligation",
+        "obligation_dequeue",
+        "obligation_destroy",
+        "obligation_enqueue_begin",
+        "obligation_enqueue_end",
+        "obligation_process_begin",
+        "obligation_process_end",
+        "obligation_update",
+        "operation_enter",
+        "operation_exit",
+        "parity_record",
+        "parity_record_chunk",
+        "parity_record_end",
+        "predecessor_cubes",
+        "push_begin",
+        "push_end",
+        "query_conclusion",
+        "query_context",
+        "queue_end",
+        "queue_member",
+        "queue_membership_remove",
+        "queues_begin",
+        "queues_end",
+        "relative_begin",
+        "relative_end",
+        "run_begin",
+        "run_contract",
+        "run_end",
+        "run_seal",
+        "sat_begin",
+        "sat_end",
+        "semantic_rule",
+        "signal",
+        "signal_name_chunk",
+        "signal_name_end",
+        "subsumption_edge",
+        "subsumption_end",
+        "subsumption_result"
+      ],
+      "production-p001": [
+        "block_begin",
+        "block_cube_begin",
+        "block_end",
+        "block_sample",
+        "clause_insert_begin",
+        "clause_insert_end",
+        "context_mutation",
+        "cube",
+        "cube_chunk",
+        "cube_definition",
+        "cube_definition_end",
+        "dollar_scalar_extension",
+        "final",
+        "final_begin",
+        "frame",
+        "frame_begin",
+        "frame_chunk",
+        "frame_end",
+        "frame_membership_add",
+        "frame_membership_remove",
+        "frames_begin",
+        "frames_end",
+        "generalization_relation",
+        "generalize_begin",
+        "generalize_end",
+        "init",
+        "init_end",
+        "invocation_begin",
+        "invocation_return",
+        "model",
+        "model_context",
+        "model_epoch_begin",
+        "native_final_check",
+        "native_getstats",
+        "native_ic3_configuration",
+        "native_population_check",
+        "native_tail_begin",
+        "native_validation_begin",
+        "native_validation_end",
+        "native_validation_solver",
+        "native_validation_stage",
+        "obligation",
+        "obligation_dequeue",
+        "obligation_destroy",
+        "obligation_enqueue_begin",
+        "obligation_enqueue_end",
+        "obligation_process_begin",
+        "obligation_process_end",
+        "obligation_update",
+        "operation_enter",
+        "operation_exit",
+        "parity_record",
+        "parity_record_chunk",
+        "parity_record_end",
+        "predecessor_cubes",
+        "push_begin",
+        "push_end",
+        "query_conclusion",
+        "query_context",
+        "queue_end",
+        "queue_member",
+        "queue_membership_remove",
+        "queues_begin",
+        "queues_end",
+        "relative_begin",
+        "relative_end",
+        "run_begin",
+        "run_contract",
+        "run_end",
+        "run_seal",
+        "sat_begin",
+        "sat_end",
+        "semantic_rule",
+        "signal",
+        "signal_name_chunk",
+        "signal_name_end",
+        "subsumption_edge",
+        "subsumption_end",
+        "subsumption_result"
+      ]
+    },
+    "all_phase_inventories_equal": true,
+    "required_content_exercised": true,
+    "display_families": {
+      "prerelease": [
+        "IC3_CTI",
+        "IC3_OBLIGATION_FOCUS",
+        "IC3_OBLIGATION_LENS",
+        "IC3_OBLIGATION_QUEUE",
+        "IC3_VALIDATION"
+      ],
+      "production": [
+        "IC3_CTI",
+        "IC3_OBLIGATION_FOCUS",
+        "IC3_OBLIGATION_LENS",
+        "IC3_OBLIGATION_QUEUE",
+        "IC3_VALIDATION"
+      ],
+      "production-p001": [
+        "IC3_CTI",
+        "IC3_OBLIGATION_FOCUS",
+        "IC3_OBLIGATION_LENS",
+        "IC3_OBLIGATION_QUEUE",
+        "IC3_VALIDATION"
+      ]
+    },
+    "unordered_observer_batch": "queue_membership_remove only; preserve every member, field and duplicate; native frame/queue tuples are never sorted",
+    "missing_field_detected": true,
+    "missing_event_detected": true,
+    "changed_payload_detected": true,
+    "failures": [],
+    "status": "PASS"
+  },
+  "information_parity_receipt_sha256": "2420369d477bf2b42b5d65f5aca63b954865d74034d014635c1c8b646f6940e2",
+  "total_canonical_records": 433083,
+  "tests": {
+    "unittest_cases": 160,
+    "unittest_status": "PASS",
+    "log": "/projects/diego1/jasper-202609-validation/unit-2335616.log",
+    "log_sha256": "00db518ebd2db583609e9ff735d3f352641419d1fc6a72e4f9c7591f970de513",
+    "marker_free_ABI_fixture_checks": 10,
+    "queue_recycling_old_predicate_mutation": "REJECTED (exit 3); fixed collector outputs removals of obligations 11,22,33",
+    "peer_synthetic_checker_tests": 352,
+    "peer_synthetic_scope": "Unintegrated checker self-tests, not native qualification",
+    "plugin_manifest_valid": true
+  },
+  "backward_compatibility": {
+    "old_profile_sha256_unchanged": {
+      "b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604.events": "83ae3b6edea202f0a3229e63ae79ab9a1a9209840da88a4171b6561f174452d2",
+      "e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d.events": "5500712ca48cae414c0f5f8f49d829c66feacc89d9d11a24f7f16de08df042b7"
+    },
+    "v1_unchanged": true,
+    "June_frontend_replay": "BLOCKED_LICENSE: with the one-application-feature filter the original June application waited for a license; owned idle job2331535 was stopped before prove. No adapter-failure verdict inferred; no June frontend PASS claimed for this revision."
+  },
+  "resource_control": {
+    "accepted_native_runs": "Only the three fresh sequential runs above",
+    "application_limit": 1,
+    "cpus_per_job": 1,
+    "mem_per_native_job": "2G",
+    "partition": "Formal",
+    "node": "ahc-002",
+    "enforcement": "single-CPU affinity, aggregate process-tree RSS guard, nonblocking task-owned application lock; lock contention independently observed while a native run held it",
+    "incident": "Earlier bulk-submission rounds ignored the dependency environment setting and overlapped. They are excluded from accepted qualification. Cancellation of two later overlapping jobs arrived after completion. Final qualifications were replayed one at a time under the lock.",
+    "superseded_bulk_job_ids": [
+      "2331497",
+      "2331506",
+      "2331528",
+      "2334448",
+      "2334469",
+      "2334470"
+    ]
+  },
+  "independent_review": {
+    "request_id": "433aa06a-81e1-4429-b8e8-65e273fca348",
+    "model": "GPT-6",
+    "mode": "Pro",
+    "maximum": 4,
+    "value": 4,
+    "send_count": 1,
+    "before_guard": true,
+    "after_guard": true,
+    "artifact_sha256": "b1c19cd700d7d99ce4fdd3d011c9fd4ac524f5e7c42cbb1c1570e4727fa39899",
+    "scope": "Initial mapping/method review, not final-patch approval; see 2026-09-review.md"
+  }
+}

@@ -50,7 +50,7 @@ inspect: library
 # Producer-only regeneration from the exact user worker; no source tree needed.
 release-adapter:
 	@test -n "$(WORKER)" || { echo 'Use make release-adapter WORKER=/path/to/jg_proof'; exit 2; }
-	$(PYTHON) release_adapters/build_b5006df1.py "$(WORKER)" --output ../profiles
+	$(PYTHON) release_adapters/build.py "$(WORKER)" --output ../profiles
 
 .PHONY: worker-protocol-test live-tests
 # Optional producer regression. Do not confuse native worker jobs with frontend prove.
@@ -78,3 +78,8 @@ parity-test:
 parity-consumer-test:
 	@test -n "$(SUITE)" -a -n "$(RESULTS)" || { echo 'Set SUITE to a completed parity-test and a new RESULTS'; exit 2; }
 	$(PYTHON) tests/parity/test_parity_consumer.py --suite "$(SUITE)" --output "$(RESULTS)"
+
+.PHONY: cross-release-parity-test
+cross-release-parity-test:
+	@test -n "$(MODELS)" -a -n "$(RESULTS)" || { echo 'Set MODELS to the pinned corpus and RESULTS to a fresh directory; run on Slurm'; exit 2; }
+	$(PYTHON) tests/parity/cross_release.py --models "$(MODELS)" --output "$(RESULTS)"

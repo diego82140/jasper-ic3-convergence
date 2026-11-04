@@ -10,6 +10,28 @@ import argparse, hashlib, json, struct
 
 HERE=Path(__file__).resolve().parent
 
+def plt_symbols(raw):
+    """Actual ELF64 relocation symbol identities, not instruction resemblance."""
+    if raw[:6]!=b'\x7fELF\x02\x01':raise ValueError('Expected ELF64 little-endian')
+    offset=struct.unpack_from('<Q',raw,40)[0]
+    size,count,names_index=struct.unpack_from('<HHH',raw,58)
+    if size!=64 or not 0<=names_index<count:raise ValueError('Unsupported ELF section table')
+    sections=[struct.unpack_from('<IIQQQQIIQQ',raw,offset+i*size) for i in range(count)]
+    def data(section):return raw[section[4]:section[4]+section[5]]
+    def string(table,start):
+        end=table.find(b'\0',start)
+        if start<0 or end<start:raise ValueError('Invalid ELF string')
+        return table[start:end].decode('ascii')
+    names=data(sections[names_index]);by_name={string(names,s[0]):s for s in sections}
+    rela=by_name['.rela.plt'];symbols=sections[rela[6]];strings=data(sections[symbols[6]])
+    if rela[9]!=24 or symbols[9]!=24 or rela[5]%24:raise ValueError('Unsupported ELF relocation/symbol entries')
+    result={};entries=data(rela)
+    for index in range(len(entries)//24):
+        _,info,_=struct.unpack_from('<QQq',entries,index*24)
+        name=struct.unpack_from('<I',raw,symbols[4]+(info>>32)*24)[0]
+        result[by_name['.plt'][3]+(index+1)*16]=string(strings,name)
+    return result
+
 def image_reader(raw):
     if raw[:6]!=b'\x7fELF\x02\x01':raise ValueError('Expected ELF64 little-endian')
     phoff=struct.unpack_from('<Q',raw,32)[0]

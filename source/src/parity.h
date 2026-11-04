@@ -3,8 +3,27 @@
  * Never calls a replacement solver, changes a proof field, or infers a pass
  * from a property verdict. Target addresses are guarded by the loaded profile.
  */
-static bool parity_target(void){return !strcmp(P.hash,"b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604");}
-static bool native_validation_target(void){return parity_target()||!strcmp(P.hash,"e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d");}
+/* Exact-build helpers are separate from the common ICSeq field ABI. Production
+ * September is not the August prerelease, even though both say 2026.09.
+ * Full worker identity and per-hook guards remain mandatory. No nearest-release
+ * fallback: an unknown hash has no validation/display helper addresses. */
+struct release_helpers {
+ const char *sha; bool dollar_display;
+ uintptr_t nodes,initial_return,pending_entry,pending_return,step_after,property_after;
+};
+static const struct release_helpers*release_helpers(void){
+ static const struct release_helpers builds[]={
+  {"b5006df1ff1ab23d9effd5eec464b1962a0905da1880aaa8fae574a4a9a81604",true,0x1e3c3f0,0x16dea1a,0x17048e0,0x170121b,0x16dec61,0x16df002},
+  {"e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d",false,0,0xc8124a,0xca6300,0xca2bf2,0xc814fa,0xc818a3},
+  {"b3e7723c4335266b1cd1436277111d54ee7802944b8b4f7d6eaacaa28b7c84b4",true,0x1e430b0,0xd6f51a,0xd95360,0xd91c9b,0xd6f761,0xd6fb02},
+  {"e1b53cf546e048df0f9996646afba34b0faf7b38095b22ed700a507b64cf4e7b",true,0x1e44df0,0xcf01da,0xd16020,0xd1295b,0xcf0421,0xcf07c2}
+ };
+ for(unsigned i=0;i<sizeof builds/sizeof builds[0];i++)if(!strcmp(P.hash,builds[i].sha))return &builds[i];
+ return NULL;
+}
+static bool parity_target(void){const struct release_helpers*r=release_helpers();return r&&r->dollar_display;}
+static bool native_validation_target(void){return release_helpers()!=NULL;}
+static bool initial_validation_caller(uintptr_t caller){const struct release_helpers*r=release_helpers();return r&&caller==bias+r->initial_return;}
 static void parity_sha(const char*data,size_t n,char out[65]){
  js_sha c={{0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19},0,0,{0}};
  js_update(&c,(const unsigned char*)data,n);uint64_t bits=c.bytes*8;c.b[c.n++]=0x80;
@@ -44,7 +63,8 @@ static void pt_add(struct parity_text*t,const char*s,size_t n){
 }
 static void pt_put(struct parity_text*t,const char*s){pt_add(t,s,strlen(s));}
 static bool parity_nodes(uintptr_t*base,int32_t*count){
- return read_u64(bias+0x1e3c3f0,base)&&read_bytes(bias+0x1e3c3f8,count,4)&&*count>=0&&*count<0x10000000;
+ const struct release_helpers*r=release_helpers();
+ return r&&r->nodes&&read_u64(bias+r->nodes,base)&&read_bytes(bias+r->nodes+8,count,4)&&*count>=0&&*count<0x10000000;
 }
 static bool parity_children(uint32_t f,uint32_t out[2]){
  uintptr_t nodes;int32_t n;uint32_t index=f>>3;
@@ -164,9 +184,10 @@ static void parity_validation_stage(struct run_state*s,enum hook_kind k){
 static void parity_validation_solver(struct run_state*s,struct hook*h,GumCpuContext*ctx,bool before){
  if(before)return;
  int r=(int)(int32_t)ctx->rax;const char*stage=NULL;
- if(h->rva==0x16dec61||h->rva==0xc814fa){
+ const struct release_helpers*layout=release_helpers();
+ if(layout&&h->rva==layout->step_after){
   s->validation_step_count++;stage="step";
- }else if(h->rva==0x16df002||h->rva==0xc818a3){
+ }else if(layout&&h->rva==layout->property_after){
   s->validation_property_count++;stage="property";
  }
  const char*outcome=(r==P.sat_false||r==P.sat_assume)?"unsat":r==P.sat_true?"sat_local":"limit_or_unknown";

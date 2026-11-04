@@ -3,7 +3,7 @@
   "owner": {
     "name": "diego82140"
   },
-  "description": "Jasper IC3/PDR convergence skill: v1 (original 1.3.0, frozen under ./v1) and v2 (current method with evidence-budgeted gates) installable side by side.",
+  "description": "Jasper IC3/PDR convergence: frozen v1, pinned v2 and current v3 with complete disk telemetry and exact-build Jasper adapters.",
   "plugins": [
     {
       "name": "jasper-ic3-convergence",
@@ -13,9 +13,19 @@
     },
     {
       "name": "jasper-ic3-convergence-v2",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "diego82140/jasper-ic3-convergence",
+        "sha": "f358b1a924bbc7915ea010e963be8c7ee4bf9940"
+      },
       "version": "2.0.0",
-      "description": "Jasper IC3/PDR convergence v2: structural-first inductiveness analysis, relevance-gated helpers, bounded witness searches, evidence-budgeted resource gates (GRAPH_READY/BUDGET, audit Stop hook), complete disk/gzip M/M4 telemetry with the streaming reader, both Cadence releases qualified."
+      "description": "Previous v2 method pinned to its published revision; installed v2 copies remain separate from v3."
+    },
+    {
+      "name": "jasper-ic3-convergence-v3",
+      "source": ".",
+      "version": "3.0.0",
+      "description": "Jasper IC3/PDR convergence v3: structural-first inductiveness analysis, relevance-gated helpers, bounded witness searches, evidence-budgeted resource gates (GRAPH_READY/BUDGET, audit Stop hook), complete disk/gzip M/M4 telemetry with the streaming reader, exact-build Cadence telemetry adapters."
     }
   ]
 }

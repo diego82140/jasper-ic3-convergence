@@ -33,12 +33,14 @@ static struct run_state*validation_start(bool outer_run){
  return s;
 }
 static void validation_fixture(const char*mode){
- strcpy(P.hash,"e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d");
+ const char*fixture_profile=getenv("JIPSTATS_FIXTURE_WORKER_SHA");
+ strcpy(P.hash,fixture_profile?fixture_profile:"e8cbfa93df42061662aaa530125f47d9255ff29b160aa3559d65c706bb24ce1d");
+ assert(release_helpers()!=NULL);
  P.sat_true=0;P.sat_false=1;P.sat_assume=2;
  if(!strcmp(mode,"validation_outcomes")){
   for(int result=0;result<=5;result++){
    struct run_state*s=validation_start(false);
-   struct hook solver={.kind=H_SATAFTER,.rva=0xc818a3};GumCpuContext cpu={.rax=(uintptr_t)result};
+   struct hook solver={.kind=H_SATAFTER,.rva=release_helpers()->property_after};GumCpuContext cpu={.rax=(uintptr_t)result};
    parity_validation_stage(s,H_VALBASE);parity_validation_stage(s,H_VALSTEP);
    parity_validation_solver(s,&solver,&cpu,false);
    assert(s->validation_failed==(result==0));assert(s->validation_inconclusive==(result>=3));
@@ -57,7 +59,7 @@ static void validation_fixture(const char*mode){
   observer_abort_top("native_handler_unwind");assert(s->await_validation&&!s->final_validation_aborted&&s->activation_live==1);
   parity_validation_stage(s,H_VALPROPERTY);parity_validation_leave(s);observer_return(&fixture_hooks[3],&call);
  }else{
-  struct hook solver={.kind=H_SATAFTER,.rva=0xc818a3};GumCpuContext cpu={.rax=5};
+  struct hook solver={.kind=H_SATAFTER,.rva=release_helpers()->property_after};GumCpuContext cpu={.rax=5};
   parity_validation_solver(s,&solver,&cpu,false);assert(s->validation_inconclusive&&!s->validation_failed);
   const char*reason=!strcmp(mode,"validation_gum_abort")?"gum_unwind_observed":"native_handler_unwind";
   observer_abort_top(reason);assert(!s->validation_failed);
@@ -82,6 +84,8 @@ static void validation_fixture(const char*mode){
 int main(int argc,char**argv){
  gum_init_embedded();disk_only=true;compress_disk=true;frame_chunks_enabled=true;frame_inline_enabled=true;
  capture_identity();P.details=1;P.cube_data=0;P.cube_size=8;
+ const char*fixture_profile=getenv("JIPSTATS_FIXTURE_WORKER_SHA");
+ if(fixture_profile){assert(strlen(fixture_profile)==64);strcpy(P.hash,fixture_profile);assert(release_helpers()!=NULL);}
  *(uintptr_t*)sequence=(uintptr_t)configuration;
  *(uintptr_t*)other_sequence=(uintptr_t)configuration;
  for(int i=0;i<2;i++){

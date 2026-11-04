@@ -1,5 +1,47 @@
 # What's new
 
+## v3.0.0 (2026-11-03, pending merge)
+
+- Use the distinct `jasper-ic3-convergence-v3` name; retain frozen v1 and pin v2
+  to its published revision. The general inductiveness method is unchanged.
+- Include the updated Jasper adapters and complete disk/SQLite telemetry.
+- Validate actual agent reading of seven 5,233-literal page-walker CTIs and a
+  protocol-rich CHI capture. Correct observed format/width/query-scope ambiguities
+  and add a focused provenance regression. See [agent validation](references/v3-agent-cti-reading.md).
+- Add the `examples/wide-cti` fixture with native wide-CTI evidence on all four
+  builds, and clarify question-scoped decoding, provenance and existential
+  completions in the agent instructions. See [wide native evidence](references/v3-fresh-wide-native.md).
+- Native qualification and direct finite CTI parity remain separately recorded;
+  no new target closure or general memory bound is claimed.
+
+## Telemetry compatibility included in v3.0.0
+
+This unpublished v2.0.1 work became part of v3.
+
+
+- Add exact-build telemetry adapters for production Jasper `2026.09` and
+  `2026.09p001`, including native validation/caller attribution, Formula tables
+  and report callbacks. Keep the existing June and September prerelease profiles
+  unchanged; unknown workers still fail closed.
+- Fix a queue-delta bug: reuse of a list-node address for another obligation no
+  longer hides removal of its prior membership. A regression rejects the old
+  predicate deliberately.
+- Qualify all four exact workers: 32 M/M4 native baseline/preload proof/CEX
+  checks pass, including June. Reuse matching receipts rather than repeat them.
+- Verify direct CTI data on five pinned models/M/M4/three September builds
+  against the old Dollar/producer1.5 oracle and fresh producer1.6.13: complete
+  raw words, decoded constrained bits, named CTIs, predecessor pairs, query
+  semantics and ordered frames (including empty frames). 203 prior automated
+  tests, 10 new comparator tests and 12 actual-data negative controls pass.
+- Preserve the historical raw allocator-address-history FAIL separately; no
+  universal native lifetime or all-design equivalence is claimed. June retains
+  its older named-display limitation. Full compressed telemetry remains on disk;
+  final direct analysis sampled 37.6 MiB RSS, not a solver memory guarantee.
+
+See [compatibility](references/2026-09-compatibility.md),
+[current CTI results](references/2026-09-cti-agent-parity.md) and
+[independent review dispositions](references/2026-09-review.md).
+
 ## v2.0.0 (2026-10-20)
 
 Installs side by side with the original: `jasper-ic3-convergence-v2` (this) and `jasper-ic3-convergence`

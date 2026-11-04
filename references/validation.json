@@ -1,7 +1,7 @@
 {
  "registry_schema": 1,
  "scope": "Current development dispositions only. Archived entries are historical and do not qualify changed artifacts. Native telemetry qualification, agent closure and memory/cost evidence are separate gates.",
- "current_status": "CANDIDATE_NOT_PROMOTED_HARD_COLD_ACCEPTANCE_PENDING",
+ "current_status": "V3_LOCAL_PR_CANDIDATE_CTI_READ_TESTED_HARD_COLD_ACCEPTANCE_PENDING",
  "published": false,
  "history": {
   "file": "validation-history.json.gz",
@@ -11,6 +11,211 @@
   "scope": "Exact prior full ledger; inspect only for a matching historical investigation."
  },
  "current_development_epoch": {
+  "updated_utc": "2026-11-03T16:49:27.702461+00:00",
+  "plugin": "jasper-ic3-convergence-v3",
+  "version": "3.0.0",
+  "producer": "1.6.15-dev",
+  "native_compatibility_report": "2026-09-cti-agent-parity.json",
+  "agent_reading_report": "v3-agent-cti-reading.json",
+  "published": false,
+  "hard_cold_convergence": "PENDING; historical acceptance dispositions preserved",
+  "agent_cti_reading": "PASS finite reading after observer corrections and fresh scope regression; no target/production guarantee"
+ },
+ "claude_validation_20261019": {
+  "utc": "2026-10-19T23:30:00+00:00",
+  "scope": "Plugin validation on the local source root with the kit-1.4.44 native pair installed (jipstats c3c0f4c6\u2026, libjipstats.so fa90623c\u2026); instruction edits of this date (structural-first \u00a73, depth-ladder row, admission rule and hazard covers \u00a74, prove sizing \u00a76, provenance rule, references/inductiveness-method.md). Not a promotion.",
+  "native_qualification": [
+   {
+    "release": "original",
+    "job": "65149366",
+    "recorded_at": "2026-10-19T20:23:02Z",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-original/cache",
+    "status": "PASS"
+   },
+   {
+    "release": "june",
+    "job": "65192183",
+    "recorded_at": "2026-10-19T22:27:52Z",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-june/cache",
+    "status": "PASS"
+   }
+  ],
+  "self_tests": "12 modules PASS (unittest per module; test_telemetry_db.py on the original-release qualification capture)",
+  "agent_validation": {
+   "design": "CHI ccu_chibun v8 (frozen inputs), target ccu_chibun.gen_cbuns[0].ccu_cbun.ccu_ceq.ceq_write_data_invalid",
+   "ledger": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/LEDGER.md",
+   "blind_trial": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude-trial01/LEDGER.md (fresh agent, same conclusions and first proof; two slips folded into rules)",
+   "cold_replay": "job 65209332/65222822: level A (6 helpers + 6 covers) accepted twice under project dispatch, ProofMaster off; unlimited target levels cancelled as interrupted experiments (rule + gates added); target level T would read cex.",
+   "gates": "vacuous helper rejected by unreachable cover (exp11); false helper refutation pending seeded cex (exp14)",
+   "target_disposition": "CONCRETELY REFUTED 2026-10-20T12:00Z: native cex/cex on the exact target (Bcustom11, 15.5 s, 162-cycle trace from reset) obtained by prove -from composition of native witnesses (allocation 128 -> PROMOWAIT 146 -> promotion capture 151 -> second WB_FULL same line 153 -> double promotion 155 -> first write 158 -> entry INVALID 161 -> second promotion write onto INVALID entry 162). VCD chi-fvip-challenge/claude/diag46/target_cex.vcd. Not strengthened around; reported as a finding (design bug or environment under-constraint: tracker releases the line on datapull-complete inside the promotion window)."
+  },
+  "memory": "warm session sampled peak 27.1 GiB (several background proves); cold head 2.8 GiB; reader <0.1 GiB",
+  "lessons_folded_into_kit": [
+   "structural-first and depth-ladder signature",
+   "necessity-based admission (inert lemmas)",
+   "hazard covers; seed chaining; explicit bounded engine for short windows",
+   "unlimited runs only for finished graphs; GRAPH_READY/BUDGET gates in submit.sh/send.sh; tools/audit.py + Stop hook",
+   "provenance of environment facts",
+   "never edit the live kit while its jobs are queued"
+  ],
+  "review_round_20261020": {
+   "utc": "2026-10-20T16:43:42Z",
+   "adversarial_review": "independent fresh-agent soundness review of the 2026-10-19 text and gates: 22 findings; verdict 'not rigorous enough to publish' before the changes below",
+   "changes": [
+    "necessity/admission rule replaced by the relevance rule (named consumer + sufficiency or CTI-exclusion witness, checked vs hand-derived; relevance is not necessity; no 'family marked inert'; retirement only per experiment, removal only by isolated deletion/reproof)",
+    "seeded `prove -from` failure is a candidate counterexample until replayed from reset as one native trace; hazard covers became bounded witness searches on a candidate's negation (no unbounded `unreachable` duplicate of the proof); bounded-engine behaviour release-specific, measured not assumed",
+    "conjunction assertion is a diagnostic hypothesis source, not a consecution test; CTI/frame definitions corrected (F_i \u2287 R_i, CTIs may be reachable, frontier clauses are frame-relative); H\u21d2P not a native check; template marked heuristic and extended to stall/flush/simultaneous cases; learning loops 'supported', not 'required'",
+    "unlimited run admitted only on a finite basis: tools/graph_ready.py v2 requires warm bounded proofs (status/validity proven, BUDGET.txt in the run) of the target and every helper, graph/checker/ledger hashes, graph names every node and cover, relevance witness per helper, covers list with covers_note for non-implications, --no-freshness for audits of running replays",
+    "tools/prove_gate.py replaces grep gates: every proof-starting prove bounded by -time_limit or set_prove_time_limit, exemptions by flag not substring, multiple proves per line, bare-second literals, stated scope (sourced files not followed)",
+    "submit.sh: BUDGET classes experiment (<=4h) / baseline (project limit, BUDGET_NOTE required); diagnostic runs gated like batch; Slurm --time=BUDGET+BUDGET_MARGIN backstop on every budgeted run; replay has none",
+    "tools/audit.py: elapsed vs budget+margin, class caps, fail-closed when liveness unverifiable and a run may be live, running replays validated without freshness, IC3_SQUEUE test seam",
+    "AGENTS.md \u00a77 'Mechanical gates' states what is enforced (labels, limits, linkage) and what is not (truth)",
+    "evals: natural skill triggering (no slash prefix), graders updated to the new wording"
+   ],
+   "self_tests": "tests/test_release_gates.py 51 OK (receipt, prove gate, send/submit gates, audit incl. fail-closed and elapsed) + 11 other offline modules OK; claude plugin validate: passed with the CLAUDE.md-root warning",
+   "memory_comparison": {
+    "disk_sink": "chi-fvip-challenge/claude/memcmp-disk job 65482118: M diagnostic 10 min on the CEQ target (596 assumptions), undetermined, engine 231.8 s, wall 625.6 s; head max RSS 2.07 GB (/usr/bin/time), rss.csv per-process peak 1.98 GiB",
+    "console_sink": "chi-fvip-challenge/claude/memcmp-console job 65482108: BLOCKED \u2014 strict full-archive qualification cannot attest worker closure for the console transport ('worker closure unattested'), so no proof started; the console/disk matched comparison is not available from this kit version; recorded as a limitation, not a measurement"
+   },
+   "open": [
+    "second-design blind trial on the page-walker snapshot with the revised text (pending)",
+    "commit/tag v1.3.0 snapshot + v2.0.0 after the above"
+   ],
+   "eval_suite": {
+    "utc": "2026-10-20T16:56:01Z",
+    "command": "claude plugin eval . --runs 2 --ablation none --trust-plugin --no-publish",
+    "cases": {
+     "structural-first": "2/2",
+     "depth-ladder-reading": "2/2",
+     "inert-lemma-admission": "2/2",
+     "refuse-unlimited-run": "2/2 after rubric fix (an honestly labelled native baseline mention was being punished)",
+     "hazard-is-existential": "2/2 after rubric rewrite to its four essentials (answers were method-correct; earlier rubric read the no-witness follow-up as 'another lemma')"
+    },
+    "cost_usd_total": 4.1,
+    "lesson": "in one intermediate run the skill did not fire and the answer violated the contract (proposed set_max_trace_length as a proof bound, helpers without witnesses): the method text works only when loaded, so prompts that merely mention Jasper are not enough \u2014 name the skill or the method; all passing runs had Skill called 1x"
+   }
+  },
+  "review_round_20261020_b": {
+   "utc": "2026-10-20T17:33:59Z",
+   "second_adversarial_review": "fresh-agent review of the revised text: 23 findings; critical: the GRAPH-READY validator admitted a fabricated receipt and an open target in an 'admitted' unlimited replay would run forever unnoticed; high: the finite-basis rule was a non sequitur (a trusted basis justifies k x its time, not infinity), any receipt lifted session limits, the sufficiency witness could be padded (L := C and M), CTI exclusion ill-defined on cubes, section 2 contradicted the gates for native baselines",
+   "resolution": [
+    "no run is unlimited: three budget classes (experiment <= 4h with textual prove gate; baseline = unchanged project Tcl at its own limit, declared; replay budgeted <= replay_factor (default 4, max 8) x the summed proof time of a bounded basis run of the SAME graph Tcl) and a Slurm --time backstop on every job (margin <= 120m)",
+    "tools/graph_ready.py v3: reads the basis run's own GRAPH_INPUTS/GRAPH_NODES/GRAPH_COVERS/PROOFMASTER/RESULT lines token-exactly, requires hash equality with the graph/checker on disk, every node proven/proven with engine != Cache and every cover covered, consumer chains ending at the target, relative paths resolved against the receipt; prints max_budget_s which submit.sh enforces; the receipt admits only the Tcl whose hash it records and never a session request",
+    "relevance witnesses repaired: sufficiency by syntactic instantiation or recorded combinational check with every conjunct needed (no C and M padding); CTI exclusion as a cube with D and s => not L for every completion, some input to a violating successor, no unknown bits in the supports; consumer chains end at a requested target",
+    "text: frame/CTI semantics (Bradley vs other PDR variants; blocking is frame-relative), conjunction CTI may be reachable or self-excluded, H => P and explicit induction obligations need a named checker or NOT_RUN, no 'method error' conclusion from one no-benefit run, section 5 title 'attempt when their checkers exist', template qualified in SKILL.md, seeded-cex refutation names its two admissible forms, cover of not-L under L's own clock/disable/enable, site profile split out (references/site-profile.md), authorization sentences removed from the method",
+    "gate probe (own, offline): ::prove bypass fixed, continuations joined, BUDGET_MARGIN capped, session lifetime capped, SEND_MAX override removed; audit scope stated (submit.sh jobs under the workspace only; dispatched workers via their head), SLURM_BIN honoured, telemetry trees pruned",
+    "documented residual limits: prove_gate is textual (sourced files, variables, eval, false ifs are caught only by the backstop, which leaves no certificate and an unsealed archive); receipts remain self-declared beyond log linkage"
+   ],
+   "self_tests": "tests/test_release_gates.py 62 OK in the staging clone (validation/kit-next); other offline modules OK (qualification_identity needs source/, excluded from the clone)",
+   "staging": "edits made in /formal_shared/diego1/.foo/validation/kit-next while the page-walk trial held the live kit frozen; to be synced back after the trial, then eval suite + plugin validate re-run before commit"
+  },
+  "second_design_blind_trial_20261020": {
+   "utc": "2026-10-20T19:25:32Z",
+   "design": "nue-core mmu_pg_walker page walker (frozen snapshot, 499 assumptions), target mmu_pg_walker.pw2mtq_pw_fill_psize_match_ref_4k; prior solution files quarantined before the trial",
+   "agent": "fresh general-purpose agent, opus, high effort, brief in validation/v2-trial-pagewalk/TRIAL-BRIEF.md, 3 h box after its own qualification PASS (09:51 PDT)",
+   "disposition": "STILL OPEN at the box: 30 submissions (444 dispatched engines), summed prove wall 32,779 s; head peak 3.40 GB, engine peak 4.84 GB; no gate refusal, every audit 0 violations, no unlimited run, no GRAPH-READY written (GRAPH-READY-NOTE.md names the nodes without a bounded proof)",
+   "method_behaviour": "structural analysis then bounded witness searches on negations refuted three wrong relations within seconds (5-cycle witnesses) and located the mis-modelled arcs; environment facts restated on the reference model's held copy proved in 1-8 s; 7 helpers cold-certified (level A0), H14a proven warm (850 s); learner loops: Horn-ICE NOT_RUN (no native implication checker), H-Houdini partial, cover-based exclusion executed",
+   "ground_truth_comparison": "the withheld prior independent effort (hao-pagewalk ic3_ledger, 37 rounds) closed this target only after proving hH_frac_leaf2 ('reference psize 4K at level != 0 => RTL PMA/PMP fracture bit', Hp 1143 s), after which the target proved in 17 s; the trial's next unproved dependency H14b ('reference page size vs its fracture outcome at FINISH') is the same relation, reached in 3 h without access to that record",
+   "defects_found_and_fixed": [
+    "submit.sh check: 'BUDGET: unbound variable' after submission, check job unlabelled and without --time (now check gets BUDGET default 2h, label and backstop; fake-sbatch test)",
+    "audit.py blocked on an open stdin when run from a shell (now reads stdin only with --hook; hooks.json updated; test)",
+    "no recipe for binding a read-only checker when the project Tcl elaborates itself (AGENTS \u00a71 now states the two-part source / single elaborate wrapper and the required baseline comparison)",
+    "template lacked the 'decision consistency' relation and the multi-alignment note (added to AGENTS \u00a73 and the method reference)",
+    "diagnostic ProofGrid-local switch and the baseline-vs-bounded-control distinction now stated",
+    "tools/jg_results.py added: extracts contract, native result, Cache and watchdog/KILL lines (the trial missed IPF057 proven lines and 21 watchdog kills for a while)"
+   ],
+   "evidence": "/formal_shared/diego1/.foo/validation/v2-trial-pagewalk/claude-trial/{TRIAL-REPORT.md,LEDGER.md,checker.tcl,aux_checker.sv,proof_graph.tcl,GRAPH-READY-NOTE.md,audit-log.txt,runs/}"
+  },
+  "open": [
+   "push v2-release and merge to main (user)"
+  ],
+  "final_native_qualification_20261020": [
+   {
+    "release": "original",
+    "job": "65542384",
+    "recorded_at": "2026-10-20T19:25:32Z",
+    "plugin_runtime_sha256": "b8a5667f91cf207592205f4338799dd31ba9c0cb015113aa1cf48397872db053",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-final-original/cache",
+    "status": "PASS (fresh)",
+    "label": "2h class=experiment slurm_time_min=180"
+   },
+   {
+    "release": "june",
+    "job": "65542412",
+    "recorded_at": "2026-10-20T19:25:39Z",
+    "plugin_runtime_sha256": "b8a5667f91cf207592205f4338799dd31ba9c0cb015113aa1cf48397872db053",
+    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-final-june/cache",
+    "status": "PASS (fresh)",
+    "label": "2h class=experiment slurm_time_min=180"
+   }
+  ],
+  "eval_suite_final_20261020": {
+   "utc": "2026-10-20T19:41:45Z",
+   "command": "claude plugin eval . --runs 2 --ablation none --trust-plugin --no-publish (prompts name the method without a slash command, so skill triggering is measured; Skill fired in every run)",
+   "results": {
+    "structural-first": "2/2",
+    "hazard-is-existential": "2/2",
+    "refuse-unlimited-run": "2/2 (after the no-unlimited-run rewrite)",
+    "inert-lemma-admission": "1/2 in each of three run-pairs: the failing answers followed the written rule (one admitted B by sufficiency as a single predicate, one split B after spotting its excess strength); judge disagreement, rubric widened to accept both, residual variance recorded, not tuned further",
+    "depth-ladder-reading": "1/2 in each of three run-pairs on method-correct answers (ladder identified, no mined lemma, structural candidates next); judge variance"
+   },
+   "reading": "LLM-judged evals are a behaviour signal, not a certificate: the plugin's behaviour matched the text in every run read; the two residual failures are rubric/judge variance on long correct answers. Total eval cost this day ~ USD 12."
+  },
+  "release_candidate_20261020": {
+   "utc": "2026-10-20T20:36:54Z",
+   "branch": "v2-release",
+   "tags": {
+    "v2.0.0": "head of v2-release",
+    "v1.3.0": "98a455d (GitHub main as of 2026-10-20; also frozen in-tree under v1/)"
+   },
+   "requalification_c993d69": [
+    {
+     "release": "original",
+     "job": "65552306",
+     "recorded_at": "2026-10-20T19:57:53Z",
+     "plugin_runtime_sha256": "42c1e1c893d93a1fa3eb2f4cfe25211dbd90e84babaf08df6c595d5dc8d5993b",
+     "status": "PASS (fresh)"
+    },
+    {
+     "release": "june",
+     "job": "65552307",
+     "recorded_at": "2026-10-20T19:58:22Z",
+     "plugin_runtime_sha256": "42c1e1c893d93a1fa3eb2f4cfe25211dbd90e84babaf08df6c595d5dc8d5993b",
+     "status": "PASS (fresh)"
+    }
+   ],
+   "install_test": "claude plugin marketplace add <kit path> + install of both jasper-ic3-convergence-v2@jasper-ic3-convergence (2.0.0; skill + PreToolUse/Stop hooks) and jasper-ic3-convergence@jasper-ic3-convergence (1.3.0; skill only) into an isolated CLAUDE_CONFIG_DIR: both install side by side; file modes preserved (jipstats, submit.sh, send.sh executable), jipstats byte-identical, gate tests and audit run from the installed copy. Finding: a local-path install copies git-ignored build directories, so rebuilt/ (94 MB) and third_party/ (109 MB) were moved beside the kit (jasper-ic3-convergence-build/) and package_release.py takes --inputs",
+   "shared_readability": "all evidence trees chmod a+rX (3,916 + 695 entries were unreadable to other users); submit.sh/jasper_job.sh now umask 022",
+   "publication": "GitHub main is still 98a455d; /formal_shared/diego1/ic3-agent main is d87c4ba. Publishing v2 = push v2-release and merge to main there, then `claude plugin marketplace update jasper-ic3-convergence` + install v2 on each user's machine. Not done: the user's go is required.",
+   "requalification_cd25a8c": [
+    {
+     "release": "original",
+     "job": "65565190",
+     "recorded_at": "2026-10-20T20:37:46Z",
+     "plugin_runtime_sha256": "3dd7e199256ea3624f64dafef5d4bffc57445f180aba22c17fabea30042419c3",
+     "status": "PASS (fresh)",
+     "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-v2b-original/cache"
+    },
+    {
+     "release": "june",
+     "job": "65565225",
+     "recorded_at": "2026-10-20T20:37:46Z",
+     "plugin_runtime_sha256": "3dd7e199256ea3624f64dafef5d4bffc57445f180aba22c17fabea30042419c3",
+     "status": "PASS (fresh)",
+     "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-v2b-june/cache"
+    }
+   ],
+   "push_gate": "all plugin QA closed at 2026-10-20T20:38Z: tests, plugin validate, evals, install test, both releases PASS on the final runtime hash; the unseeded CEQ search (exp40) is a design finding experiment and does not gate the plugin"
+  }
+ },
+ "production_september_compatibility_20261103": {
+  "status": "PASS_FINITE_EXACT_COMPONENT_COMPATIBILITY",
+  "report": "2026-09-cti-agent-parity.json",
+  "library_sha256": "98d9f845e177f941b7422656549159ca382a3ba6efb3a04deff6150a46ead78b",
+  "scope": "Exact-build telemetry compatibility and finite information parity; not universal instrumentation equivalence, a complete solver-state export, or a DUT proof certificate",
+  "framework_convergence_status_unchanged": true
+ },
+ "historical_development_epoch_20261008": {
   "updated_utc": "2026-10-08T18:40:39.199595+00:00",
   "status": "CANDIDATE_NOT_PROMOTED_HARD_COLD_ACCEPTANCE_PENDING",
   "latest_agent_kit": "/formal_shared/diego1/.foo/validation/kits/1.4.44-dev-continuation-guard",
@@ -481,193 +686,6 @@
    "initial_enabled_safety": 308,
    "initial_eligible": 0,
    "original_assumptions": 499
-  }
- },
- "claude_validation_20261019": {
-  "utc": "2026-10-19T23:30:00+00:00",
-  "scope": "Plugin validation on the local source root with the kit-1.4.44 native pair installed (jipstats c3c0f4c6\u2026, libjipstats.so fa90623c\u2026); instruction edits of this date (structural-first \u00a73, depth-ladder row, admission rule and hazard covers \u00a74, prove sizing \u00a76, provenance rule, references/inductiveness-method.md). Not a promotion.",
-  "native_qualification": [
-   {
-    "release": "original",
-    "job": "65149366",
-    "recorded_at": "2026-10-19T20:23:02Z",
-    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-original/cache",
-    "status": "PASS"
-   },
-   {
-    "release": "june",
-    "job": "65192183",
-    "recorded_at": "2026-10-19T22:27:52Z",
-    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-june/cache",
-    "status": "PASS"
-   }
-  ],
-  "self_tests": "12 modules PASS (unittest per module; test_telemetry_db.py on the original-release qualification capture)",
-  "agent_validation": {
-   "design": "CHI ccu_chibun v8 (frozen inputs), target ccu_chibun.gen_cbuns[0].ccu_cbun.ccu_ceq.ceq_write_data_invalid",
-   "ledger": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/LEDGER.md",
-   "blind_trial": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude-trial01/LEDGER.md (fresh agent, same conclusions and first proof; two slips folded into rules)",
-   "cold_replay": "job 65209332/65222822: level A (6 helpers + 6 covers) accepted twice under project dispatch, ProofMaster off; unlimited target levels cancelled as interrupted experiments (rule + gates added); target level T would read cex.",
-   "gates": "vacuous helper rejected by unreachable cover (exp11); false helper refutation pending seeded cex (exp14)",
-   "target_disposition": "CONCRETELY REFUTED 2026-10-20T12:00Z: native cex/cex on the exact target (Bcustom11, 15.5 s, 162-cycle trace from reset) obtained by prove -from composition of native witnesses (allocation 128 -> PROMOWAIT 146 -> promotion capture 151 -> second WB_FULL same line 153 -> double promotion 155 -> first write 158 -> entry INVALID 161 -> second promotion write onto INVALID entry 162). VCD chi-fvip-challenge/claude/diag46/target_cex.vcd. Not strengthened around; reported as a finding (design bug or environment under-constraint: tracker releases the line on datapull-complete inside the promotion window)."
-  },
-  "memory": "warm session sampled peak 27.1 GiB (several background proves); cold head 2.8 GiB; reader <0.1 GiB",
-  "lessons_folded_into_kit": [
-   "structural-first and depth-ladder signature",
-   "necessity-based admission (inert lemmas)",
-   "hazard covers; seed chaining; explicit bounded engine for short windows",
-   "unlimited runs only for finished graphs; GRAPH_READY/BUDGET gates in submit.sh/send.sh; tools/audit.py + Stop hook",
-   "provenance of environment facts",
-   "never edit the live kit while its jobs are queued"
-  ],
-  "review_round_20261020": {
-   "utc": "2026-10-20T16:43:42Z",
-   "adversarial_review": "independent fresh-agent soundness review of the 2026-10-19 text and gates: 22 findings; verdict 'not rigorous enough to publish' before the changes below",
-   "changes": [
-    "necessity/admission rule replaced by the relevance rule (named consumer + sufficiency or CTI-exclusion witness, checked vs hand-derived; relevance is not necessity; no 'family marked inert'; retirement only per experiment, removal only by isolated deletion/reproof)",
-    "seeded `prove -from` failure is a candidate counterexample until replayed from reset as one native trace; hazard covers became bounded witness searches on a candidate's negation (no unbounded `unreachable` duplicate of the proof); bounded-engine behaviour release-specific, measured not assumed",
-    "conjunction assertion is a diagnostic hypothesis source, not a consecution test; CTI/frame definitions corrected (F_i \u2287 R_i, CTIs may be reachable, frontier clauses are frame-relative); H\u21d2P not a native check; template marked heuristic and extended to stall/flush/simultaneous cases; learning loops 'supported', not 'required'",
-    "unlimited run admitted only on a finite basis: tools/graph_ready.py v2 requires warm bounded proofs (status/validity proven, BUDGET.txt in the run) of the target and every helper, graph/checker/ledger hashes, graph names every node and cover, relevance witness per helper, covers list with covers_note for non-implications, --no-freshness for audits of running replays",
-    "tools/prove_gate.py replaces grep gates: every proof-starting prove bounded by -time_limit or set_prove_time_limit, exemptions by flag not substring, multiple proves per line, bare-second literals, stated scope (sourced files not followed)",
-    "submit.sh: BUDGET classes experiment (<=4h) / baseline (project limit, BUDGET_NOTE required); diagnostic runs gated like batch; Slurm --time=BUDGET+BUDGET_MARGIN backstop on every budgeted run; replay has none",
-    "tools/audit.py: elapsed vs budget+margin, class caps, fail-closed when liveness unverifiable and a run may be live, running replays validated without freshness, IC3_SQUEUE test seam",
-    "AGENTS.md \u00a77 'Mechanical gates' states what is enforced (labels, limits, linkage) and what is not (truth)",
-    "evals: natural skill triggering (no slash prefix), graders updated to the new wording"
-   ],
-   "self_tests": "tests/test_release_gates.py 51 OK (receipt, prove gate, send/submit gates, audit incl. fail-closed and elapsed) + 11 other offline modules OK; claude plugin validate: passed with the CLAUDE.md-root warning",
-   "memory_comparison": {
-    "disk_sink": "chi-fvip-challenge/claude/memcmp-disk job 65482118: M diagnostic 10 min on the CEQ target (596 assumptions), undetermined, engine 231.8 s, wall 625.6 s; head max RSS 2.07 GB (/usr/bin/time), rss.csv per-process peak 1.98 GiB",
-    "console_sink": "chi-fvip-challenge/claude/memcmp-console job 65482108: BLOCKED \u2014 strict full-archive qualification cannot attest worker closure for the console transport ('worker closure unattested'), so no proof started; the console/disk matched comparison is not available from this kit version; recorded as a limitation, not a measurement"
-   },
-   "open": [
-    "second-design blind trial on the page-walker snapshot with the revised text (pending)",
-    "commit/tag v1.3.0 snapshot + v2.0.0 after the above"
-   ],
-   "eval_suite": {
-    "utc": "2026-10-20T16:56:01Z",
-    "command": "claude plugin eval . --runs 2 --ablation none --trust-plugin --no-publish",
-    "cases": {
-     "structural-first": "2/2",
-     "depth-ladder-reading": "2/2",
-     "inert-lemma-admission": "2/2",
-     "refuse-unlimited-run": "2/2 after rubric fix (an honestly labelled native baseline mention was being punished)",
-     "hazard-is-existential": "2/2 after rubric rewrite to its four essentials (answers were method-correct; earlier rubric read the no-witness follow-up as 'another lemma')"
-    },
-    "cost_usd_total": 4.1,
-    "lesson": "in one intermediate run the skill did not fire and the answer violated the contract (proposed set_max_trace_length as a proof bound, helpers without witnesses): the method text works only when loaded, so prompts that merely mention Jasper are not enough \u2014 name the skill or the method; all passing runs had Skill called 1x"
-   }
-  },
-  "review_round_20261020_b": {
-   "utc": "2026-10-20T17:33:59Z",
-   "second_adversarial_review": "fresh-agent review of the revised text: 23 findings; critical: the GRAPH-READY validator admitted a fabricated receipt and an open target in an 'admitted' unlimited replay would run forever unnoticed; high: the finite-basis rule was a non sequitur (a trusted basis justifies k x its time, not infinity), any receipt lifted session limits, the sufficiency witness could be padded (L := C and M), CTI exclusion ill-defined on cubes, section 2 contradicted the gates for native baselines",
-   "resolution": [
-    "no run is unlimited: three budget classes (experiment <= 4h with textual prove gate; baseline = unchanged project Tcl at its own limit, declared; replay budgeted <= replay_factor (default 4, max 8) x the summed proof time of a bounded basis run of the SAME graph Tcl) and a Slurm --time backstop on every job (margin <= 120m)",
-    "tools/graph_ready.py v3: reads the basis run's own GRAPH_INPUTS/GRAPH_NODES/GRAPH_COVERS/PROOFMASTER/RESULT lines token-exactly, requires hash equality with the graph/checker on disk, every node proven/proven with engine != Cache and every cover covered, consumer chains ending at the target, relative paths resolved against the receipt; prints max_budget_s which submit.sh enforces; the receipt admits only the Tcl whose hash it records and never a session request",
-    "relevance witnesses repaired: sufficiency by syntactic instantiation or recorded combinational check with every conjunct needed (no C and M padding); CTI exclusion as a cube with D and s => not L for every completion, some input to a violating successor, no unknown bits in the supports; consumer chains end at a requested target",
-    "text: frame/CTI semantics (Bradley vs other PDR variants; blocking is frame-relative), conjunction CTI may be reachable or self-excluded, H => P and explicit induction obligations need a named checker or NOT_RUN, no 'method error' conclusion from one no-benefit run, section 5 title 'attempt when their checkers exist', template qualified in SKILL.md, seeded-cex refutation names its two admissible forms, cover of not-L under L's own clock/disable/enable, site profile split out (references/site-profile.md), authorization sentences removed from the method",
-    "gate probe (own, offline): ::prove bypass fixed, continuations joined, BUDGET_MARGIN capped, session lifetime capped, SEND_MAX override removed; audit scope stated (submit.sh jobs under the workspace only; dispatched workers via their head), SLURM_BIN honoured, telemetry trees pruned",
-    "documented residual limits: prove_gate is textual (sourced files, variables, eval, false ifs are caught only by the backstop, which leaves no certificate and an unsealed archive); receipts remain self-declared beyond log linkage"
-   ],
-   "self_tests": "tests/test_release_gates.py 62 OK in the staging clone (validation/kit-next); other offline modules OK (qualification_identity needs source/, excluded from the clone)",
-   "staging": "edits made in /formal_shared/diego1/.foo/validation/kit-next while the page-walk trial held the live kit frozen; to be synced back after the trial, then eval suite + plugin validate re-run before commit"
-  },
-  "second_design_blind_trial_20261020": {
-   "utc": "2026-10-20T19:25:32Z",
-   "design": "nue-core mmu_pg_walker page walker (frozen snapshot, 499 assumptions), target mmu_pg_walker.pw2mtq_pw_fill_psize_match_ref_4k; prior solution files quarantined before the trial",
-   "agent": "fresh general-purpose agent, opus, high effort, brief in validation/v2-trial-pagewalk/TRIAL-BRIEF.md, 3 h box after its own qualification PASS (09:51 PDT)",
-   "disposition": "STILL OPEN at the box: 30 submissions (444 dispatched engines), summed prove wall 32,779 s; head peak 3.40 GB, engine peak 4.84 GB; no gate refusal, every audit 0 violations, no unlimited run, no GRAPH-READY written (GRAPH-READY-NOTE.md names the nodes without a bounded proof)",
-   "method_behaviour": "structural analysis then bounded witness searches on negations refuted three wrong relations within seconds (5-cycle witnesses) and located the mis-modelled arcs; environment facts restated on the reference model's held copy proved in 1-8 s; 7 helpers cold-certified (level A0), H14a proven warm (850 s); learner loops: Horn-ICE NOT_RUN (no native implication checker), H-Houdini partial, cover-based exclusion executed",
-   "ground_truth_comparison": "the withheld prior independent effort (hao-pagewalk ic3_ledger, 37 rounds) closed this target only after proving hH_frac_leaf2 ('reference psize 4K at level != 0 => RTL PMA/PMP fracture bit', Hp 1143 s), after which the target proved in 17 s; the trial's next unproved dependency H14b ('reference page size vs its fracture outcome at FINISH') is the same relation, reached in 3 h without access to that record",
-   "defects_found_and_fixed": [
-    "submit.sh check: 'BUDGET: unbound variable' after submission, check job unlabelled and without --time (now check gets BUDGET default 2h, label and backstop; fake-sbatch test)",
-    "audit.py blocked on an open stdin when run from a shell (now reads stdin only with --hook; hooks.json updated; test)",
-    "no recipe for binding a read-only checker when the project Tcl elaborates itself (AGENTS \u00a71 now states the two-part source / single elaborate wrapper and the required baseline comparison)",
-    "template lacked the 'decision consistency' relation and the multi-alignment note (added to AGENTS \u00a73 and the method reference)",
-    "diagnostic ProofGrid-local switch and the baseline-vs-bounded-control distinction now stated",
-    "tools/jg_results.py added: extracts contract, native result, Cache and watchdog/KILL lines (the trial missed IPF057 proven lines and 21 watchdog kills for a while)"
-   ],
-   "evidence": "/formal_shared/diego1/.foo/validation/v2-trial-pagewalk/claude-trial/{TRIAL-REPORT.md,LEDGER.md,checker.tcl,aux_checker.sv,proof_graph.tcl,GRAPH-READY-NOTE.md,audit-log.txt,runs/}"
-  },
-  "open": [
-   "push v2-release and merge to main (user)"
-  ],
-  "final_native_qualification_20261020": [
-   {
-    "release": "original",
-    "job": "65542384",
-    "recorded_at": "2026-10-20T19:25:32Z",
-    "plugin_runtime_sha256": "b8a5667f91cf207592205f4338799dd31ba9c0cb015113aa1cf48397872db053",
-    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-final-original/cache",
-    "status": "PASS (fresh)",
-    "label": "2h class=experiment slurm_time_min=180"
-   },
-   {
-    "release": "june",
-    "job": "65542412",
-    "recorded_at": "2026-10-20T19:25:39Z",
-    "plugin_runtime_sha256": "b8a5667f91cf207592205f4338799dd31ba9c0cb015113aa1cf48397872db053",
-    "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-final-june/cache",
-    "status": "PASS (fresh)",
-    "label": "2h class=experiment slurm_time_min=180"
-   }
-  ],
-  "eval_suite_final_20261020": {
-   "utc": "2026-10-20T19:41:45Z",
-   "command": "claude plugin eval . --runs 2 --ablation none --trust-plugin --no-publish (prompts name the method without a slash command, so skill triggering is measured; Skill fired in every run)",
-   "results": {
-    "structural-first": "2/2",
-    "hazard-is-existential": "2/2",
-    "refuse-unlimited-run": "2/2 (after the no-unlimited-run rewrite)",
-    "inert-lemma-admission": "1/2 in each of three run-pairs: the failing answers followed the written rule (one admitted B by sufficiency as a single predicate, one split B after spotting its excess strength); judge disagreement, rubric widened to accept both, residual variance recorded, not tuned further",
-    "depth-ladder-reading": "1/2 in each of three run-pairs on method-correct answers (ladder identified, no mined lemma, structural candidates next); judge variance"
-   },
-   "reading": "LLM-judged evals are a behaviour signal, not a certificate: the plugin's behaviour matched the text in every run read; the two residual failures are rubric/judge variance on long correct answers. Total eval cost this day ~ USD 12."
-  },
-  "release_candidate_20261020": {
-   "utc": "2026-10-20T20:36:54Z",
-   "branch": "v2-release",
-   "tags": {
-    "v2.0.0": "head of v2-release",
-    "v1.3.0": "98a455d (GitHub main as of 2026-10-20; also frozen in-tree under v1/)"
-   },
-   "requalification_c993d69": [
-    {
-     "release": "original",
-     "job": "65552306",
-     "recorded_at": "2026-10-20T19:57:53Z",
-     "plugin_runtime_sha256": "42c1e1c893d93a1fa3eb2f4cfe25211dbd90e84babaf08df6c595d5dc8d5993b",
-     "status": "PASS (fresh)"
-    },
-    {
-     "release": "june",
-     "job": "65552307",
-     "recorded_at": "2026-10-20T19:58:22Z",
-     "plugin_runtime_sha256": "42c1e1c893d93a1fa3eb2f4cfe25211dbd90e84babaf08df6c595d5dc8d5993b",
-     "status": "PASS (fresh)"
-    }
-   ],
-   "install_test": "claude plugin marketplace add <kit path> + install of both jasper-ic3-convergence-v2@jasper-ic3-convergence (2.0.0; skill + PreToolUse/Stop hooks) and jasper-ic3-convergence@jasper-ic3-convergence (1.3.0; skill only) into an isolated CLAUDE_CONFIG_DIR: both install side by side; file modes preserved (jipstats, submit.sh, send.sh executable), jipstats byte-identical, gate tests and audit run from the installed copy. Finding: a local-path install copies git-ignored build directories, so rebuilt/ (94 MB) and third_party/ (109 MB) were moved beside the kit (jasper-ic3-convergence-build/) and package_release.py takes --inputs",
-   "shared_readability": "all evidence trees chmod a+rX (3,916 + 695 entries were unreadable to other users); submit.sh/jasper_job.sh now umask 022",
-   "publication": "GitHub main is still 98a455d; /formal_shared/diego1/ic3-agent main is d87c4ba. Publishing v2 = push v2-release and merge to main there, then `claude plugin marketplace update jasper-ic3-convergence` + install v2 on each user's machine. Not done: the user's go is required.",
-   "requalification_cd25a8c": [
-    {
-     "release": "original",
-     "job": "65565190",
-     "recorded_at": "2026-10-20T20:37:46Z",
-     "plugin_runtime_sha256": "3dd7e199256ea3624f64dafef5d4bffc57445f180aba22c17fabea30042419c3",
-     "status": "PASS (fresh)",
-     "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-v2b-original/cache"
-    },
-    {
-     "release": "june",
-     "job": "65565225",
-     "recorded_at": "2026-10-20T20:37:46Z",
-     "plugin_runtime_sha256": "3dd7e199256ea3624f64dafef5d4bffc57445f180aba22c17fabea30042419c3",
-     "status": "PASS (fresh)",
-     "cache": "/formal_shared/diego1/.foo/chi-fvip-challenge/claude/check-v2b-june/cache"
-    }
-   ],
-   "push_gate": "all plugin QA closed at 2026-10-20T20:38Z: tests, plugin validate, evals, install test, both releases PASS on the final runtime hash; the unseeded CEQ search (exp40) is a design finding experiment and does not gate the plugin"
   }
  }
 }

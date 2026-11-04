@@ -42,6 +42,7 @@ def archive_error(path,error):
 CHAINPACK_MAGIC=b'JIPSTATS_CHAINPACK 1\n'
 CHAINPACK_MAX_LINE=1024*1024
 CHAINPACK_MAX_LIVE=1024
+RAW_DISPLAY_VALIDATION='length_sha256_v1'
 
 class ChainpackError(ValueError):pass
 
@@ -77,17 +78,23 @@ def chainpack_encode(source,destination):
     The caller must additionally validate native seals/manifests and source
     stability. This codec is storage, not a replacement for strict ingestion.
     """
-    tips={};digest=hashlib.sha256();size=records=0
+    tips={};digest=hashlib.sha256();size=records=0;raw_remaining=0
     destination.write(CHAINPACK_MAGIC)
     while True:
         line=chainpack_line(source)
         if not line:break
         digest.update(line);size+=len(line)
-        if line.startswith(b'IC3_STATS '):
+        if raw_remaining:
+            require(len(line)<=raw_remaining,'raw display exceeds declared extent')
+            raw_remaining-=len(line);destination.write(b'R'+line)
+        elif line.startswith(b'IC3_STATS '):
             body,declared=line[:-1].rsplit(b' chain=',1)
             require(chainpack_chain(body,tips)==declared,'input event hash-chain mismatch')
             destination.write(b'C'+body+b'\n');records+=1
+            row=fields(body)
+            if row['phase']=='parity_record_end':raw_remaining=raw_display_extent(row)+1
         else:destination.write(b'R'+line)
+    require(not raw_remaining,'truncated raw display in chainpack input')
     require(not tips,'chainpack requires every run to be sealed')
     result=dict(sha256=digest.hexdigest(),decoded_bytes=size,records=records)
     destination.write(b'F '+json.dumps(result,sort_keys=True,separators=(',',':')).encode()+b'\n')
@@ -109,7 +116,7 @@ class ChainpackStream(io.RawIOBase):
         self.raw.seek(0);self.stream=gzip.GzipFile(fileobj=self.raw,mode='rb')
         require(chainpack_line(self.stream)==CHAINPACK_MAGIC,'unsupported chainpack header')
         self.tips={};self.digest=hashlib.sha256();self.total=self.records=self.position=0
-        self.pending=b'';self.done=False
+        self.pending=b'';self.done=False;self.raw_remaining=0
     def readable(self):return True
     def seekable(self):return True
     def tell(self):return self.position
@@ -119,6 +126,7 @@ class ChainpackStream(io.RawIOBase):
         require(line,'chainpack footer missing')
         tag=line[:1]
         if tag==b'F':
+            require(not self.raw_remaining,'chainpack footer inside raw display')
             require(line.startswith(b'F '),'invalid chainpack footer')
             expected=json.loads(line[2:])
             require(isinstance(expected,dict) and set(expected)=={'sha256','decoded_bytes','records'} and type(expected['decoded_bytes']) is int and type(expected['records']) is int and isinstance(expected['sha256'],str),'invalid chainpack footer fields')
@@ -128,11 +136,17 @@ class ChainpackStream(io.RawIOBase):
             self.done=True;return b''
         require(tag in (b'C',b'R'),'invalid chainpack record tag')
         if tag==b'C':
+            require(not self.raw_remaining,'canonical event inside framed raw display')
             body=line[1:-1];chain=chainpack_chain(body,self.tips)
             result=body+b' chain='+chain+b'\n';self.records+=1
+            row=fields(body)
+            if row['phase']=='parity_record_end':self.raw_remaining=raw_display_extent(row)+1
         else:
             result=line[1:]
-            require(not result.startswith(b'IC3_STATS '),'event hidden in raw chainpack record')
+            if self.raw_remaining:
+                require(len(result)<=self.raw_remaining,'raw chainpack display exceeds declared extent')
+                self.raw_remaining-=len(result)
+            else:require(not result.startswith(b'IC3_STATS '),'event hidden in raw chainpack record')
         require(len(result)<=CHAINPACK_MAX_LINE,'decoded chainpack record exceeds supported size')
         self.digest.update(result);self.total+=len(result)
         return result
@@ -176,8 +190,37 @@ def archive_open(path):
     except (EOFError,ChainpackError,gzip.BadGzipFile,zlib.error) as e:
         raise archive_error(path,e) from e
 
+class FramedDisplay(bytes):
+    """Opaque raw display bytes, including embedded line/record prefixes."""
+
+def raw_display_extent(row):
+    size=int(row['bytes'])
+    require(row.get('complete')=='1' and 0<=size<=16*1024*1024,'invalid raw display extent')
+    return size
+
 def archive_lines(path):
-    with archive_open(path) as stream:yield from stream
+    pending={}
+    with archive_open(path) as stream:
+        while line:=stream.readline():
+            framed_marker=b' phase=parity_record ' in line or b' phase=parity_record_end ' in line
+            row=fields(line[:-1]) if framed_marker and line.startswith(b'IC3_STATS ') and line.endswith(b'\n') else {}
+            phase=row.get('phase')
+            if phase in ('parity_record','parity_record_end'):
+                key=tuple(row[k] for k in ('capture','pid','tid','run','parity_sequence'))
+                if phase=='parity_record':
+                    require(key not in pending,'duplicate raw display header')
+                    pending[key]=row
+                else:require(key in pending,'raw display end without header')
+            yield line
+            if phase=='parity_record_end':
+                header=pending.pop(key);size=raw_display_extent(row)
+                require(int(header['bytes'])==size,'raw display header/end length mismatch')
+                raw=stream.read(size+1)
+                require(len(raw)==size+1 and raw[-1:]==b'\n','truncated raw display bytes')
+                require(hashlib.sha256(raw[:-1]).hexdigest()==header['sha256'],'raw display differs from its canonical payload')
+                family=header['family'].encode('ascii')
+                require(re.fullmatch(rb'IC3_[A-Z_]+',family) and raw.startswith(family+b' '),'raw display family mismatch')
+                yield FramedDisplay(raw)
 
 def canonical_logs(directory):
     """Unknown encodings and interrupted migrations are errors, not exclusions."""
@@ -248,6 +291,11 @@ def verify_index(path):
             'invalid index integrity receipt: '+str(receipt))
     require(index_digest(path)==(expected.get('bytes'),expected.get('sha256')),
             'index changed since ingestion: '+str(path)+'; discard output and re-ingest unchanged canonical sources')
+
+def require_current_validation(db):
+    policy=db.execute("SELECT value FROM metadata WHERE key='raw_display_validation'").fetchone()
+    require(policy==(RAW_DISPLAY_VALIDATION,),
+            'index predates current raw display validation; re-ingest unchanged canonical sources into a fresh index')
 
 def read_manifest(path):
     require(not path.is_symlink(),'symlink manifest rejected: '+str(path))
@@ -733,7 +781,7 @@ def ingest(directory,destination,allow_incomplete=False,closed_workers_only=Fals
             for line in archive_lines(path):
                 h.update(line);size+=len(line)
                 require(line.endswith(b'\n'),'partial final record')
-                if not line.startswith(b'IC3_STATS '):continue
+                if isinstance(line,FramedDisplay) or not line.startswith(b'IC3_STATS '):continue
                 raw=line[:-1];r=fields(raw);require(r.get('schema') in ('2','3'),'only schema 2 and 3 are supported')
                 if workers is not None:require(int(r['pid'])==int(path.name.split('-')[1]),'worker PID differs from selected archive filename')
                 key=':'.join(r[k] for k in ('capture','pid','tid','run'));nr=int(r['event'])
@@ -803,6 +851,7 @@ def ingest(directory,destination,allow_incomplete=False,closed_workers_only=Fals
         complete=workers is None and not closed_workers_only and not unclosed and not unmanifested and not unfinished and not db.execute('SELECT 1 FROM runs WHERE complete=0 LIMIT 1').fetchone()
         db.execute('UPDATE metadata SET value=? WHERE key=?',(json.dumps(unclosed),'unclosed_worker_manifests'))
         db.execute('UPDATE metadata SET value=? WHERE key=?',('verified_observed_worker_files' if complete else 'incomplete_diagnostic','integrity'))
+        db.execute('INSERT INTO metadata VALUES(?,?)',('raw_display_validation',RAW_DISPLAY_VALIDATION))
         db.commit()
         result=dict(records=count,runs=db.execute('SELECT count(*) FROM runs').fetchone()[0],integrity='verified_observed_worker_files' if complete else 'incomplete_diagnostic',complete=complete,proof_certificate=False,selection=selection,selected_worker_pids=sorted(workers) if workers is not None else [],excluded_worker_files=excluded,unclosed_worker_manifests=unclosed,scope='manifested observed workers; does not certify missing unobserved ProofGrid jobs or complete solver formulas')
     finally:db.close()
@@ -834,6 +883,7 @@ def main():
         integrity=db.execute("SELECT value FROM metadata WHERE key='integrity'").fetchone()
         require(integrity and integrity[0] in ('verified_observed_worker_files','incomplete_diagnostic'),'index ingestion did not finish successfully')
         verify_index(a.database)
+        require_current_validation(db)
         if getattr(a,'run',None) is not None:
             require(db.execute('SELECT 1 FROM runs WHERE run=?',(a.run,)).fetchone(),'run unavailable: '+a.run+'; inspect summary for exact worker/run keys')
         signatures=verify_sources(db)
@@ -848,14 +898,13 @@ def main():
             for member in members:print(json.dumps(member))
         elif a.command=='native-display':
             for (path,) in db.execute("SELECT path FROM files WHERE path LIKE '%events-%.log%'"):
-                with archive_open(path) as stream:
-                    for line in stream:
-                        if not line.startswith(b'NATIVE_IC3_REPORT '):continue
-                        header,text=line.split(b' text=',1);r=fields(header)
-                        key=':'.join(r[k] for k in ('capture','pid','tid','run'))
-                        if a.run and a.run!=key:continue
-                        if a.family and not text.startswith(a.family.encode()+b' '):continue
-                        sys.stdout.buffer.write(line)
+                for line in archive_lines(path):
+                    if isinstance(line,FramedDisplay) or not line.startswith(b'NATIVE_IC3_REPORT '):continue
+                    header,text=line.split(b' text=',1);r=fields(header)
+                    key=':'.join(r[k] for k in ('capture','pid','tid','run'))
+                    if a.run and a.run!=key:continue
+                    if a.family and not text.startswith(a.family.encode()+b' '):continue
+                    sys.stdout.buffer.write(line)
         elif a.command=='decode-cube':decode_cube(db,a.run,a.id)
         elif a.command=='decode-cubes':
             with a.ids_file.open() as ids:decode_cubes(db,a.run,ids)

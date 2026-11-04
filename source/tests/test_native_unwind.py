@@ -1,6 +1,6 @@
 """Actual Gum/C++ exception regressions. This worker is not Jasper."""
 from pathlib import Path
-import gzip,hashlib,importlib.util,json,os,re,subprocess,sys,tempfile
+import contextlib,gzip,hashlib,importlib.util,json,os,re,subprocess,sys,tempfile
 SOURCE=Path(__file__).resolve().parents[1]
 BUILD=Path(os.environ.get('JIPSTATS_TEST_BUILD',str(SOURCE.parent/'rebuilt'))).resolve()
 sys.path.insert(0,str(BUILD/'test-deps/pyelftools-0.32'))
@@ -17,9 +17,14 @@ profile+=f'hook trace {address:x} 0 1 -1 -1 -1 0 {guard}\n'
 spec=importlib.util.spec_from_file_location('telemetry',SOURCE.parent/'tools/telemetry_db.py')
 telemetry=importlib.util.module_from_spec(spec);spec.loader.exec_module(telemetry)
 results=[]
-with tempfile.TemporaryDirectory(prefix='jipstats-native-unwind-') as tmp:
+persistent=os.environ.get('JIPSTATS_TEST_EVIDENCE_DIR')
+if persistent:
+ Path(persistent).mkdir(parents=True,exist_ok=False)
+ manager=contextlib.nullcontext(persistent)
+else:manager=tempfile.TemporaryDirectory(prefix='jipstats-native-unwind-')
+with manager as tmp:
  tmp=Path(tmp)
- for mode in ('entry','probe','ancestor','generalize','recursive','tail','two_runs','recursive_throw','selfcatch','second_throw','longjmp'):
+ for mode in ('entry','probe','ancestor','generalize','recursive','tail','two_runs','recursive_throw','selfcatch','second_throw','longjmp','sat_throw'):
   out=tmp/mode;out.mkdir();p=out/'profile.events';p.write_text(profile)
   env=dict(os.environ,FIXTURE_UNWIND=mode)
   env.pop('LD_PRELOAD',None)
@@ -69,6 +74,10 @@ with tempfile.TemporaryDirectory(prefix='jipstats-native-unwind-') as tmp:
    assert sum(r['phase']=='invocation_begin' and r['hook']=='relative' for r in rows)==len(starts)
    assert any(r['phase']=='listener_alias' and r['distinct_native_call']=='0' for r in rows)
   if mode=='generalize':assert any(r['phase']=='operation_abort' and r['kind']=='generalize' for r in rows)
+  if mode=='sat_throw':
+   cancelled=[r for r in rows if r['phase']=='sat_abort']
+   assert len(cancelled)==1 and cancelled[0]['native_return_observed']=='0'
+   assert all(key not in cancelled[0] for key in ('result','result_raw'))
   for seal in (r for r in rows if r['phase']=='run_seal'):
    assert seal['capture_status']==('incomplete' if mode=='longjmp' else 'complete') and seal['activation_live']=='0'
    assert (int(seal['observer_errors'])>0 or int(seal['native_unwind_runtime_fault'])>0)==(mode=='longjmp'),(mode,seal)
@@ -90,4 +99,5 @@ with tempfile.TemporaryDirectory(prefix='jipstats-native-unwind-') as tmp:
   results.append({'mode':mode,'status':'PASS','native_stdout_unchanged':True,'relative_queries':len(starts),
                   'relative_returns':len(ends),'explicit_query_aborts':len(aborts),'invocation_aborts':aborted,
                   'strict_records':indexed['records'],'fixture_not_jasper':True})
+if persistent:(Path(persistent)/'RESULT.json').write_text(json.dumps(results,indent=2)+'\n')
 print(json.dumps(results,indent=2))

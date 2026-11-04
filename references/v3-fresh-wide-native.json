@@ -1,0 +1,220 @@
+{
+ "date": "2026-11-03",
+ "status": "PASS_FINITE_8_CELL_FIXTURE_COMPATIBILITY",
+ "runtime": {
+  "jipstats": "a25a738508d8a28b5278c7f9e79985126b26e20d6646c9b763c728927e24bee5",
+  "library": "98d9f845e177f941b7422656549159ca382a3ba6efb3a04deff6150a46ead78b",
+  "reader": "f81199d461a0cfdbaa23c3eaefc3bf5adc4365ff50ffd076b14f6069649e6608"
+ },
+ "cells": {
+  "june-M": {
+   "native_job": "2566147",
+   "reader_job": "2566148",
+   "qualification_job": "2385520",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19379,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.049
+  },
+  "june-M4": {
+   "native_job": "2566150",
+   "reader_job": "2566151",
+   "qualification_job": "2385520",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M4",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19379,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.043
+  },
+  "original-M": {
+   "native_job": "2566136",
+   "reader_job": "2566138",
+   "qualification_job": "2385297",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19386,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.072
+  },
+  "original-M4": {
+   "native_job": "2566143",
+   "reader_job": "2566144",
+   "qualification_job": "2385297",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M4",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19386,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.063
+  },
+  "p001-M": {
+   "native_job": "2566562",
+   "reader_job": "2566563",
+   "qualification_job": "2385374",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19386,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.065
+  },
+  "p001-M4": {
+   "native_job": "2566810",
+   "reader_job": "2566811",
+   "qualification_job": "2385374",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M4",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19386,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.071
+  },
+  "production-M": {
+   "native_job": "2566154",
+   "reader_job": "2566155",
+   "qualification_job": "2385172",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19386,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.067
+  },
+  "production-M4": {
+   "native_job": "2566158",
+   "reader_job": "2566159",
+   "qualification_job": "2385172",
+   "status": "cex",
+   "validity": "cex",
+   "engine": "M4",
+   "trace_length": "3",
+   "trace_check": "PASS",
+   "records": 19386,
+   "max_literals": 6145,
+   "max_payload_sha256": "3240570ea5f11ad8b55e223f6501302bae964975d2d6588896acf7adee2596af",
+   "missing": [
+    6143
+   ],
+   "semantic_equal_to_june": true,
+   "guard_sampled_tree_rss_gib": 1.237
+  }
+ },
+ "stress": {
+  "build": "original",
+  "engine": "M",
+  "native": "undetermined/undetermined at 600 s",
+  "archive_bytes": 1696416981,
+  "archive_sha256": "02b5700236c4ab3fb6709021ebd355a3245438cd244574db4da791df40cd160d",
+  "records": 8059484,
+  "jip_cubes": 26145,
+  "jip_literal_rows": 121642154,
+  "max_literals": 6146,
+  "sat_raw_cubes": 26135,
+  "ingest_wall": "5:25.39",
+  "ingest_maxrss_kib": 32548,
+  "scoped": {
+   "cubes": 14,
+   "wall": "1:03.46",
+   "maxrss_kib": 28560,
+   "status": "PASS"
+  },
+  "cancelled_whole_history_decode": {
+   "job": "2566108",
+   "partial_bytes": 9916221994,
+   "reason": "unnecessary text mirror; not corruption"
+  },
+  "scoped_pairs": "two captured predecessor pairs are stage projections consistent with the source update under stated guards; not stitched concrete transition witnesses; no stall cause or helper benefit shown"
+ },
+ "observer": {
+  "file": "OBSERVER-FINAL-NATIVE-PARITY.json",
+  "sha256": "8d80fe030ed999a705f6af593bebeb668e764aa09d2bc63c0102f658d76a0a5f",
+  "status": "PASS_8_NATIVE_CEX_COMPLETE_WIDE_PAYLOAD_AND_SEMANTIC_PARITY"
+ },
+ "evidence_root": "/projects/diego1/jasper-202609-validation/claude-complex-native-parity-20261103",
+ "final_report_sha256": "967043ebf8dff310ffc5d1cf762cdb98c3e5ee40d979981808f99f968aafa895",
+ "not_claimed": [
+  "page-walker/CHI target closure",
+  "helper proof or matched speedup",
+  "universal solver/byte identity",
+  "memory bound",
+  "hidden-formula coverage",
+  "raw-SAT word semantics",
+  "engine causal history"
+ ],
+ "fixture": {
+  "example": "examples/wide-cti",
+  "wide_fold_pipe_sv_sha256": "21c91b1f35fa1185b9dcad2e5112b39b4be24a445fce67de18ea0f0e9c2e30de",
+  "diag_tcl_sha256": "648a88c5e525cc3080b9354ec0d000d619fe2692add70362430f61370a00724c",
+  "property": "ap_fold_s1",
+  "assumptions": 0,
+  "clock": "clk",
+  "reset": "synchronous active-low rstn"
+ },
+ "interpretation": {
+  "source_meaning": "Under rstn=1, stall=0, bug_en=1 and v0=1 the source next-state gives d1=shl(d0), c1=c0, v1=1, so the next target violation holds iff parity(d0[6142:0]) != c0, independently of d0[6143] and current v1/c1/d1.",
+  "not_causal": "Source dependence shows those bits are unnecessary for the guarded next violation; it does not establish why or how the engine omitted them.",
+  "guards": "rstn/stall/bug_en are source and observed-trace guards; the native query formula/context is opaque and not identified.",
+  "completion": "Native cycle-2 state is one reachable full completion inside the cube (d0[6143]=1); not every MSB=1 completion is claimed reachable.",
+  "helper": "Source-derived c0==^d0 (not natively proved or used) excludes only the d0[6143]=0 part; no sound reachable-state helper can exclude the whole cube.",
+  "composites": "two one-literal composite cubes remain unresolved, not zero"
+ },
+ "resources_note": "guard_sampled_tree_rss: sampled process-tree RSS (1.04-1.24 GiB), not a cap or unique physical memory; reader ~25 MiB",
+ "supersedes": {
+  "note": "Reviewed interpretation (OBSERVER-INTERPRETATION-REVIEW.md) supersedes stronger causal/completion wording in earlier drafts",
+  "preserved": "/projects/diego1/jasper-202609-validation/claude-complex-native-parity-20261103/output/pre-interpretation-review/PRESERVED.sha256",
+  "review_sha256": "88c0342dc88ac498884639b48b38d212963e5e5da7912b18f00f04a6c91237dc"
+ }
+}
